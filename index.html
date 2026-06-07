@@ -300,7 +300,6 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 1rem;
-      contain: layout style;
       will-change: transform;
       transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
       position: relative;
@@ -444,7 +443,7 @@
     /* ── Effetto candela ── */
     @keyframes flicker1 { 0%{opacity:1;transform:scale(1) rotate(0)} 10%{opacity:.88;transform:scale(1.02) rotate(.6deg)} 30%{opacity:.85;transform:scale(1.03) rotate(.8deg)} 50%{opacity:.9;transform:scale(1.02) rotate(.5deg)} 70%{opacity:.87;transform:scale(1.03) rotate(.4deg)} 100%{opacity:1;transform:scale(1) rotate(0)} }
     @keyframes candleGlow { 0%{box-shadow:0 0 60px 20px rgba(220,120,30,.30),0 0 120px 40px rgba(193,127,60,.15)} 30%{box-shadow:0 0 80px 28px rgba(220,120,30,.35),0 0 140px 50px rgba(193,127,60,.18)} 100%{box-shadow:0 0 60px 20px rgba(220,120,30,.30),0 0 120px 40px rgba(193,127,60,.15)} }
-    body.night header { animation: candleGlow 2.8s ease-in-out infinite; }
+    body.night header { animation: candleGlow 5s ease-in-out infinite; }
     body.night .header-logo img { animation: flicker1 2.5s ease-in-out infinite; }
     #candle-flame { display: none; position: absolute; top: 0.4rem; left: 50%; transform: translateX(-50%); font-size: 2rem; z-index: 2; }
     @keyframes flameFloat { 0%,100%{transform:translateX(-50%) scale(1) translateY(0) rotate(-1deg)} 25%{transform:translateX(-50%) scale(1.12) translateY(-3px) rotate(2deg)} 50%{transform:translateX(-50%) scale(.92) translateY(2px) rotate(-2deg)} }
@@ -1018,7 +1017,9 @@
     }
     .gin-img-wrap {
       width: 60px;
+      min-width: 60px;
       height: 100px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1028,9 +1029,12 @@
       isolation: isolate;
     }
     .gin-img {
+      width: 55px;
+      height: 100px;
       max-width: 55px;
       max-height: 100px;
       object-fit: contain;
+      flex-shrink: 0;
       mix-blend-mode: multiply;
       filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15)) contrast(1.05);
       transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), filter 0.3s;
@@ -1053,7 +1057,18 @@
     .menu-section[data-id="gin"] .item-price {
       order: 1;
     }
-    .gin-img-error { display: none; }
+    .gin-img-wrap .bottle-img {
+      width: 55px;
+      height: 130px;
+      max-width: 55px;
+      max-height: 130px;
+      object-fit: contain;
+    }
+    .gin-img-wrap:has(.bottle-img) {
+      height: 130px;
+      width: 55px;
+      min-width: 55px;
+    }
 
 
     /* ══ MIGLIORIE GRAFICHE ══ */
@@ -1128,7 +1143,7 @@
     }
     .cat-btn.active .cat-btn-icon {
       display: inline-block;
-      animation: iconPulse 2.5s ease-in-out infinite;
+      animation: iconPulse 5s ease-in-out infinite;
     }
 
     /* 5. Font elegante per il numero del prezzo */
@@ -1973,7 +1988,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: priceShimmer 2.5s linear infinite;
+      animation: priceShimmer 6s linear infinite;
     }
     .item-price.premium .price-symbol {
       -webkit-text-fill-color: transparent;
@@ -2050,6 +2065,8 @@
       100% { background-position: 0% 50%; }
     }
     .menu-item.wine-label-card.premium-border {
+      will-change: background-position;
+      transform: translateZ(0);
       position: relative;
       box-shadow:
         0 0 0 1.5px rgba(193,127,60,0.4),
@@ -2067,7 +2084,7 @@
         #e8c87a 75%, #c17f3c 100%
       );
       background-size: 300% 300%;
-      animation: iridescent 4s ease infinite;
+      animation: iridescent 8s ease infinite;
       z-index: -1;
       opacity: 0.7;
     }
@@ -2081,7 +2098,7 @@
       font-size: 0.85rem;
       margin-left: 0.3rem;
       vertical-align: middle;
-      animation: flameDance 1.4s ease-in-out infinite;
+      animation: flameDance 2.5s ease-in-out infinite;
       filter: drop-shadow(0 0 4px rgba(255,100,0,0.6));
       pointer-events: none;
       position: static;
@@ -2262,7 +2279,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: titleShimmer 6s linear infinite;
+      animation: titleShimmer 12s linear infinite;
     }
     body.night .section-title {
       background: linear-gradient(
@@ -2285,6 +2302,8 @@
       50%      { box-shadow: 0 12px 60px 0 rgba(193,127,60,0.32), 0 4px 28px 0 rgba(193,127,60,0.18); }
     }
     header {
+      will-change: background-position, box-shadow, opacity;
+      transform: translateZ(0);
       animation: headerBreathe 10s ease infinite, headerGlow 4s ease-in-out infinite;
     }
     body.night header {
@@ -2982,9 +3001,12 @@
 
     /* Foto bottiglie vino */
     .bottle-img {
+      width: 55px;
+      height: 130px;
       max-width: 55px;
       max-height: 130px;
       object-fit: contain;
+      flex-shrink: 0;
       mix-blend-mode: multiply;
       filter: drop-shadow(0 4px 14px rgba(0,0,0,0.15));
       transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
@@ -4844,14 +4866,21 @@ window.addEventListener('scroll', () => {
 /* ════════════════════════════════════════
    ANIMATIONS
 ════════════════════════════════════════ */
+let _sectionObserver = null;
+
 function initAnimations() {
-  // One observer per section (not per item) — much cheaper with 177 items
-  const secObserver = new IntersectionObserver((entries) => {
+  // Disconnetti il vecchio observer prima di crearne uno nuovo
+  if (_sectionObserver) {
+    _sectionObserver.disconnect();
+    _sectionObserver = null;
+  }
+
+  _sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const sec = entry.target;
       sec.classList.add('visible');
-      secObserver.unobserve(sec);
+      _sectionObserver.unobserve(sec);
       // Reveal items inside this section with a lightweight stagger via CSS var
       sec.querySelectorAll('.menu-item').forEach((item, i) => {
         item.style.setProperty('--i', i);
@@ -4871,7 +4900,7 @@ function initAnimations() {
 
   document.querySelectorAll('.menu-section').forEach((sec, i) => {
     sec.style.animationDelay = `${i * 0.04}s`;
-    secObserver.observe(sec);
+    _sectionObserver.observe(sec);
   });
 }
 
@@ -4879,6 +4908,55 @@ function initAnimations() {
    INIT
 ════════════════════════════════════════ */
 render();
+
+/* Listener globali — eseguiti UNA SOLA VOLTA all'avvio */
+// Hook sull'evento swipe e click categoria per la transizione
+document.addEventListener('click', e => {
+  if (e.target.closest('.cat-btn')) {
+    const main = document.getElementById('menuMain');
+    if (main) {
+      main.classList.add('liquid-transition');
+      setTimeout(() => main.classList.remove('liquid-transition'), 800);
+    }
+  }
+}, { passive: true });
+
+/* ════════════════════════════════════════
+   EFFETTI INTERATTIVI
+════════════════════════════════════════ */
+
+// ── Glassmorphism + tap to reveal ──
+document.addEventListener('click', e => {
+  const card = e.target.closest('.menu-item');
+  if (!card) return;
+
+  // Glassmorphism temporaneo
+  card.classList.add('tapped');
+  setTimeout(() => card.classList.remove('tapped'), 600);
+
+  // Tap to reveal descrizione (solo sul nome)
+  const nameEl = e.target.closest('.item-name');
+  if (nameEl) {
+    const desc = card.querySelector('.item-desc');
+    if (desc) {
+      const isOpen = desc.classList.contains('revealed');
+      // Chiudi tutti gli altri nella stessa griglia
+      const grid = card.closest('.menu-grid');
+      if (grid) {
+        grid.querySelectorAll('.item-desc.revealed').forEach(d => {
+          d.classList.remove('revealed');
+          var _mi = d.closest('.menu-item'); if (_mi) { var _in = _mi.querySelector('.item-name'); if (_in) _in.classList.remove('open'); }
+        });
+      }
+      if (!isOpen) {
+        desc.classList.add('revealed');
+        nameEl.classList.add('open');
+      }
+    }
+  }
+}, { passive: true });
+
+
 
 
 /* ════════════════════════════════════════
@@ -4966,7 +5044,7 @@ function renderIntensityBars(wineName, lang) {
 /* ════════════════════════════════════════
    PARTICELLE STAGIONALI NELL'HEADER
 ════════════════════════════════════════ */
-(function() {
+setTimeout(function() { (function() {
   var header = document.querySelector('header');
   if (!header) return;
 
@@ -4993,6 +5071,8 @@ function renderIntensityBars(wineName, lang) {
   };
 
   function spawnSeasonalParticle() {
+    // Cap: max 8 particelle contemporanee
+    if (header.querySelectorAll('.seasonal-particle').length >= 8) return;
     var p = document.createElement('div');
     p.className = 'seasonal-particle';
     var symbols = particles[season];
@@ -5013,18 +5093,20 @@ function renderIntensityBars(wineName, lang) {
   }
 
   // Spawna particelle stagionali
-  for (var i = 0; i < 8; i++) spawnSeasonalParticle();
-  setInterval(spawnSeasonalParticle, 1800);
-})();
+  for (var i = 0; i < 5; i++) spawnSeasonalParticle();
+  setInterval(spawnSeasonalParticle, 3000);
+})(); }, 0);
 
 /* ════════════════════════════════════════
    STELLE CADENTI NELL'HEADER
 ════════════════════════════════════════ */
-(function() {
+setTimeout(function() { (function() {
   const header = document.querySelector('header');
   if (!header) return;
 
   function spawnStar() {
+    // Cap: max 6 stelle contemporanee
+    if (header.querySelectorAll('.header-star').length >= 6) return;
     const star = document.createElement('div');
     star.className = 'header-star';
     const size = 1.5 + Math.random() * 2.5;
@@ -5046,9 +5128,9 @@ function renderIntensityBars(wineName, lang) {
   }
 
   // Spawna stelle periodicamente
-  for (let i = 0; i < 6; i++) spawnStar();
-  setInterval(spawnStar, 1200);
-})();
+  for (let i = 0; i < 4; i++) spawnStar();
+  setInterval(spawnStar, 2500);
+})(); }, 0);
 
 /* ════════════════════════════════════════
    SEZIONE ORARI DI APERTURA
@@ -6453,52 +6535,6 @@ window.renderWithLiquid = function(animate = false) {
   }
 };
 
-// Hook sull'evento swipe e click categoria per la transizione
-document.addEventListener('click', e => {
-  if (e.target.closest('.cat-btn')) {
-    const main = document.getElementById('menuMain');
-    if (main) {
-      main.classList.add('liquid-transition');
-      setTimeout(() => main.classList.remove('liquid-transition'), 800);
-    }
-  }
-}, { passive: true });
-
-/* ════════════════════════════════════════
-   EFFETTI INTERATTIVI
-════════════════════════════════════════ */
-
-// ── Glassmorphism + tap to reveal ──
-document.addEventListener('click', e => {
-  const card = e.target.closest('.menu-item');
-  if (!card) return;
-
-  // Glassmorphism temporaneo
-  card.classList.add('tapped');
-  setTimeout(() => card.classList.remove('tapped'), 600);
-
-  // Tap to reveal descrizione (solo sul nome)
-  const nameEl = e.target.closest('.item-name');
-  if (nameEl) {
-    const desc = card.querySelector('.item-desc');
-    if (desc) {
-      const isOpen = desc.classList.contains('revealed');
-      // Chiudi tutti gli altri nella stessa griglia
-      const grid = card.closest('.menu-grid');
-      if (grid) {
-        grid.querySelectorAll('.item-desc.revealed').forEach(d => {
-          d.classList.remove('revealed');
-          var _mi = d.closest('.menu-item'); if (_mi) { var _in = _mi.querySelector('.item-name'); if (_in) _in.classList.remove('open'); }
-        });
-      }
-      if (!isOpen) {
-        desc.classList.add('revealed');
-        nameEl.classList.add('open');
-      }
-    }
-  }
-}, { passive: true });
-
 // ── Contatore calici ──
 function updateGlassCounter() {
   const count = Object.keys(myOrder).length;
@@ -6810,7 +6846,7 @@ function playCinCin() {
 /* ════════════════════════════════════════
    PARALLASSE HEADER
 ════════════════════════════════════════ */
-(function() {
+setTimeout(function() { (function() {
   const logo = document.querySelector('.header-logo img');
   const claim = document.querySelector('.header-claim');
   const divider = document.querySelector('.header-divider');
@@ -6824,12 +6860,12 @@ function playCinCin() {
     if (social)  social.style.transform  = `translateY(${y*0.18}px)`;
   }
   window.addEventListener('scroll', onScroll, { passive: true });
-})();
+})(); }, 0);
 
 /* ════════════════════════════════════════
    BOLLICINE DORATE
 ════════════════════════════════════════ */
-(function() {
+setTimeout(function() { (function() {
   const canvas = document.getElementById('bubblesCanvas');
   const ctx = canvas.getContext('2d');
   function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
@@ -6863,14 +6899,17 @@ function playCinCin() {
       ctx.fillStyle = 'rgba(255,255,255,'+(this.alpha*0.6)+')'; ctx.fill();
     }
   }
-  const bubbles = Array.from({length:55}, () => new Bubble());
-  function animate() {
+  const bubbles = Array.from({length:30}, () => new Bubble());
+  let lastBubbleFrame = 0;
+  function animate(ts) {
+    if (ts - lastBubbleFrame < 33) { requestAnimationFrame(animate); return; } // 30fps cap
+    lastBubbleFrame = ts;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     bubbles.forEach(b => { b.update(); b.draw(); });
     requestAnimationFrame(animate);
   }
-  animate();
-})();
+  animate(0);
+})(); }, 0);
 
 /* ════════════════════════════════════════
    CORIANDOLI
