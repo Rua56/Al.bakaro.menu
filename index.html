@@ -5572,11 +5572,11 @@ function spawnAromaWords(wineName, originEl) {
   var leafletMap = null;
 
   // Coordinate reali dei produttori
-  window.ZONES = [
+    window.ZONES = [
     {
       id: 'gorizia',
       name: 'Al Bakaro · Gorizia',
-      lat: 45.9408, lng: 13.6208,
+      lat: 45.9453, lng: 13.6253,
       color: '#c17f3c',
       emoji: '🏠',
       isHome: true,
@@ -5586,10 +5586,10 @@ function spawnAromaWords(wineName, originEl) {
     {
       id: 'oslavia',
       name: 'Oslavia',
-      lat: 45.9650, lng: 13.6320,
+      lat: 45.9700, lng: 13.6400,
       color: '#8b1a1a',
       emoji: '🍷',
-      desc: 'Culla degli orange wine',
+      desc: 'Radikon · Primosic — orange wine',
       wines: ['Radikon Pop', 'Ribolla Gialla Riserva Orange — Primosic', 'Pinot Grigio Riserva Orange — Primosic', 'Friulano Riserva Orange — Primosic'],
     },
     {
@@ -5598,13 +5598,13 @@ function spawnAromaWords(wineName, originEl) {
       lat: 45.9609, lng: 13.4689,
       color: '#8b6914',
       emoji: '🥂',
-      desc: 'Cuore del Collio DOC',
+      desc: 'Sturm · Ronco dei Tassi',
       wines: ['Malvasia — Sturm', 'Ribolla Gialla — Sturm', 'Collio — Terre del Faet', 'Malvasia — Terre del Faet', 'Malvasia — Ronco dei Tassi'],
     },
     {
       id: 'capriva',
       name: 'Capriva del Friuli',
-      lat: 45.9281, lng: 13.5241,
+      lat: 45.9330, lng: 13.5170,
       color: '#1a4a8b',
       emoji: '🏰',
       desc: 'Castello di Spessa',
@@ -5613,46 +5613,37 @@ function spawnAromaWords(wineName, originEl) {
     {
       id: 'dolegna',
       name: 'Dolegna del Collio',
-      lat: 45.9892, lng: 13.5361,
+      lat: 45.9900, lng: 13.5400,
       color: '#2e6b3e',
       emoji: '🌿',
-      desc: 'Vigneti di Ponca',
+      desc: 'Doro Princic · Toros',
       wines: ['Sauvignon — Doro Princic', 'Pinot Bianco — Toros', 'Chardonnay — Toros'],
     },
     {
       id: 'brda',
       name: 'Brda · Slovenia',
-      lat: 45.9980, lng: 13.5700,
+      lat: 45.9990, lng: 13.5290,
       color: '#4a2080',
       emoji: '🇸🇮',
-      desc: 'Collio sloveno — Movia',
+      desc: 'Movia — Dobrovo',
       wines: ["Gredič Friulano — Movia", 'Veliko — Movia', 'Pinot Grigio — Movia'],
     },
     {
-      id: 'prepotto',
-      name: 'Prepotto',
-      lat: 46.0150, lng: 13.5050,
-      color: '#3c6480',
-      emoji: '🌊',
-      desc: 'Radikon — vini naturali',
-      wines: ['Radikon Pop'],
-    },
-    {
       id: 'isonzo',
-      name: 'Isonzo · Mariano',
-      lat: 45.8900, lng: 13.5100,
+      name: 'Mariano del Friuli',
+      lat: 45.8750, lng: 13.4900,
       color: '#1a6b4a',
       emoji: '🏞️',
-      desc: 'Rive del fiume',
+      desc: 'Masut da Rive — Isonzo DOC',
       wines: ['Pinot Nero — Masut da Rive', 'Sassirossi — Masut da Rive'],
     },
     {
       id: 'carso',
       name: 'Carso triestino',
-      lat: 45.7200, lng: 13.7500,
+      lat: 45.6500, lng: 13.8200,
       color: '#606060',
       emoji: '🪨',
-      desc: 'Vini di pietra calcarea',
+      desc: 'Čotar · Castelvecchio',
       wines: ['Čotar Gorjansko', 'Cabernet Franc — Castelvecchio'],
     },
   ];
@@ -5717,7 +5708,7 @@ function spawnAromaWords(wineName, originEl) {
 
     // Centro sul Collio
     leafletMap = L.map('collio-leaflet-map', {
-      center: [45.93, 13.57],
+      center: [45.95, 13.57],
       zoom: 11,
       zoomControl: true,
       attributionControl: false,
