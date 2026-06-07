@@ -7240,8 +7240,7 @@ setTimeout(function() { (function() {
   var overlay = document.getElementById('sommelier-ia-overlay');
   var cardEl  = document.getElementById('sommelier-ia-card');
 
-  /* Catalogo vini della carta */
-  var WINE_CATALOG = [{n:'Ferrari Maximum',p:'6.00',t:'calice'},{n:'Ribolla Gialla Spumantizzata — Tenuta Stella',p:'5.00',t:'calice'},{n:'Rosé — Oltrenero',p:'6.00',t:'calice'},{n:'Chardonnay — Toros',p:'5.50',t:'calice'},{n:'Ribolla Gialla — Sturm',p:'5.00',t:'calice'},{n:'Malvasia — Sturm',p:'5.00',t:'calice'},{n:'Kerner — Strasserhoff',p:'4.50',t:'calice'},{n:'Vitovska — Bajta',p:'4.50',t:'calice'},{n:'Sauvignon — Doro Princic',p:'5.50',t:'calice'},{n:'Pinot Grigio — Castello di Spessa',p:'5.00',t:'calice'},{n:'Friulano — Castello di Spessa',p:'5.00',t:'calice'},{n:'Zibibbo — Carusi',p:'4.00',t:'calice'},{n:'Cabernet Sauvignon — Castello di Spessa',p:'4.50',t:'calice'},{n:'Pinot Nero — Masut da Rive',p:'6.00',t:'calice'},{n:'Sassirossi — Masut da Rive',p:'6.00',t:'calice'},{n:'Schiava — Tiefenbrunner',p:'4.50',t:'calice'},{n:'Primitivo di Manduria — Altemura',p:'4.50',t:'calice'},{n:'Malvasia Nera — Paololeo',p:'4.50',t:'calice'},{n:'Aperitivi',p:'2.50',t:'calice'},{n:'Spritz Rosso',p:'2.50',t:'calice'},{n:'Spritz Aperol',p:'5.00',t:'calice'},{n:'Spritz Campari',p:'5.00',t:'calice'},{n:'Spritz Select',p:'5.00',t:'calice'},{n:'Spritz Sarti',p:'5.00',t:'calice'},{n:'Spritz Hugo',p:'5.00',t:'calice'},{n:'Spritz Limoncello',p:'5.00',t:'calice'},{n:'Spritz Cynar',p:'5.00',t:'calice'},{n:'Spritz Nonino',p:'5.00',t:'calice'},{n:'Aperitivo Nonino',p:'5.00',t:'calice'},{n:'Pimm\'s N°1',p:'8.00',t:'calice'},{n:'Bollicine — in bottiglia',p:'24',t:'bottiglia'},{n:'Ferrari Maximum',p:'40',t:'bottiglia'},{n:'Ferrari Perlè',p:'60',t:'bottiglia'},{n:'Ribolla Gialla Spumantizzata — Tenuta Stella',p:'35',t:'bottiglia'},{n:'Rosé — Oltrenero',p:'40',t:'bottiglia'},{n:'Trentodoc — Altemasi',p:'40',t:'bottiglia'},{n:'Amadeus — Castello di Spessa',p:'50',t:'bottiglia'},{n:'Franciacorta Cuvée Prestige — Ca\' del Bosco',p:'60',t:'bottiglia'},{n:'Franciacorta Dosage Zero — Ca\' del Bosco',p:'80',t:'bottiglia'},{n:'Champagne Perrier-Jouet Grand Brut',p:'120',t:'bottiglia'},{n:'Vini Bianchi — in bottiglia',p:'40',t:'bottiglia'},{n:'Chardonnay — Toros',p:'35',t:'bottiglia'},{n:'Ribolla Gialla — Sturm',p:'33',t:'bottiglia'},{n:'Malvasia — Sturm',p:'33',t:'bottiglia'},{n:'Sauvignon — Doro Princic',p:'35',t:'bottiglia'},{n:'Collio — Terre del Faet',p:'35',t:'bottiglia'},{n:'Malvasia — Terre del Faet',p:'33',t:'bottiglia'},{n:'Malvasia — Ronco dei Tassi',p:'33',t:'bottiglia'},{n:'Monblanc — Castello di Buttrio',p:'26',t:'bottiglia'},{n:'Rassauer Friulano — Castello di Spessa',p:'33',t:'bottiglia'},{n:'Yellow Hills Ribolla Gialla — Castello di Spessa',p:'33',t:'bottiglia'},{n:'La Tournée Vermentino-Viognier',p:'29',t:'bottiglia'},{n:'Viognier in purezza',p:'29',t:'bottiglia'},{n:'Chardonnay 2024 — La Monette',p:'50',t:'bottiglia'},{n:'Pinot Grigio Ramato — Villa Vasi',p:'33',t:'bottiglia'},{n:'Somnja Malvasia — Villa Vasi',p:'33',t:'bottiglia'},{n:'Friulano — Villa Vasi',p:'33',t:'bottiglia'},{n:'Ribolla Gialla Riserva Orange — Primosic',p:'70',t:'bottiglia'},{n:'Pinot Grigio Riserva Orange — Primosic',p:'70',t:'bottiglia'},{n:'Friulano Riserva Orange — Primosic',p:'70',t:'bottiglia'},{n:'Radikon Pop',p:'50',t:'bottiglia'},{n:'Čotar Gorjansko',p:'50',t:'bottiglia'},{n:'Tagòs Grillo Dolce — Carusi e Minnini',p:'40',t:'bottiglia'},{n:'C.A.I. Riesling — Immich Batterieberg',p:'50',t:'bottiglia'},{n:'Gewurztraminer — Bellutti',p:'29',t:'bottiglia'},{n:'Gredič Friulano — Movia',p:'50',t:'bottiglia'},{n:'Veliko — Movia',p:'60',t:'bottiglia'},{n:'Pinot Grigio — Movia',p:'60',t:'bottiglia'},{n:'Lillo Grillo — Carusi e Minnini',p:'26',t:'bottiglia'},{n:'Bibbo Zibibbo — Carusi e Minnini',p:'26',t:'bottiglia'},{n:'Kerner — Strasserhoff',p:'29',t:'bottiglia'},{n:'Vini Rossi — in bottiglia',p:'33',t:'bottiglia'},{n:'Cabernet Sauvignon — Castello di Spessa',p:'29',t:'bottiglia'},{n:'Pinot Nero — Masut da Rive',p:'40',t:'bottiglia'},{n:'Sassirossi — Masut da Rive',p:'35',t:'bottiglia'},{n:'Schiava — Tiefenbrunner',p:'29',t:'bottiglia'},{n:'Primitivo di Manduria — Altemura',p:'29',t:'bottiglia'},{n:'Malvasia Nera — Paololeo',p:'29',t:'bottiglia'},{n:'Chianti Classico — Marchese Antinori',p:'40',t:'bottiglia'}];
+
 
   /* Apri il modal per un cicchetto */
   window.openSommelierIA = function(name, desc) {
@@ -7266,39 +7265,23 @@ setTimeout(function() { (function() {
     document.body.style.overflow = '';
   }
 
-  /* Chiama l'API di Claude */
+  /* ── Endpoint del proxy Cloudflare Worker ───────────────────────────────
+     Dopo il deploy, sostituisci con il tuo URL:
+     https://bakaro-sommelier-proxy.TUO-ACCOUNT.workers.dev          */
+  var PROXY_URL = 'https://bakaro-sommelier-proxy.TUO-ACCOUNT.workers.dev';
+
+  /* Chiama il proxy (che a sua volta chiama l'API Anthropic in sicurezza) */
   function fetchPairing(cicchetto, desc) {
-    var wineList = WINE_CATALOG.map(function(w) {
-      return (w.t === 'calice' ? '[calice] ' : '[bottiglia] ') + w.n + ' — €' + w.p;
-    }).join('\n');
-
-    var prompt =
-      'Sei il sommelier elegante e appassionato di Al Bakaro, cicchetteria di Gorizia al confine ' +
-      'tra Italia e Slovenia. Il cliente ha scelto questo cicchetto:\n\n' +
-      '«' + cicchetto + '»' + (desc ? ' — ' + desc : '') + '\n\n' +
-      'Dalla nostra carta scegli esattamente 3 vini che si abbinano meglio, privilegiando i vini ' +
-      'al calice se appropriati. Scegli SOLO vini presenti in questa lista:\n\n' +
-      wineList + '\n\n' +
-      'Rispondi SOLO con un oggetto JSON, senza testo prima o dopo, senza markdown. Formato:\n' +
-      '{"intro":"frase introduttiva breve in italiano, tono caldo e sommelier","vini":[' +
-      '{"nome":"nome esatto dalla lista","prezzo":"prezzo esatto","tipo":"calice o bottiglia",' +
-      '"perche":"spiegazione dell\'abbinamento in 1-2 frasi, tono sommelier, in italiano"}]}';
-
-    fetch('https://api.anthropic.com/v1/messages', {
+    fetch(PROXY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 600,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      body: JSON.stringify({ cicchetto: cicchetto, descrizione: desc || '' })
     })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      var raw = (data.content && data.content[0] && data.content[0].text) || '';
-      /* Pulisci eventuali backtick markdown */
-      raw = raw.replace(/```json|```/g, '').trim();
-      var parsed = JSON.parse(raw);
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(parsed) {
       renderResult(parsed);
     })
     .catch(function() {
@@ -7316,10 +7299,9 @@ setTimeout(function() { (function() {
     container.innerHTML = '';
 
     (data.vini || []).forEach(function(v) {
-      /* Trova il prezzo esatto dal catalogo se mancante */
-      var wine = WINE_CATALOG.find(function(w) { return w.n === v.nome; });
-      var prezzo = v.prezzo || (wine ? wine.p : '');
-      var tipo   = v.tipo   || (wine ? v.tipo : '');
+      /* Il worker restituisce già prezzo e tipo nella risposta */
+      var prezzo = v.prezzo || '';
+      var tipo   = v.tipo   || '';
 
       var card = document.createElement('div');
       card.className = 'som-ia-wine-card';

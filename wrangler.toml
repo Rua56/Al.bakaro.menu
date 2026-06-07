@@ -1,0 +1,10 @@
+name = "bakaro-sommelier-proxy"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# La chiave API viene aggiunta come secret (mai nel codice):
+# wrangler secret put ANTHROPIC_API_KEY
+# (ti chiederà di incollare il valore)
+
+[observability]
+enabled = true
