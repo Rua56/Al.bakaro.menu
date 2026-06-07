@@ -4263,21 +4263,47 @@ function setCategory(newCat, direction) {
   render(true, direction);
 }
 
+// Event delegation sul catNav — UN SOLO listener, installato una volta
+(function() {
+  var _catNavListenerInstalled = false;
+  function installCatNavListener() {
+    if (_catNavListenerInstalled) return;
+    _catNavListenerInstalled = true;
+    var nav = document.getElementById('catNav');
+    if (!nav) return;
+    nav.addEventListener('click', function(e) {
+      var btn = e.target.closest('.cat-btn');
+      if (!btn) return;
+      var catId = btn.dataset.cat;
+      if (!catId) return;
+      var dir = getCatIndex(catId) > getCatIndex(currentCat) ? 1 : -1;
+      if (catId === 'all') dir = getCatIndex('all') < getCatIndex(currentCat) ? -1 : 1;
+      setCategory(catId, dir);
+    });
+  }
+
+  window._installCatNavListener = installCatNavListener;
+})();
+
 function buildCatNav() {
   const nav = document.getElementById('catNav');
   nav.innerHTML = '';
+
+  // Installa il listener UNA SOLA VOLTA via delegation
+  window._installCatNavListener();
+
   const all = document.createElement('button');
   all.className = 'cat-btn' + (currentCat === 'all' ? ' active' : '');
+  all.dataset.cat = 'all';
   all.innerHTML = `<span class="cat-btn-icon">🍽️</span> ${t('all')}`;
-  all.addEventListener('click', () => { const dir = getCatIndex('all') < getCatIndex(currentCat) ? -1 : 1; setCategory('all', dir); });
   nav.appendChild(all);
 
   MENU.forEach(sec => {
     const btn = document.createElement('button');
     btn.className = 'cat-btn' + (currentCat === sec.id ? ' active' : '');
+    btn.dataset.cat = sec.id;
     const count = sec.items.length;
     btn.innerHTML = `<span class="cat-btn-icon">${sec.icon}</span> ${sec.name[currentLang]}<span class="cat-badge">${count}</span>`;
-    btn.addEventListener('click', () => { const dir = getCatIndex(sec.id) > getCatIndex(currentCat) ? 1 : -1; setCategory(sec.id, dir); });
     nav.appendChild(btn);
   });
 
@@ -4432,6 +4458,12 @@ function render(animate = false, direction = 0) {
   applyTranslations();
 
   const main = document.getElementById('menuMain');
+
+  // Disconnetti l'observer PRIMA di svuotare il DOM
+  if (typeof _sectionObserver !== 'undefined' && _sectionObserver) {
+    _sectionObserver.disconnect();
+    _sectionObserver = null;
+  }
 
   if (animate && direction !== 0) {
     const outCls = direction > 0 ? 'switching-out-left' : 'switching-out-right';
