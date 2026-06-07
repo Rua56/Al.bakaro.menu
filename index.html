@@ -6761,15 +6761,28 @@ if (localStorage.getItem('nightMode') === '1') {
 /* ════════════════════════════════════════
    SPLASH SCREEN
 ════════════════════════════════════════ */
-window.addEventListener('load', () => {
-  setTimeout(() => {
+(function() {
+  function hideSplash() {
     const splash = document.getElementById('splash');
-    if (splash) {
-      splash.classList.add('hide');
-      setTimeout(() => splash.remove(), 900);
-    }
-  }, 2200);
-});
+    if (!splash || splash.dataset.hidden) return;
+    splash.dataset.hidden = '1';
+    splash.classList.add('hide');
+    setTimeout(() => { if (splash.parentNode) splash.remove(); }, 900);
+  }
+
+  // Chiudi appena il DOM è pronto (non aspettare immagini/font)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(hideSplash, 1200);
+    });
+  } else {
+    // DOM già pronto
+    setTimeout(hideSplash, 800);
+  }
+
+  // Fallback assoluto: dopo 4s chiudi comunque, qualunque cosa accada
+  setTimeout(hideSplash, 4000);
+})();
 
 /* ════════════════════════════════════════
    SWIPE TRA CATEGORIE
