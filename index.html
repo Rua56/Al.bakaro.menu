@@ -479,7 +479,43 @@ window.addEventListener('unhandledrejection', function(e) {
     .switching { opacity: 0; transform: translateY(10px); }
 
     /* ── Scroll top calice ── */
-    #scrollTop { position: fixed; bottom: 1.5rem; right: 1.2rem; width: 2.8rem; height: 2.8rem; background: var(--walnut); border: 1.5px solid rgba(193,127,60,0.4); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(14px); transition: opacity 0.3s ease, transform 0.3s ease; z-index: 50; box-shadow: 0 4px 16px rgba(0,0,0,0.3); overflow: hidden; padding: 0; }
+    #scrollTop {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.2rem;
+      width: 2.8rem;
+      height: 2.8rem;
+      /* Liquid Glass */
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-bottom-color: rgba(255, 255, 255, 0.06);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      z-index: 50;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      padding: 0;
+    }
+    #scrollTop:hover {
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    }
     #scrollTop.visible { opacity: 1; transform: translateY(0); }
     #scrollTop:hover { background: var(--amber); transform: translateY(-2px); }
     #scrollTop svg { width: 18px; height: 18px; }
@@ -2213,16 +2249,32 @@ window.addEventListener('unhandledrejection', function(e) {
       z-index: 51;
       width: 3rem;
       height: 3rem;
-      background: linear-gradient(135deg, var(--walnut), #4a2010);
-      border: 1.5px solid var(--amber);
+      /* Liquid Glass */
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-bottom-color: rgba(255, 255, 255, 0.06);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
       padding: 0;
+    }
+    #special-menu-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     }
     #special-menu-btn:hover { transform: scale(1.08); }
     #special-menu-btn.open  { transform: rotate(45deg) scale(1.05); }
@@ -3177,7 +3229,35 @@ window.addEventListener('unhandledrejection', function(e) {
       white-space: nowrap;
     }
 
-     </style>
+     
+    /* ── Liquid Glass: riflesso speculare interno ── */
+    #special-menu-btn::before,
+    #scrollTop::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      border-radius: 50% 50% 0 0;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0.04) 100%
+      );
+      pointer-events: none;
+    }
+    /* Night mode: glass più scuro */
+    body.night #special-menu-btn,
+    body.night #scrollTop {
+      background: rgba(0, 0, 0, 0.18);
+      border-color: rgba(255, 255, 255, 0.1);
+      border-bottom-color: rgba(255, 255, 255, 0.04);
+    }
+    body.night #special-menu-btn:hover,
+    body.night #scrollTop:hover {
+      background: rgba(0, 0, 0, 0.28);
+    }
+
+  </style>
 </head>
 <body>
 
