@@ -20,6 +20,12 @@ window.addEventListener('unhandledrejection', function(e) {
 </script>
 
   <meta charset="UTF-8"/>
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIkFsIEJha2FybyDigJQgdmlubyAmIHRhcnRpbmUiLAogICJzaG9ydF9uYW1lIjogIkFsIEJha2FybyIsCiAgImRlc2NyaXB0aW9uIjogIkxhIHByaW1hIGNpY2NoZXR0ZXJpYSBkaSBHb3JpemlhIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMmMxYTBlIiwKICAidGhlbWVfY29sb3IiOiAiIzJjMWEwZSIsCiAgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwKICAiaWNvbnMiOiBbCiAgICB7ICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxOTIgMTkyJyUzRSUzQ3JlY3Qgd2lkdGg9JzE5MicgaGVpZ2h0PScxOTInIGZpbGw9JyUyMzJjMWEwZScvJTNFJTNDdGV4dCB4PSc5NicgeT0nMTMwJyBmb250LXNpemU9JzEyMCcgdGV4dC1hbmNob3I9J21pZGRsZSclM0Xwn423JTNDL3RleHQlM0UlM0Mvc3ZnJTNFIiwgInNpemVzIjogIjE5MngxOTIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiB9LAogICAgeyAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTEyIDUxMiclM0UlM0NyZWN0IHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyBmaWxsPSclMjMyYzFhMGUnLyUzRSUzQ3RleHQgeD0nMjU2JyB5PSczNDAnIGZvbnQtc2l6ZT0nMzIwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyUzRfCfjbclM0MvdGV4dCUzRSUzQy9zdmclM0UiLCAic2l6ZXMiOiAiNTEyeDUxMiIsICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiIH0KICBdLAogICJjYXRlZ29yaWVzIjogWyJmb29kIiwgImxpZmVzdHlsZSJdCn0=">
+  <meta name="theme-color" content="#2c1a0e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Al Bakaro">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 
   <!-- ═══ TITOLO ═══ -->
@@ -327,43 +333,7 @@ window.addEventListener('unhandledrejection', function(e) {
     .menu-grid {
       display: grid;
       gap: 0.75rem;
-    }
-
-    .menu-item {
-      background: #fff;
-      border: 1px solid rgba(92,51,23,0.12);
-      border-radius: 6px;
-      padding: 1rem 1.1rem;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      will-change: transform, opacity;
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(32px);
-    }
-
-    .menu-item::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: linear-gradient(180deg, var(--amber), var(--walnut));
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .menu-item:hover {
-      transform: translateX(3px);
-      box-shadow: 0 4px 18px rgba(44,26,14,0.10);
-      border-color: rgba(193,127,60,0.35);
-    }
-
-    .menu-item:hover::before { opacity: 1; }
-
-    .item-info { flex: 1; min-width: 0; }
+    }.item-info { flex: 1; min-width: 0; }
 
     .item-name {
       font-family: 'Lora', serif;
@@ -472,10 +442,7 @@ window.addEventListener('unhandledrejection', function(e) {
     body.night #nightToggle .toggle-icon {transform: rotate(180deg); }
 
     /* ── Modalità notturna ── */
-    body.night { --cream: #0e0906; --parchment: #e8d4b0; --honey: #d4a050; --stone: #9a8060; --ink: #ecd8b8; }
-    body.night .menu-item { background: #1a1008; border-color: rgba(193,127,60,0.15); }
-    body.night .menu-item:hover { background: linear-gradient(135deg, #221508, #1a1008); }
-    body.night .item-name { color: #f0ddb8; }
+    body.night { --cream: #0e0906; --parchment: #e8d4b0; --honey: #d4a050; --stone: #9a8060; --ink: #ecd8b8; }body.night .item-name { color: #f0ddb8; }
     body.night .item-price { color: var(--light-honey); }
     body.night .section-title { filter: brightness(1.3); }
 
@@ -490,13 +457,7 @@ window.addEventListener('unhandledrejection', function(e) {
 
     /* ── Animazioni card ── */
     .menu-section { opacity: 0; transform: translateY(16px); }
-    .menu-section.visible { animation: fadeUp 0.5s ease both; }
-    .menu-item { opacity: 0; transform: translateY(10px); }
-    .menu-item.visible {
-      animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-      animation-delay: calc(var(--i, 0) * 0.045s);
-    }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .menu-section.visible { animation: fadeUp 0.5s ease both; }@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     #menuMain { transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); background: var(--cream); min-height: 60vh; }
     #menuMain.switching-out-left  { animation: slideOutLeft  0.15s cubic-bezier(0.4,0,1,1) forwards; }
     .switching-out-right { animation: slideOutRight 0.15s cubic-bezier(0.4,0,1,1) forwards; }
@@ -573,6 +534,23 @@ window.addEventListener('unhandledrejection', function(e) {
     body.night .order-total-value { color: #d4a050; }
     .order-actions { display: flex; gap: 0.6rem; margin-top: 1rem; }
     .order-btn-clear { flex: 1; background: transparent; border: 1.5px solid rgba(92,51,23,0.25); border-radius: 6px; padding: 0.6rem; font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--stone); cursor: pointer; transition: background 0.2s, color 0.2s, opacity 0.2s, transform 0.2s; }
+    .order-btn-whatsapp {
+      flex: 1.4;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      border: none;
+      border-radius: 6px;
+      padding: 0.6rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(37,211,102,0.3);
+    }
+    .order-btn-whatsapp:hover { opacity: 0.88; transform: translateY(-1px); }
+    .order-btn-whatsapp:active { transform: scale(0.97); }
     .order-btn-clear:hover { border-color: var(--walnut); color: var(--walnut); }
     .order-close { position: absolute; top: 1rem; right: 1rem; background: rgba(92,51,23,0.1); border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 0.8rem; cursor: pointer; color: var(--walnut); display: flex; align-items: center; justify-content: center; }
 
@@ -709,7 +687,6 @@ window.addEventListener('unhandledrejection', function(e) {
     /* ── Parallasse header ── */
     header { will-change: transform; }
     .header-logo img, .header-claim, .header-divider, .social-bar {
-      will-change: transform;
       transition: transform 0.1s linear;
     }
 
@@ -777,104 +754,37 @@ window.addEventListener('unhandledrejection', function(e) {
 
     /* 🍾 Bollicine */
     .menu-section[data-id="bollicine"] .section-title {background: linear-gradient(90deg, #b8860b 0%, #b8860bcc 50%, #b8860b 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="bollicine"] .section-header::after { background: linear-gradient(90deg, #b8860b, transparent); }
-    .menu-section[data-id="bollicine"] .menu-item:hover { border-color: rgba(184,134,11,0.5); }
-
-    /* 🍾 Bollicine Bottiglia */
+    .menu-section[data-id="bollicine"] .section-header::after { background: linear-gradient(90deg, #b8860b, transparent); }/* 🍾 Bollicine Bottiglia */
     .menu-section[data-id="bollicine-bottiglia"] .section-title {background: linear-gradient(90deg, #b8860b 0%, #b8860bcc 50%, #b8860b 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="bollicine-bottiglia"] .section-header::after { background: linear-gradient(90deg, #b8860b, transparent); }
-    .menu-section[data-id="bollicine-bottiglia"] .menu-item:hover {border-color: rgba(184,134,11,0.5); }
-    .menu-section[data-id="bollicine-bottiglia"] .menu-item::before { background: linear-gradient(180deg, #b8860b, #c17f3c); }
-
-    /* 🥂 Vini Bianchi */
+    .menu-section[data-id="bollicine-bottiglia"] .section-header::after { background: linear-gradient(90deg, #b8860b, transparent); }/* 🥂 Vini Bianchi */
     .menu-section[data-id="vini-bianchi"] .section-title { background: linear-gradient(90deg, #a07820 0%, #a07820cc 50%, #a07820 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="vini-bianchi"] .section-header::after { background: linear-gradient(90deg, #a07820, transparent); }
-    .menu-section[data-id="vini-bianchi"] .menu-item:hover { border-color: rgba(160,120,32,0.5); }
-
-    /* 🥂 Vini Bianchi Bottiglia */
+    .menu-section[data-id="vini-bianchi"] .section-header::after { background: linear-gradient(90deg, #a07820, transparent); }/* 🥂 Vini Bianchi Bottiglia */
     .menu-section[data-id="vini-bianchi-bottiglia"] .section-title { background: linear-gradient(90deg, #8a6418 0%, #8a6418cc 50%, #8a6418 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="vini-bianchi-bottiglia"] .section-header::after { background: linear-gradient(90deg, #8a6418, transparent); }
-    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item:hover { border-color: rgba(138,100,24,0.5); }
-    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item::before { background: linear-gradient(180deg, #8a6418, #c17f3c); }
-
-    /* 🍷 Vini Rossi */
+    .menu-section[data-id="vini-bianchi-bottiglia"] .section-header::after { background: linear-gradient(90deg, #8a6418, transparent); }/* 🍷 Vini Rossi */
     .menu-section[data-id="vini-rossi"] .section-title { background: linear-gradient(90deg, #8b1a1a 0%, #8b1a1acc 50%, #8b1a1a 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="vini-rossi"] .section-header::after { background: linear-gradient(90deg, #8b1a1a, transparent); }
-    .menu-section[data-id="vini-rossi"] .menu-item:hover { border-color: rgba(139,26,26,0.5); }
-
-    /* 🍷 Vini Rossi Bottiglia */
+    .menu-section[data-id="vini-rossi"] .section-header::after { background: linear-gradient(90deg, #8b1a1a, transparent); }/* 🍷 Vini Rossi Bottiglia */
     .menu-section[data-id="vini-rossi-bottiglia"] .section-title { background: linear-gradient(90deg, #7a1515 0%, #7a1515cc 50%, #7a1515 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="vini-rossi-bottiglia"] .section-header::after { background: linear-gradient(90deg, #7a1515, transparent); }
-    .menu-section[data-id="vini-rossi-bottiglia"] .menu-item:hover {border-color: rgba(122,21,21,0.5); }
-    .menu-section[data-id="vini-rossi-bottiglia"] .menu-item::before { background: linear-gradient(180deg, #7a1515, #c0392b); }
-
-    /* 🍊 Aperitivi */
+    .menu-section[data-id="vini-rossi-bottiglia"] .section-header::after { background: linear-gradient(90deg, #7a1515, transparent); }/* 🍊 Aperitivi */
     .menu-section[data-id="aperitivi"] .section-title { background: linear-gradient(90deg, #c4520a 0%, #c4520acc 50%, #c4520a 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="aperitivi"] .section-header::after { background: linear-gradient(90deg, #c4520a, transparent); }
-    .menu-section[data-id="aperitivi"] .menu-item:hover { border-color: rgba(196,82,10,0.5); }
-
-    /* 🍺 Birre */
+    .menu-section[data-id="aperitivi"] .section-header::after { background: linear-gradient(90deg, #c4520a, transparent); }/* 🍺 Birre */
     .menu-section[data-id="birre"] .section-title {background: linear-gradient(90deg, #b06820 0%, #b06820cc 50%, #b06820 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="birre"] .section-header::after { background: linear-gradient(90deg, #b06820, transparent); }
-    .menu-section[data-id="birre"] .menu-item:hover { border-color: rgba(176,104,32,0.5); }
-
-    /* 🍸 Cocktails */
+    .menu-section[data-id="birre"] .section-header::after { background: linear-gradient(90deg, #b06820, transparent); }/* 🍸 Cocktails */
     .menu-section[data-id="cocktails"] .section-title { background: linear-gradient(90deg, #6b3fa0 0%, #6b3fa0cc 50%, #6b3fa0 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="cocktails"] .section-header::after { background: linear-gradient(90deg, #6b3fa0, transparent); }
-    .menu-section[data-id="cocktails"] .menu-item:hover { border-color: rgba(107,63,160,0.5); }
-
-    /* 🫙 Lista Gin */
+    .menu-section[data-id="cocktails"] .section-header::after { background: linear-gradient(90deg, #6b3fa0, transparent); }/* 🫙 Lista Gin */
     .menu-section[data-id="gin"] .section-title { background: linear-gradient(90deg, #2e7d5e 0%, #2e7d5ecc 50%, #2e7d5e 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="gin"] .section-header::after { background: linear-gradient(90deg, #2e7d5e, transparent); }
-    .menu-section[data-id="gin"] .menu-item:hover { border-color: rgba(46,125,94,0.5); }
-
-    /* 🍢 Cicchetti della Settimana */
+    .menu-section[data-id="gin"] .section-header::after { background: linear-gradient(90deg, #2e7d5e, transparent); }/* 🍢 Cicchetti della Settimana */
     .menu-section[data-id="cicchetti"] .section-title { background: linear-gradient(90deg, #c17f3c 0%, #c17f3ccc 50%, #c17f3c 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="cicchetti"] .section-header::after { background: linear-gradient(90deg, #c17f3c, transparent); }
-    .menu-section[data-id="cicchetti"] .menu-item:hover { border-color: rgba(193,127,60,0.5); }
-
-    /* 🔥 Cicchetti Caldi */
+    .menu-section[data-id="cicchetti"] .section-header::after { background: linear-gradient(90deg, #c17f3c, transparent); }/* 🔥 Cicchetti Caldi */
     .menu-section[data-id="cicchetti-caldi"] .section-title {background: linear-gradient(90deg, #c0392b 0%, #c0392bcc 50%, #c0392b 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="cicchetti-caldi"] .section-header::after { background: linear-gradient(90deg, #c0392b, transparent); }
-    .menu-section[data-id="cicchetti-caldi"] .menu-item:hover { border-color: rgba(192,57,43,0.5); }
-
-    /* 🍞 Cicchetti fissi */
+    .menu-section[data-id="cicchetti-caldi"] .section-header::after { background: linear-gradient(90deg, #c0392b, transparent); }/* 🍞 Cicchetti fissi */
     .menu-section[data-id="cicchetti-fissi"] .section-title { background: linear-gradient(90deg, #7d5a3c 0%, #7d5a3ccc 50%, #7d5a3c 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="cicchetti-fissi"] .section-header::after { background: linear-gradient(90deg, #7d5a3c, transparent); }
-    .menu-section[data-id="cicchetti-fissi"] .menu-item:hover { border-color: rgba(125,90,60,0.5); }
-
-    /* 🧃 Bibite */
+    .menu-section[data-id="cicchetti-fissi"] .section-header::after { background: linear-gradient(90deg, #7d5a3c, transparent); }/* 🧃 Bibite */
     .menu-section[data-id="bibite"] .section-title { background: linear-gradient(90deg, #1a7a6e 0%, #1a7a6ecc 50%, #1a7a6e 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="bibite"] .section-header::after { background: linear-gradient(90deg, #1a7a6e, transparent); }
-    .menu-section[data-id="bibite"] .menu-item:hover { border-color: rgba(26,122,110,0.5); }
-
-    /* 🌿 Amari & Grappe */
+    .menu-section[data-id="bibite"] .section-header::after { background: linear-gradient(90deg, #1a7a6e, transparent); }/* 🌿 Amari & Grappe */
     .menu-section[data-id="amari"] .section-title { background: linear-gradient(90deg, #3a7d44 0%, #3a7d44cc 50%, #3a7d44 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="amari"] .section-header::after { background: linear-gradient(90deg, #3a7d44, transparent); }
-    .menu-section[data-id="amari"] .menu-item:hover { border-color: rgba(58,125,68,0.5); }
-    .menu-section[data-id="amari"] .menu-item::before { background: linear-gradient(180deg, #3a7d44, #27ae60); }
-
-    /* 🌿 Aperitivi Analcolici */
+    .menu-section[data-id="amari"] .section-header::after { background: linear-gradient(90deg, #3a7d44, transparent); }/* 🌿 Aperitivi Analcolici */
     .menu-section[data-id="analcolici"] .section-title { background: linear-gradient(90deg, #4a7c59 0%, #4a7c59cc 50%, #4a7c59 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="analcolici"] .section-header::after { background: linear-gradient(90deg, #4a7c59, transparent); }
-    .menu-section[data-id="analcolici"] .menu-item:hover {border-color: rgba(74,124,89,0.5); }
-
-    /* Striscia colorata sinistra card al hover */
-    .menu-section[data-id="bollicine"]      .menu-item::before { background: linear-gradient(180deg, #b8860b, #a07820); }
-    .menu-section[data-id="vini-bianchi"]   .menu-item::before {background: linear-gradient(180deg, #a07820, #c17f3c); }
-    .menu-section[data-id="vini-rossi"]     .menu-item::before { background: linear-gradient(180deg, #8b1a1a, #c0392b); }
-    .menu-section[data-id="aperitivi"]      .menu-item::before {background: linear-gradient(180deg, #c4520a, #e67e22); }
-    .menu-section[data-id="birre"]          .menu-item::before { background: linear-gradient(180deg, #b06820, #c17f3c); }
-    .menu-section[data-id="cocktails"]      .menu-item::before { background: linear-gradient(180deg, #6b3fa0, #9b59b6); }
-    .menu-section[data-id="gin"]            .menu-item::before { background: linear-gradient(180deg, #2e7d5e, #27ae60); }
-    .menu-section[data-id="cicchetti"]      .menu-item::before {background: linear-gradient(180deg, #c17f3c, #d4943e); }
-    .menu-section[data-id="cicchetti-caldi"].menu-item::before { background: linear-gradient(180deg, #c0392b, #e74c3c); }
-    .menu-section[data-id="cicchetti-fissi"].menu-item::before { background: linear-gradient(180deg, #7d5a3c, #a07050); }
-    .menu-section[data-id="bibite"]         .menu-item::before { background: linear-gradient(180deg, #1a7a6e, #16a085); }
-    .menu-section[data-id="analcolici"]     .menu-item::before { background: linear-gradient(180deg, #4a7c59, #27ae60); }
-
-
-    /* ── Saluto ora del giorno ── */
+    .menu-section[data-id="analcolici"] .section-header::after { background: linear-gradient(90deg, #4a7c59, transparent); }/* ── Saluto ora del giorno ── */
     .header-greeting {
       font-family: 'Cinzel', serif;
       font-size: 0.65rem;
@@ -948,27 +858,7 @@ window.addEventListener('unhandledrejection', function(e) {
     }
     body.night .header-logo img {
       animation: logoGlow 8s ease-in-out infinite, flicker1 2.5s ease-in-out infinite;
-    }
-
-    /* ══ Glassmorphism al tap sulle card ══ */
-    .menu-item.visible {
-      transition: transform 0.18s ease, box-shadow 0.18s ease,
-                  border-color 0.18s ease, background 0.3s ease;
-    }
-    .menu-item.tapped {
-      background: rgba(245,235,210,0.95) !important;
-      border-color: rgba(193,127,60,0.6) !important;
-      box-shadow: 0 8px 32px rgba(193,127,60,0.2),
-                  inset 0 0 0 1px rgba(255,255,255,0.4) !important;
-      transform: translateY(-2px) scale(1.01);
-    }
-    body.night .menu-item.tapped {
-      background: rgba(40,20,8,0.7) !important;
-      box-shadow: 0 8px 32px rgba(193,127,60,0.25),
-                  inset 0 0 0 1px rgba(193,127,60,0.2) !important;
-    }
-
-    /* ══ Tap to reveal descrizione ══ */
+    }/* ══ Tap to reveal descrizione ══ */
     .item-desc {
       overflow: hidden;
       max-height: 0;
@@ -1045,17 +935,7 @@ window.addEventListener('unhandledrejection', function(e) {
     @keyframes particleFly {
       0%   { opacity: 1; transform: translate(0,0) scale(1); }
       100% { opacity: 0; transform: translate(var(--px), var(--py)) scale(0.3); }
-    }
-
-
-    /* ══ Immagini gin ══ */
-    .menu-section[data-id="gin"] .menu-item {
-      flex-direction: row;
-      align-items: center;
-      padding-bottom: 0.8rem;
-      gap: 0.8rem;
-    }
-    .gin-img-wrap {
+    }.gin-img-wrap {
       width: 60px;
       height: 100px;
       display: flex;
@@ -1081,13 +961,7 @@ window.addEventListener('unhandledrejection', function(e) {
     /* PNG con trasparenza reale — non serve multiply */
     .gin-img[src^="data:image/png"] {
       mix-blend-mode: normal;
-    }
-    .menu-section[data-id="gin"] .menu-item:hover .gin-img,
-    .menu-section[data-id="gin"] .menu-item.tapped .gin-img {
-      transform: translateY(-4px) scale(1.06);
-      filter: drop-shadow(0 8px 16px rgba(46,125,94,0.35));
-    }
-    .menu-section[data-id="gin"] .item-info {
+    }.menu-section[data-id="gin"] .item-info {
       flex: 1;
       text-align: left;
       order: 1;
@@ -1187,29 +1061,7 @@ window.addEventListener('unhandledrejection', function(e) {
       font-weight: 400;
       font-style: italic;
       opacity: 0.75;
-    }
-
-    /* 6. Bordo card con micro-accent color di categoria al hover */
-    .menu-item {
-      position: relative;
-      overflow: hidden;
-    }
-    .menu-item::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: var(--amber);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-      border-radius: 3px 0 0 3px;
-    }
-    .menu-item:hover::before,
-    .menu-item.tapped::before { opacity: 1; }
-
-    /* 7. Animazione entry logo più cinematografica */
+    }/* 7. Animazione entry logo più cinematografica */
     @keyframes logoShimmer {
       0%   { filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5)) brightness(0.3); opacity: 0; transform: scale(0.92) translateY(10px); }
       60%  { filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5)) brightness(1.1); opacity: 1; transform: scale(1.02) translateY(-2px); }
@@ -1231,24 +1083,7 @@ window.addEventListener('unhandledrejection', function(e) {
         var(--amber) 65%,
         rgba(193,127,60,0.3) 85%,
         transparent 100%);
-    }
-
-
-    /* ══ EFFETTI PREMIUM ══ */
-
-    /* 1. Parallasse 3D sulle card */
-    .menu-item.visible {
-      transform-style: preserve-3d;
-      perspective: 800px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease,
-                  border-color 0.18s ease, background 0.3s ease;
-    }
-    .menu-item.tilt {
-      box-shadow: 0 12px 32px rgba(0,0,0,0.18),
-                  0 4px 12px rgba(193,127,60,0.15);
-    }
-
-    /* 2. Etichetta stile cantina per vini importanti */
+    }/* 2. Etichetta stile cantina per vini importanti */
     .wine-label-card {
       background: linear-gradient(145deg,
         rgba(245,236,215,0.95) 0%,
@@ -1348,176 +1183,8 @@ window.addEventListener('unhandledrejection', function(e) {
         #c0392b 100%);
       transition: height 0.2s ease;
       box-shadow: 1px 0 6px rgba(193,127,60,0.4);
-    }
-
-
-    /* ══ STILI PREMIUM PER CATEGORIA ══ */
-
-    /* 🍺 BIRRE — sfondo luppolo, toni dorato-grano */
-    .menu-section[data-id="birre"] .menu-item {
-      background: linear-gradient(135deg, rgba(255,248,220,0.6) 0%, rgba(255,243,190,0.4) 100%);
-      border-color: rgba(176,104,32,0.2);
-    }
-    .menu-section[data-id="birre"] .menu-item:hover {
-      background: linear-gradient(135deg, rgba(255,243,190,0.85) 0%, rgba(255,235,160,0.7) 100%);
-    }
-    body.night .menu-section[data-id="birre"] .menu-item {
-      background: linear-gradient(135deg, rgba(40,25,5,0.8) 0%, rgba(50,30,8,0.6) 100%);
-    }
-    .menu-section[data-id="birre"] .section-title { background: linear-gradient(90deg, #b06820 0%, #b06820cc 50%, #b06820 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
-    .menu-section[data-id="birre"] .section-ornament-icon::before { content: "🌾 · 🍺 · "; }
-
-    /* 🍸 COCKTAILS — sfondo scuro elegante, toni viola-notte */
-    .menu-section[data-id="cocktails"] .menu-item {
-      background: linear-gradient(135deg, rgba(40,10,60,0.08) 0%, rgba(60,20,80,0.06) 100%);
-      border-color: rgba(107,63,160,0.2);
-    }
-    .menu-section[data-id="cocktails"] .menu-item:hover {
-      background: linear-gradient(135deg, rgba(107,63,160,0.12) 0%, rgba(60,20,80,0.1) 100%);
-    }
-    body.night .menu-section[data-id="cocktails"] .menu-item {
-      background: linear-gradient(135deg, rgba(20,5,35,0.9) 0%, rgba(30,10,50,0.7) 100%);
-    }
-    .menu-section[data-id="cocktails"] .section-ornament-icon::before { content: "🍸 · ✦ · "; }
-
-    /* 🫙 GIN — sfondo botanico verde, toni muschio */
-    .menu-section[data-id="gin"] .menu-item {
-      background: linear-gradient(135deg, rgba(220,240,220,0.5) 0%, rgba(200,230,205,0.35) 100%);
-      border-color: rgba(46,125,94,0.2);
-    }
-    .menu-section[data-id="gin"] .menu-item:hover {
-      background: linear-gradient(135deg, rgba(200,235,210,0.8) 0%, rgba(180,225,195,0.6) 100%);
-    }
-    body.night .menu-section[data-id="gin"] .menu-item {
-      background: linear-gradient(135deg, rgba(5,25,10,0.9) 0%, rgba(8,30,15,0.7) 100%);
-    }
-    .menu-section[data-id="gin"] .section-ornament-icon::before { content: "🌿 · 🫙 · "; }
-
-    /* 🍊 APERITIVI — sfondo arancio caldo, toni tramonto */
-    .menu-section[data-id="aperitivi"] .menu-item {
-      background: linear-gradient(135deg, rgba(255,235,200,0.5) 0%, rgba(255,220,170,0.35) 100%);
-      border-color: rgba(196,82,10,0.18);
-    }
-    .menu-section[data-id="aperitivi"] .menu-item:hover {
-      background: linear-gradient(135deg, rgba(255,225,180,0.8) 0%, rgba(255,205,150,0.6) 100%);
-    }
-    body.night .menu-section[data-id="aperitivi"] .menu-item {
-      background: linear-gradient(135deg, rgba(35,12,0,0.9) 0%, rgba(45,15,5,0.7) 100%);
-    }
-    .menu-section[data-id="aperitivi"] .section-ornament-icon::before { content: "🍊 · ✦ · "; }
-
-    /* 🍢 CICCHETTI SETTIMANA — carta da giornale vintage */
-    .menu-section[data-id="cicchetti"] .menu-item {
-      background: linear-gradient(135deg, rgba(245,235,210,0.6) 0%, rgba(238,225,198,0.4) 100%);
-      border-color: rgba(193,127,60,0.22);
-      border-style: dashed;
-    }
-    .menu-section[data-id="cicchetti"] .menu-item:hover {
-      border-style: solid;
-      background: linear-gradient(135deg, rgba(245,235,210,0.9) 0%, rgba(238,225,198,0.7) 100%);
-    }
-    body.night .menu-section[data-id="cicchetti"] .menu-item {
-      background: linear-gradient(135deg, rgba(28,18,5,0.9) 0%, rgba(35,22,8,0.7) 100%);
-    }
-    .menu-section[data-id="cicchetti"] .section-ornament-icon::before { content: "✦ OGGI · "; }
-
-    /* 🔥 CICCHETTI CALDI — sfondo fuoco, toni brace */
-    .menu-section[data-id="cicchetti-caldi"] .menu-item {
-      background: linear-gradient(135deg, rgba(255,220,200,0.45) 0%, rgba(255,200,175,0.3) 100%);
-      border-color: rgba(192,57,43,0.2);
-    }
-    .menu-section[data-id="cicchetti-caldi"] .menu-item:hover {
-      background: linear-gradient(135deg, rgba(255,210,190,0.8) 0%, rgba(255,190,165,0.6) 100%);
-    }
-    body.night .menu-section[data-id="cicchetti-caldi"] .menu-item {
-      background: linear-gradient(135deg, rgba(35,5,0,0.9) 0%, rgba(45,8,3,0.7) 100%);
-    }
-    .menu-section[data-id="cicchetti-caldi"] .section-ornament-icon::before { content: "🔥 · ✦ · "; }
-
-    /* 🍞 CICCHETTI FISSI — rustico, lino, artigianale */
-    .menu-section[data-id="cicchetti-fissi"] .menu-item {
-      background: repeating-linear-gradient(
-        45deg,
-        rgba(125,90,60,0.04) 0px, rgba(125,90,60,0.04) 1px,
-        transparent 1px, transparent 6px
-      ), linear-gradient(135deg, rgba(240,225,200,0.5) 0%, rgba(230,215,190,0.35) 100%);
-      border-color: rgba(125,90,60,0.2);
-    }
-    .menu-section[data-id="cicchetti-fissi"] .menu-item:hover {
-      background: linear-gradient(135deg, rgba(235,220,195,0.9) 0%, rgba(225,210,185,0.7) 100%);
-    }
-    body.night .menu-section[data-id="cicchetti-fissi"] .menu-item {
-      background: linear-gradient(135deg, rgba(22,14,5,0.9) 0%, rgba(28,18,8,0.7) 100%);
-    }
-    .menu-section[data-id="cicchetti-fissi"] .section-ornament-icon::before { content: "🍞 · · "; }
-
-    /* 🧃 BIBITE — fresco, acqua, agrumi */
-    .menu-section[data-id="bibite"] .menu-item {
-      background: linear-gradient(135deg, rgba(200,240,238,0.45) 0%, rgba(180,230,228,0.3) 100%);
-      border-color: rgba(26,122,110,0.2);
-    }
-    .menu-section[data-id="bibite"] .menu-item:hover {
-      background: linear-gradient(135deg, rgba(190,235,233,0.8) 0%, rgba(170,225,222,0.6) 100%);
-    }
-    body.night .menu-section[data-id="bibite"] .menu-item {
-      background: linear-gradient(135deg, rgba(0,20,18,0.9) 0%, rgba(3,25,22,0.7) 100%);
-    }
-    .menu-section[data-id="bibite"] .section-ornament-icon::before { content: "🧃 · ✦ · "; }
-
-    /* 🌿 ANALCOLICI — natura, verde fresco */
-    .menu-section[data-id="analcolici"] .menu-item {
-      background: linear-gradient(135deg, rgba(215,240,215,0.5) 0%, rgba(200,235,200,0.35) 100%);
-      border-color: rgba(74,124,89,0.2);
-    }
-    .menu-section[data-id="analcolici"] .menu-item:hover {
-      background: linear-gradient(135deg, rgba(205,238,205,0.85) 0%, rgba(190,230,192,0.65) 100%);
-    }
-    body.night .menu-section[data-id="analcolici"] .menu-item {
-      background: linear-gradient(135deg, rgba(5,18,5,0.9) 0%, rgba(8,22,8,0.7) 100%);
-    }
-    .menu-section[data-id="analcolici"] .section-ornament-icon::before { content: "🌿 · ✦ · "; }
-
-    /* 🌿 AMARI & GRAPPE — erbe, bosco, radici */
-    .menu-section[data-id="amari"] .menu-item {
-      background: linear-gradient(135deg, rgba(210,230,210,0.45) 0%, rgba(195,220,198,0.3) 100%);
-      border-color: rgba(58,125,68,0.2);
-    }
-    .menu-section[data-id="amari"] .menu-item:hover {
-      background: linear-gradient(135deg, rgba(200,228,202,0.85) 0%, rgba(185,220,190,0.65) 100%);
-    }
-    body.night .menu-section[data-id="amari"] .menu-item {
-      background: linear-gradient(135deg, rgba(3,15,3,0.9) 0%, rgba(5,18,5,0.7) 100%);
-    }
-    .menu-section[data-id="amari"] .section-ornament-icon::before { content: "🌿 · 🫙 · "; }
-
-    /* Override etichetta cantina per NON-vini */
-    .menu-section[data-id="birre"] .menu-item,
-    .menu-section[data-id="cocktails"] .menu-item,
-    .menu-section[data-id="gin"] .menu-item,
-    .menu-section[data-id="aperitivi"] .menu-item,
-    .menu-section[data-id="cicchetti"] .menu-item,
-    .menu-section[data-id="cicchetti-caldi"] .menu-item,
-    .menu-section[data-id="cicchetti-fissi"] .menu-item,
-    .menu-section[data-id="bibite"] .menu-item,
-    .menu-section[data-id="analcolici"] .menu-item,
-    .menu-section[data-id="amari"] .menu-item {
-      /* Niente doppio bordo — rimuove wine-label-card style */
-    }
-    .menu-section[data-id="birre"] .menu-item::after,
-    .menu-section[data-id="cocktails"] .menu-item::after,
-    .menu-section[data-id="gin"] .menu-item::after,
-    .menu-section[data-id="aperitivi"] .menu-item::after,
-    .menu-section[data-id="cicchetti"] .menu-item::after,
-    .menu-section[data-id="cicchetti-caldi"] .menu-item::after,
-    .menu-section[data-id="cicchetti-fissi"] .menu-item::after,
-    .menu-section[data-id="bibite"] .menu-item::after,
-    .menu-section[data-id="analcolici"] .menu-item::after,
-    .menu-section[data-id="amari"] .menu-item::after {
-      display: none !important;
-    }
-
-
-    /* ══ SORPRENDIMI ══ */
+    }.menu-section[data-id="birre"] .section-title { background: linear-gradient(90deg, #b06820 0%, #b06820cc 50%, #b06820 100%) !important; background-size: 200% auto !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+    .menu-section[data-id="birre"] .section-ornament-icon::before { content: "🌾 · 🍺 · "; }.menu-section[data-id="cocktails"] .section-ornament-icon::before { content: "🍸 · ✦ · "; }.menu-section[data-id="gin"] .section-ornament-icon::before { content: "🌿 · 🫙 · "; }.menu-section[data-id="aperitivi"] .section-ornament-icon::before { content: "🍊 · ✦ · "; }.menu-section[data-id="cicchetti"] .section-ornament-icon::before { content: "✦ OGGI · "; }.menu-section[data-id="cicchetti-caldi"] .section-ornament-icon::before { content: "🔥 · ✦ · "; }.menu-section[data-id="cicchetti-fissi"] .section-ornament-icon::before { content: "🍞 · · "; }.menu-section[data-id="bibite"] .section-ornament-icon::before { content: "🧃 · ✦ · "; }.menu-section[data-id="analcolici"] .section-ornament-icon::before { content: "🌿 · ✦ · "; }.menu-section[data-id="amari"] .section-ornament-icon::before { content: "🌿 · 🫙 · "; }/* ══ SORPRENDIMI ══ */
 
     /* Bottone fisso in basso */
     #surprise-btn {
@@ -1928,13 +1595,7 @@ window.addEventListener('unhandledrejection', function(e) {
       background: linear-gradient(180deg, transparent, rgba(193,127,60,0.15));
       transition: height 0.4s cubic-bezier(0.16,1,0.3,1);
       pointer-events: none;
-    }
-    .menu-item:hover .item-price::after,
-    .menu-item.tapped .item-price::after {
-      height: 100%;
-    }
-
-    /* 7. Animazione titolo categoria lettera per lettera */
+    }/* 7. Animazione titolo categoria lettera per lettera */
     .section-title .char {
       display: inline-block;
       opacity: 0;
@@ -2086,34 +1747,7 @@ window.addEventListener('unhandledrejection', function(e) {
       0%   { background-position: 0% 50%; }
       50%  { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
-    }
-    .menu-item.wine-label-card.premium-border {
-      position: relative;
-      box-shadow:
-        0 0 0 1.5px rgba(193,127,60,0.4),
-        0 0 0 1.5px rgba(245,215,142,0.3) !important;
-    }
-    /* Bordo iridescente via outline animato */
-    .menu-item.wine-label-card.premium-border::after {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 8px;
-      background: linear-gradient(
-        135deg,
-        #c17f3c 0%, var(--gold) 25%, #fff8e7 50%,
-        #e8c87a 75%, #c17f3c 100%
-      );
-      background-size: 300% 300%;
-      animation: iridescent 8s ease infinite;
-      z-index: -1;
-      opacity: 0.7;
-    }
-    body.night .menu-item.wine-label-card.premium-border::after {
-      opacity: 0.5;
-    }
-
-    /* 2. Fiamma animata sui cicchetti caldi */
+    }/* 2. Fiamma animata sui cicchetti caldi */
     .flame-badge {
       display: inline-block;
       font-size: 0.85rem;
@@ -3001,26 +2635,7 @@ window.addEventListener('unhandledrejection', function(e) {
       filter: drop-shadow(0 4px 14px rgba(0,0,0,0.15));
       transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
       border-radius: 2px;
-    }
-    .menu-item:hover .bottle-img,
-    .menu-item.tapped .bottle-img {
-      transform: scale(1.08) translateY(-3px);
-    }
-    .menu-item:hover .bottle-img,
-    .menu-item.tapped 
-
-
-    
-
-
-    /* ══ FOTO CICCHETTI SETTIMANA ══ */
-    .cicchetto-img-wrap {
-      width: 100%;
-      margin: 0.6rem 0 0.3rem;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .cicchetto-img {
+    }.cicchetto-img {
       width: 100%;
       height: 200px;
       object-fit: cover;
@@ -3029,12 +2644,7 @@ window.addEventListener('unhandledrejection', function(e) {
       border-radius: 10px;
       filter: brightness(1.03) saturate(1.08);
       transition: transform 0.4s ease;
-    }
-    .menu-item:hover .cicchetto-img { transform: scale(1.04); }
-
-
-  
-    /* ══ SOMMELIER IA — ABBINAMENTO VINI ══ */
+    }/* ══ SOMMELIER IA — ABBINAMENTO VINI ══ */
     #sommelier-ia-overlay {
       position: fixed;
       inset: 0;
@@ -3225,6 +2835,205 @@ window.addEventListener('unhandledrejection', function(e) {
     }
 
   
+    
+    /* ════════════════════════════════════════
+       MENU ITEM — ARCHITETTURA CONSOLIDATA
+       Livello 1: base
+       Livello 2: stati (hover, tapped, visible, tilt)
+       Livello 3: categorie (::before color, background)
+       Livello 4: night mode
+    ════════════════════════════════════════ */
+
+    /* ── L1: Base ── */
+    .menu-item {
+      background: #fff;
+      border: 1px solid rgba(92,51,23,0.12);
+      border-radius: 6px;
+      padding: 1rem 1.1rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(32px);
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--amber);
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    /* ── L2: Visibile (dopo animazione) ── */
+    .menu-item.visible {
+      animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: calc(var(--i, 0) * 0.045s);
+      transition: transform 0.18s ease, box-shadow 0.18s ease,
+                  border-color 0.18s ease, background 0.3s ease;
+    }
+
+    /* ── L2: Hover ── */
+    .menu-item:hover,
+    .menu-item.tapped {
+      transform: translateX(3px);
+      box-shadow: 0 4px 18px rgba(44,26,14,0.10);
+      border-color: rgba(193,127,60,0.35);
+    }
+    .menu-item:hover::before,
+    .menu-item.tapped::before { opacity: 1; }
+
+    /* ── L2: Tapped (glassmorphism) ── */
+    .menu-item.tapped {
+      background: rgba(245,235,210,0.95) !important;
+      border-color: rgba(193,127,60,0.6) !important;
+      box-shadow: 0 8px 32px rgba(44,26,14,0.15),
+                  inset 0 0 0 1px rgba(193,127,60,0.2) !important;
+    }
+
+    /* ── L2: Tilt 3D ── */
+    .menu-item.tilt {
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18),
+                  0 4px 12px rgba(193,127,60,0.15);
+    }
+
+    /* ── L2: Premium wine label ── */
+    .menu-item.wine-label-card.premium-border {
+      position: relative;
+      box-shadow: 0 0 0 1.5px rgba(193,127,60,0.4),
+                  0 0 0 1.5px rgba(245,215,142,0.3) !important;
+    }
+    .menu-item.wine-label-card.premium-border::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 8px;
+      background: linear-gradient(135deg,
+        #c17f3c 0%, #f5d78e 25%, #c17f3c 50%,
+        #f5d78e 75%, #c17f3c 100%);
+      background-size: 300% 300%;
+      animation: iridescent 8s ease infinite;
+      opacity: 0.15;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── L2: Hover su immagini ── */
+    .menu-item:hover .bottle-img,
+    .menu-item.tapped .bottle-img { transform: scale(1.08) translateY(-3px); }
+    .menu-item:hover .cicchetto-img { transform: scale(1.04); }
+    .menu-item:hover .item-price::after,
+    .menu-item.tapped .item-price::after { height: 100%; }
+
+    /* ── L2: Gin layout speciale ── */
+    .menu-section[data-id="gin"] .menu-item {
+      flex-direction: row;
+      align-items: center;
+      padding-bottom: 0.8rem;
+      gap: 0.8rem;
+    }
+    .menu-section[data-id="gin"] .menu-item:hover .gin-img,
+    .menu-section[data-id="gin"] .menu-item.tapped .gin-img {
+      transform: translateY(-4px) scale(1.06);
+      filter: drop-shadow(0 8px 16px rgba(46,125,94,0.35));
+    }
+
+    /* ── L3: Striscia colore ::before per categoria ── */
+    .menu-section[data-id="bollicine"]          .menu-item::before,
+    .menu-section[data-id="bollicine-bottiglia"].menu-item::before { background: linear-gradient(180deg, #b8860b, #a07820); }
+    .menu-section[data-id="vini-bianchi"]       .menu-item::before,
+    .menu-section[data-id="vini-bianchi-bottiglia"].menu-item::before { background: linear-gradient(180deg, #a07820, #c17f3c); }
+    .menu-section[data-id="vini-rossi"]         .menu-item::before,
+    .menu-section[data-id="vini-rossi-bottiglia"].menu-item::before { background: linear-gradient(180deg, #8b1a1a, #c0392b); }
+    .menu-section[data-id="aperitivi"]          .menu-item::before { background: linear-gradient(180deg, #c4520a, #e67e22); }
+    .menu-section[data-id="birre"]              .menu-item::before { background: linear-gradient(180deg, #b06820, #c17f3c); }
+    .menu-section[data-id="cocktails"]          .menu-item::before { background: linear-gradient(180deg, #6b3fa0, #9b59b6); }
+    .menu-section[data-id="gin"]               .menu-item::before { background: linear-gradient(180deg, #2e7d5e, #27ae60); }
+    .menu-section[data-id="cicchetti"]          .menu-item::before { background: linear-gradient(180deg, #c17f3c, #d4943e); }
+    .menu-section[data-id="cicchetti-caldi"]    .menu-item::before { background: linear-gradient(180deg, #c0392b, #e74c3c); }
+    .menu-section[data-id="cicchetti-fissi"]    .menu-item::before { background: linear-gradient(180deg, #7d5a3c, #a07050); }
+    .menu-section[data-id="bibite"]             .menu-item::before { background: linear-gradient(180deg, #1a7a6e, #16a085); }
+    .menu-section[data-id="analcolici"]         .menu-item::before { background: linear-gradient(180deg, #4a7c59, #27ae60); }
+    .menu-section[data-id="amari"]              .menu-item::before { background: linear-gradient(180deg, #3a7d44, #27ae60); }
+
+    /* ── L3: Border-color hover per categoria ── */
+    .menu-section[data-id="bollicine"]              .menu-item:hover,
+    .menu-section[data-id="bollicine-bottiglia"]    .menu-item:hover { border-color: rgba(184,134,11,0.5); }
+    .menu-section[data-id="vini-bianchi"]           .menu-item:hover { border-color: rgba(160,120,32,0.5); }
+    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item:hover { border-color: rgba(138,100,24,0.5); }
+    .menu-section[data-id="vini-rossi"]             .menu-item:hover { border-color: rgba(139,26,26,0.5); }
+    .menu-section[data-id="vini-rossi-bottiglia"]   .menu-item:hover { border-color: rgba(122,21,21,0.5); }
+    .menu-section[data-id="aperitivi"]              .menu-item:hover { border-color: rgba(196,82,10,0.5); }
+    .menu-section[data-id="birre"]                  .menu-item:hover { border-color: rgba(176,104,32,0.5); }
+    .menu-section[data-id="cocktails"]              .menu-item:hover { border-color: rgba(107,63,160,0.5); }
+    .menu-section[data-id="gin"]                    .menu-item:hover { border-color: rgba(46,125,94,0.5); }
+    .menu-section[data-id="cicchetti"]              .menu-item:hover { border-color: rgba(193,127,60,0.5); }
+    .menu-section[data-id="cicchetti-caldi"]        .menu-item:hover { border-color: rgba(192,57,43,0.5); }
+    .menu-section[data-id="cicchetti-fissi"]        .menu-item:hover { border-color: rgba(125,90,60,0.5); }
+    .menu-section[data-id="bibite"]                 .menu-item:hover { border-color: rgba(26,122,110,0.5); }
+    .menu-section[data-id="amari"]                  .menu-item:hover { border-color: rgba(58,125,68,0.5); }
+    .menu-section[data-id="analcolici"]             .menu-item:hover { border-color: rgba(74,124,89,0.5); }
+
+    /* ── L3: Background sfumato per categoria ── */
+    .menu-section[data-id="birre"]         .menu-item { background: linear-gradient(135deg, rgba(255,248,220,0.6), rgba(255,243,190,0.4)); border-color: rgba(176,104,32,0.2); }
+    .menu-section[data-id="birre"]         .menu-item:hover { background: linear-gradient(135deg, rgba(255,243,190,0.85), rgba(255,235,160,0.7)); }
+    .menu-section[data-id="cocktails"]     .menu-item { background: linear-gradient(135deg, rgba(40,10,60,0.08), rgba(60,20,80,0.06)); border-color: rgba(107,63,160,0.2); }
+    .menu-section[data-id="cocktails"]     .menu-item:hover { background: linear-gradient(135deg, rgba(107,63,160,0.12), rgba(60,20,80,0.1)); }
+    .menu-section[data-id="gin"]           .menu-item { background: linear-gradient(135deg, rgba(220,240,220,0.5), rgba(200,230,205,0.35)); border-color: rgba(46,125,94,0.2); }
+    .menu-section[data-id="gin"]           .menu-item:hover { background: linear-gradient(135deg, rgba(200,235,210,0.8), rgba(180,225,195,0.6)); }
+    .menu-section[data-id="aperitivi"]     .menu-item { background: linear-gradient(135deg, rgba(255,235,200,0.5), rgba(255,220,170,0.35)); border-color: rgba(196,82,10,0.2); }
+    .menu-section[data-id="aperitivi"]     .menu-item:hover { background: linear-gradient(135deg, rgba(255,225,180,0.8), rgba(255,205,150,0.6)); }
+    .menu-section[data-id="cicchetti"]     .menu-item { background: linear-gradient(135deg, rgba(245,235,210,0.6), rgba(238,225,198,0.4)); border-color: rgba(193,127,60,0.2); }
+    .menu-section[data-id="cicchetti"]     .menu-item:hover { background: linear-gradient(135deg, rgba(245,235,210,0.9), rgba(238,225,198,0.7)); }
+    .menu-section[data-id="cicchetti-caldi"] .menu-item { background: linear-gradient(135deg, rgba(255,220,200,0.45), rgba(255,200,175,0.3)); border-color: rgba(192,57,43,0.2); }
+    .menu-section[data-id="cicchetti-caldi"] .menu-item:hover { background: linear-gradient(135deg, rgba(255,210,190,0.8), rgba(255,190,165,0.6)); }
+    .menu-section[data-id="cicchetti-fissi"] .menu-item { background: repeating-linear-gradient(45deg, rgba(125,90,60,0.04) 0px, rgba(125,90,60,0.04) 1px, transparent 1px, transparent 8px), linear-gradient(135deg, rgba(240,228,208,0.5), rgba(230,218,195,0.35)); border-color: rgba(125,90,60,0.2); }
+    .menu-section[data-id="cicchetti-fissi"] .menu-item:hover { background: linear-gradient(135deg, rgba(235,220,195,0.9), rgba(225,210,185,0.7)); }
+    .menu-section[data-id="bibite"]        .menu-item { background: linear-gradient(135deg, rgba(200,240,238,0.45), rgba(180,230,228,0.3)); border-color: rgba(26,122,110,0.2); }
+    .menu-section[data-id="bibite"]        .menu-item:hover { background: linear-gradient(135deg, rgba(190,235,233,0.8), rgba(170,225,222,0.6)); }
+    .menu-section[data-id="analcolici"]    .menu-item { background: linear-gradient(135deg, rgba(215,240,215,0.5), rgba(200,235,200,0.35)); border-color: rgba(74,124,89,0.2); }
+    .menu-section[data-id="analcolici"]    .menu-item:hover { background: linear-gradient(135deg, rgba(205,238,205,0.85), rgba(190,230,192,0.65)); }
+    .menu-section[data-id="amari"]         .menu-item { background: linear-gradient(135deg, rgba(210,230,210,0.45), rgba(195,220,198,0.3)); border-color: rgba(58,125,68,0.2); }
+    .menu-section[data-id="amari"]         .menu-item:hover { background: linear-gradient(135deg, rgba(200,228,202,0.85), rgba(185,220,190,0.65)); }
+
+    /* ── L4: Night mode ── */
+    body.night .menu-item { background: #1a1008; border-color: rgba(193,127,60,0.15); }
+    body.night .menu-item:hover { background: linear-gradient(135deg, #221508, #1a1008); }
+    body.night .menu-item.tapped {
+      background: rgba(40,20,8,0.7) !important;
+      box-shadow: 0 8px 32px rgba(193,127,60,0.25),
+                  inset 0 0 0 1px rgba(193,127,60,0.3) !important;
+    }
+    body.night .menu-item.wine-label-card.premium-border::after { opacity: 0.5; }
+    body.night .menu-section[data-id="birre"]           .menu-item { background: linear-gradient(135deg, rgba(40,25,5,0.8),  rgba(50,30,8,0.6)); }
+    body.night .menu-section[data-id="cocktails"]       .menu-item { background: linear-gradient(135deg, rgba(20,5,35,0.9),  rgba(30,10,50,0.7)); }
+    body.night .menu-section[data-id="gin"]             .menu-item { background: linear-gradient(135deg, rgba(5,25,10,0.9),  rgba(8,30,15,0.7)); }
+    body.night .menu-section[data-id="aperitivi"]       .menu-item { background: linear-gradient(135deg, rgba(35,12,0,0.9),  rgba(45,15,5,0.7)); }
+    body.night .menu-section[data-id="cicchetti"]       .menu-item { background: linear-gradient(135deg, rgba(28,18,5,0.9),  rgba(35,22,8,0.7)); }
+    body.night .menu-section[data-id="cicchetti-caldi"] .menu-item { background: linear-gradient(135deg, rgba(35,5,0,0.9),   rgba(45,8,3,0.7)); }
+    body.night .menu-section[data-id="cicchetti-fissi"] .menu-item { background: linear-gradient(135deg, rgba(22,14,5,0.9),  rgba(28,18,8,0.7)); }
+    body.night .menu-section[data-id="bibite"]          .menu-item { background: linear-gradient(135deg, rgba(0,20,18,0.9),  rgba(3,25,22,0.7)); }
+    body.night .menu-section[data-id="analcolici"]      .menu-item { background: linear-gradient(135deg, rgba(5,18,5,0.9),   rgba(8,22,8,0.7)); }
+    body.night .menu-section[data-id="amari"]           .menu-item { background: linear-gradient(135deg, rgba(3,15,3,0.9),   rgba(5,18,5,0.7)); }
+
+    /* ── Override: nascondi ::after su non-vini ── */
+    .menu-section[data-id="birre"]      .menu-item::after,
+    .menu-section[data-id="cocktails"]  .menu-item::after,
+    .menu-section[data-id="gin"]        .menu-item::after,
+    .menu-section[data-id="aperitivi"]  .menu-item::after,
+    .menu-section[data-id="cicchetti"]  .menu-item::after,
+    .menu-section[data-id="cicchetti-caldi"] .menu-item::after,
+    .menu-section[data-id="cicchetti-fissi"] .menu-item::after,
+    .menu-section[data-id="bibite"]     .menu-item::after,
+    .menu-section[data-id="analcolici"] .menu-item::after,
+    .menu-section[data-id="amari"]      .menu-item::after { display: none !important; }
+
     /* ── OTTIMIZZAZIONI PERFORMANCE ── */
     #menuMain {
       backface-visibility: hidden;
@@ -3376,7 +3185,7 @@ window.addEventListener('unhandledrejection', function(e) {
 <canvas id="confetti-canvas"></canvas>
 
 <!-- ═══════════════════ IL MIO ORDINE ═══════════════════ -->
-<button id="order-fab" onclick="openOrder()" aria-label="Il mio ordine">
+<button id="order-fab" onclick="openOrder()" aria-label="Apri ordine" aria-label="Il mio ordine">
   🛒
   <span id="order-count">0</span>
 </button>
@@ -3386,7 +3195,7 @@ window.addEventListener('unhandledrejection', function(e) {
     <button class="order-close" onclick="closeOrder()" aria-label="Chiudi ordine">✕</button>
     <div class="order-handle"></div>
     <div class="order-title" data-t="orderModalTitle">🛒 Il mio ordine</div>
-    <div class="order-subtitle" id="order-subtitle">Nessun prodotto selezionato</div>
+    <div class="order-subtitle" id="order-subtitle" data-t="orderSubtitle">Nessun prodotto selezionato</div>
     <div class="order-divider"></div>
     <div id="order-list"></div>
     <div class="order-total" id="order-total" style="display:none">
@@ -3395,6 +3204,7 @@ window.addEventListener('unhandledrejection', function(e) {
     </div>
     <div class="order-actions" id="order-actions" style="display:none">
       <button class="order-btn-clear" onclick="clearOrder()" data-t="orderClear">🗑 Svuota ordine</button>
+      <button class="order-btn-whatsapp" onclick="sendOrderWhatsApp()" data-t="orderWhatsApp">📲 Invia al banco</button>
     </div>
   </div>
 </div>
@@ -3501,8 +3311,8 @@ window.addEventListener('unhandledrejection', function(e) {
 <div id="special-menu-overlay" onclick="closeSpecialMenu()">
   <div id="special-menu-panel" onclick="event.stopPropagation()">
     <div class="special-panel-header">
-      <span class="special-panel-title">✦ Esperienze</span>
-      <span class="special-panel-subtitle">Scopri qualcosa di speciale</span>
+      <span class="special-panel-title" data-t="panelTitle">✦ Esperienze</span>
+      <span class="special-panel-subtitle" data-t="panelSubtitle">Scopri qualcosa di speciale</span>
       <button class="special-panel-close" onclick="closeSpecialMenu()" aria-label="Chiudi pannello">✕</button>
     </div>
 
@@ -3527,8 +3337,8 @@ window.addEventListener('unhandledrejection', function(e) {
     <div class="special-panel-item" onclick="closeSpecialMenu(); setTimeout(function(){ if(window.openDado) window.openDado(); }, 300)">
       <div class="special-panel-icon" style="background:linear-gradient(135deg,#3a1a05,#6b3010);border:1px solid rgba(193,127,60,0.35)">🎲</div>
       <div class="special-panel-info">
-        <span class="special-panel-name">Abbinamento del momento</span>
-        <span class="special-panel-desc">Cicchetto + vino, scelti per te</span>
+        <span class="special-panel-name" data-t="panelDadoName">Abbinamento del momento</span>
+        <span class="special-panel-desc" data-t="panelDadoDesc">Cicchetto + vino, scelti per te</span>
       </div>
       <span class="special-panel-arrow">›</span>
     </div>
@@ -3536,14 +3346,14 @@ window.addEventListener('unhandledrejection', function(e) {
     <div class="special-panel-item" onclick="closeSpecialMenu(); setTimeout(openQuiz, 300)">
       <div class="special-panel-icon icon-quiz">🧠</div>
       <div class="special-panel-info">
-        <span class="special-panel-name" id="panel-quiz-name">Quiz del Sommelier</span>
+        <span class="special-panel-name" id="panel-quiz-name" data-t="panelQuizName">Quiz del Sommelier</span>
         <span class="special-panel-desc" id="panel-quiz-desc" data-t="quizSubtitle">Indovina il vino dalla descrizione</span>
       </div>
       <span class="special-panel-arrow">›</span>
     </div>
 
     <div class="special-panel-footer">
-      <p class="special-panel-footer-text">Al Bakaro · vino & tartine · Gorizia</p>
+      <p class="special-panel-footer-text" data-t="panelFooter">Al Bakaro · vino & tartine · Gorizia</p>
     </div>
   </div>
 </div>
@@ -3552,15 +3362,15 @@ window.addEventListener('unhandledrejection', function(e) {
 <div id="dado-overlay" onclick="closeDado(event)">
   <div id="dado-card">
     <div class="dado-handle"></div>
-    <span class="dado-tag">✦ Abbinamento del momento ✦</span>
+    <span class="dado-tag" data-t="dadoTag">✦ Abbinamento del momento ✦</span>
     <span id="dado-emoji" class="dado-emoji">🎲</span>
     <div id="dado-cicchetto" class="dado-cicchetto"></div>
     <div class="dado-plus">+</div>
     <div id="dado-vino" class="dado-vino"></div>
     <p id="dado-perche" class="dado-perche"></p>
     <div class="dado-actions">
-      <button class="dado-reroll" onclick="rollDado()">🎲 Ancora</button>
-      <button class="dado-close-btn" onclick="closeDadoBtn()">Chiudi</button>
+      <button class="dado-reroll" onclick="rollDado()" data-t="dadoReroll">🎲 Ancora</button>
+      <button class="dado-close-btn" onclick="closeDadoBtn()" data-t="dadoClose">Chiudi</button>
     </div>
   </div>
 </div>
@@ -3581,7 +3391,7 @@ window.addEventListener('unhandledrejection', function(e) {
 <div id="quiz-overlay">
   <button class="quiz-close" onclick="closeQuiz()" aria-label="Chiudi quiz">✕</button>
   <div class="quiz-header">
-    <span class="quiz-tag">🍷 QUIZ DEL SOMMELIER</span>
+    <span class="quiz-tag" data-t="quizTag">🍷 QUIZ DEL SOMMELIER</span>
     <div class="quiz-title" id="quiz-title" data-t="quizTitle">Indovina il vino!</div>
   </div>
   <div class="quiz-progress" id="quiz-progress"></div>
@@ -3591,12 +3401,12 @@ window.addEventListener('unhandledrejection', function(e) {
   </div>
   <div class="quiz-options" id="quiz-options"></div>
   <div class="quiz-feedback" id="quiz-feedback"></div>
-  <button class="quiz-next-btn" id="quiz-next-btn" onclick="quizNext()">AVANTI →</button>
+  <button class="quiz-next-btn" id="quiz-next-btn" onclick="quizNext()" data-t="quizNext">AVANTI →</button>
   <div class="quiz-result" id="quiz-result">
     <div class="quiz-result-score" id="quiz-result-score"></div>
     <div class="quiz-result-label" id="quiz-result-label"></div>
     <div class="quiz-result-msg" id="quiz-result-msg"></div>
-    <button class="quiz-restart-btn" onclick="quizRestart()">🔄 Rigioca</button>
+    <button class="quiz-restart-btn" onclick="quizRestart()" data-t="quizRestart">🔄 Rigioca</button>
   </div>
 </div>
 
@@ -3608,7 +3418,7 @@ window.addEventListener('unhandledrejection', function(e) {
   <!-- STEP 1: scegli profilo -->
   <div id="surprise-step1">
     <p class="surprise-title" data-t="surpriseTitle">🎲 IL VINO DEL MOMENTO</p>
-    <p class="surprise-subtitle">Che tipo di bevitore sei?</p>
+    <p class="surprise-subtitle" data-t="surpriseSubtitle">Che tipo di bevitore sei?</p>
     <div class="surprise-profiles">
       <button class="surprise-profile-btn" onclick="runSurprise('fresco')">
         <span class="surprise-profile-icon">🌿</span>
@@ -3674,21 +3484,21 @@ window.addEventListener('unhandledrejection', function(e) {
     </div>
     <div class="surprise-actions">
       <button class="surprise-action-btn surprise-action-primary" id="sur-order-btn">🍷 Aggiungi all'ordine</button>
-      <button class="surprise-action-btn surprise-action-secondary" onclick="runSurpriseAgain()">🔄 Riprova</button>
+      <button class="surprise-action-btn surprise-action-secondary" onclick="runSurpriseAgain()" data-t="surpriseRetry">🔄 Riprova</button>
     </div>
     <!-- Riepilogo tavolo -->
     <div class="surprise-table-summary" id="sur-table-summary" style="display:none">
       <p class="surprise-table-title" data-t="surpriseTable">✦ IL TAVOLO ✦</p>
       <div id="sur-table-list"></div>
     </div>
-    <button class="surprise-new-person-btn" onclick="surpriseNextPerson()">👤 Prossima persona al tavolo</button>
+    <button class="surprise-new-person-btn" onclick="surpriseNextPerson()" data-t="surpriseNext">👤 Prossima persona al tavolo</button>
   </div>
 </div>
 
 <!-- ═══════════════════ NIGHT TOGGLE ═══════════════════ -->
 <button id="nightToggle" onclick="toggleNight()" aria-label="Cambia modalità giorno/notte">
   <span class="toggle-icon">🌙</span>
-  <span id="nightLabel">Notte</span>
+  <span id="nightLabel" data-t="nightToggle">Notte</span>
 </button>
 
 <!-- ═══════════════════ SPLASH SCREEN ═══════════════════ -->
@@ -3772,16 +3582,16 @@ window.addEventListener('unhandledrejection', function(e) {
 <!-- ═══════════════════ STICKY CONTROLS ═══════════════════ -->
 <div class="sticky-controls">
   <div class="lang-bar">
-    <button class="lang-btn active" onclick="setLang('it')">🇮🇹 IT</button>
-    <button class="lang-btn"        onclick="setLang('en')">🇬🇧 EN</button>
-    <button class="lang-btn"        onclick="setLang('de')">🇩🇪 DE</button>
-    <button class="lang-btn"        onclick="setLang('sl')">🇸🇮 SL</button>
+    <button class="lang-btn active" onclick="setLang('it')" aria-label="Italiano">🇮🇹 IT</button>
+    <button class="lang-btn"        onclick="setLang('en')" aria-label="English">🇬🇧 EN</button>
+    <button class="lang-btn"        onclick="setLang('de')" aria-label="Deutsch">🇩🇪 DE</button>
+    <button class="lang-btn"        onclick="setLang('sl')" aria-label="Slovenščina">🇸🇮 SL</button>
   </div>
   <nav class="category-nav" id="catNav"></nav>
   <div class="swipe-hint" id="swipeDots"></div>
 </div>
 
-<div id="meteo-strip"><span class="meteo-temp" id="meteo-temp">🌡️</span><div class="meteo-sep"></div><span class="meteo-label" id="meteo-label">vino ideale</span><span class="meteo-vino" id="meteo-vino"></span></div>
+<div id="meteo-strip"><span class="meteo-temp" id="meteo-temp">🌡️</span><div class="meteo-sep"></div><span class="meteo-label" id="meteo-label" data-t="meteoLabel">vino ideale</span><span class="meteo-vino" id="meteo-vino"></span></div>
 
 <!-- ═══════════════════ CONTROLS ═══════════════════ -->
 <div class="search-wrap">
@@ -3796,8 +3606,8 @@ window.addEventListener('unhandledrejection', function(e) {
 <!-- ═══════════════════ FOOTER ═══════════════════ -->
 <!-- ═══════════════════ ORARI ═══════════════════ -->
 <div class="hours-section">
-  <p class="hours-title">⏰ Orari di apertura</p>
-  <p class="hours-subtitle" id="hours-subtitle">Vieni a trovarci</p>
+  <p class="hours-title" data-t="hoursTitle">⏰ Orari di apertura</p>
+  <p class="hours-subtitle" id="hours-subtitle" data-t="hoursSubtitle">Vieni a trovarci</p>
   <div class="hours-status" id="hours-status">
     <div class="hours-status-dot"></div>
     <span id="hours-status-text"></span>
@@ -3815,7 +3625,7 @@ window.addEventListener('unhandledrejection', function(e) {
   <strong>Al Bakaro</strong> &nbsp;·&nbsp; <span data-t="footer">I prezzi sono IVA inclusa</span>
 </footer>
 
-<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Torna su" aria-label="Torna in cima">
+<button id="scrollTop" aria-label="Torna in cima" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Torna su" aria-label="Torna in cima">
   <svg viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <clipPath id="glassClip">
@@ -3970,9 +3780,33 @@ const i18n = {
     surpriseSweetDesc: "Morbidi e fruttati",
     panelTitle: "ESPERIENZE",
     panelSubtitle: "Scopri Al Bakaro",
+  
+    panelDadoName: "Abbinamento del momento",
+    panelDadoDesc: "Cicchetto + vino, scelti per te",
+    panelQuizName: "Quiz del Sommelier",
+    panelFooter: "Al Bakaro · vino & tartine · Gorizia",
+    dadoTag: "✦ Abbinamento del momento ✦",
+    dadoReroll: "🎲 Ancora",
+    dadoClose: "Chiudi",
+    quizTag: "🍷 QUIZ DEL SOMMELIER",
+    quizNext: "AVANTI →",
+    quizRestart: "🔄 Rigioca",
+    surpriseSubtitle: "Che tipo di bevitore sei?",
+    surpriseAddOrder: "🍷 Aggiungi all'ordine",
+    surpriseRetry: "🔄 Riprova",
+    surpriseNext: "👤 Prossima persona al tavolo",
+    orderSubtitle: "Nessun prodotto selezionato",
+    somNote: "🍷 Scheda del sommelier",
+    meteoLabel: "vino ideale",
+    nightToggle: "Notte",
+    hoursTitle: "⏰ Orari di apertura",
+    hoursSubtitle: "Vieni a trovarci",
+  
+    orderWhatsApp: "📲 Invia al banco",
+    orderItemsSingular: "1 prodotto selezionato",
+    orderItemsPlural: "prodotti selezionati",
   },
   en: {
-    claim: "The first cicchetteria in Gorizia",
     claim: "The first cicchetteria in Gorizia",
     search: "Search the menu…",
     footer: "All prices include VAT",
@@ -4056,9 +3890,33 @@ const i18n = {
     surpriseSweetDesc: "Smooth and fruity",
     panelTitle: "EXPERIENCES",
     panelSubtitle: "Discover Al Bakaro",
+  
+    panelDadoName: "Pairing of the moment",
+    panelDadoDesc: "Snack + wine, chosen for you",
+    panelQuizName: "Sommelier Quiz",
+    panelFooter: "Al Bakaro · wine & bites · Gorizia",
+    dadoTag: "✦ Pairing of the moment ✦",
+    dadoReroll: "🎲 Again",
+    dadoClose: "Close",
+    quizTag: "🍷 SOMMELIER QUIZ",
+    quizNext: "NEXT →",
+    quizRestart: "🔄 Play again",
+    surpriseSubtitle: "What kind of drinker are you?",
+    surpriseAddOrder: "🍷 Add to order",
+    surpriseRetry: "🔄 Try again",
+    surpriseNext: "👤 Next person at the table",
+    orderSubtitle: "No items selected",
+    somNote: "🍷 Sommelier notes",
+    meteoLabel: "ideal wine",
+    nightToggle: "Night",
+    hoursTitle: "⏰ Opening hours",
+    hoursSubtitle: "Come visit us",
+  
+    orderWhatsApp: "📲 Send to bar",
+    orderItemsSingular: "1 item selected",
+    orderItemsPlural: "items selected",
   },
   de: {
-    claim: "Die erste Cicchetteria in Görz",
     claim: "Die erste Cicchetteria in Görz",
     search: "Menü durchsuchen…",
     footer: "Alle Preise inkl. MwSt.",
@@ -4142,6 +4000,31 @@ const i18n = {
     surpriseSweetDesc: "Weich und fruchtig",
     panelTitle: "ERLEBNISSE",
     panelSubtitle: "Entdecke Al Bakaro",
+  
+    panelDadoName: "Empfehlung des Augenblicks",
+    panelDadoDesc: "Häppchen + Wein, für Sie gewählt",
+    panelQuizName: "Sommelier-Quiz",
+    panelFooter: "Al Bakaro · Wein & Häppchen · Gorizia",
+    dadoTag: "✦ Empfehlung des Augenblicks ✦",
+    dadoReroll: "🎲 Nochmal",
+    dadoClose: "Schließen",
+    quizTag: "🍷 SOMMELIER-QUIZ",
+    quizNext: "WEITER →",
+    quizRestart: "🔄 Nochmal spielen",
+    surpriseSubtitle: "Was für ein Weinliebhaber bist du?",
+    surpriseAddOrder: "🍷 Zur Bestellung hinzufügen",
+    surpriseRetry: "🔄 Nochmal",
+    surpriseNext: "👤 Nächste Person am Tisch",
+    orderSubtitle: "Keine Produkte ausgewählt",
+    somNote: "🍷 Sommelier-Notizen",
+    meteoLabel: "idealer Wein",
+    nightToggle: "Nacht",
+    hoursTitle: "⏰ Öffnungszeiten",
+    hoursSubtitle: "Besuchen Sie uns",
+  
+    orderWhatsApp: "📲 An Theke senden",
+    orderItemsSingular: "1 Produkt ausgewählt",
+    orderItemsPlural: "Produkte ausgewählt",
   },
 
   sl: {
@@ -4228,6 +4111,31 @@ const i18n = {
     surpriseSweetDesc: "Mehka in sadna vina",
     panelTitle: "DOŽIVETJA",
     panelSubtitle: "Odkrijte Al Bakaro",
+  
+    panelDadoName: "Kombinacija trenutka",
+    panelDadoDesc: "Prigrizek + vino, izbrano za vas",
+    panelQuizName: "Sommelier kviz",
+    panelFooter: "Al Bakaro · vino & prigrizki · Gorica",
+    dadoTag: "✦ Kombinacija trenutka ✦",
+    dadoReroll: "🎲 Še enkrat",
+    dadoClose: "Zapri",
+    quizTag: "🍷 SOMMELIER KVIZ",
+    quizNext: "NAPREJ →",
+    quizRestart: "🔄 Igraj znova",
+    surpriseSubtitle: "Kakšen pivec ste?",
+    surpriseAddOrder: "🍷 Dodaj naročilu",
+    surpriseRetry: "🔄 Poskusi znova",
+    surpriseNext: "👤 Naslednja oseba za mizo",
+    orderSubtitle: "Ni izbranih izdelkov",
+    somNote: "🍷 Sommelier kartica",
+    meteoLabel: "idealno vino",
+    nightToggle: "Noč",
+    hoursTitle: "⏰ Odpiralni čas",
+    hoursSubtitle: "Obiščite nas",
+  
+    orderWhatsApp: "📲 Pošlji na točilnico",
+    orderItemsSingular: "1 artikel izbran",
+    orderItemsPlural: "artiklov izbranih",
   },
 };
 
@@ -4949,7 +4857,7 @@ function buildItemCard(item, catId) {
   const ABBINA_CATS = ['cicchetti', 'cicchetti-fissi', 'cicchetti-caldi'];
   const itemDesc = (item.desc && item.desc['it']) || '';
   const abbinaBtn = (ABBINA_CATS.indexOf(catId) >= 0 && item.name['it'] !== 'Cicchetti della Settimana')
-    ? `<button class="cicchetto-abbina-btn" onclick="openSommelierIA('${item.name['it'].replace(/'/g,"\\'")}','${itemDesc.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">${t('abbinaBtn')}</button>`
+    ? `<button class="cicchetto-abbina-btn" aria-label="Abbina un vino" onclick="openSommelierIA('${item.name['it'].replace(/'/g,"\\'")}','${itemDesc.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">${t('abbinaBtn')}</button>`
     : '';
   // Immagine gin o bottiglia — solo per categorie bottiglia e gin
   const BOTTLE_CATS = ['bollicine-bottiglia','vini-bianchi-bottiglia','vini-rossi-bottiglia','gin'];
@@ -5308,7 +5216,7 @@ function openOrder() {
     total.style.display = 'none';
     actions.style.display = 'none';
   } else {
-    sub.textContent = items.length === 1 ? '1 prodotto selezionato' : items.length + ' prodotti selezionati';
+    sub.textContent = items.length === 1 ? t('orderItemsSingular') : items.length + ' ' + t('orderItemsPlural');
     list.innerHTML = items.map(item => {
       const priceStr = item.price && item.price !== '—' && item.price !== 'GIN'
         ? '€ ' + parseFloat(item.price).toFixed(2)
@@ -5382,7 +5290,7 @@ function openSommelier(name) {
   }
   document.getElementById('som-name').textContent      = name;
   document.getElementById('som-cantina').textContent   = '';
-  document.getElementById('som-note').textContent      = '🍷 Scheda del sommelier';
+  document.getElementById('som-note').textContent      = t('somNote');
   document.getElementById('som-temp').textContent      = data.temp;
   document.getElementById('som-food').textContent      = getLang(data.food);
   document.getElementById('som-color').textContent     = getLang(data.color);
@@ -5421,6 +5329,7 @@ function closeSommelierBtn() {
    EVENTS
 ════════════════════════════════════════ */
 function setLang(lang) {
+  document.documentElement.lang = lang;
   currentLang = lang;
   document.querySelectorAll('.lang-btn').forEach((b, i) => {
     b.classList.toggle('active', ['it','en','de','sl'][i] === lang);
@@ -5433,6 +5342,7 @@ function setLang(lang) {
     // Aggiorna banner orari
     var bannerText = document.getElementById('hours-text');
     if (bannerText) document.dispatchEvent(new Event('langchange'));
+    var ml = document.getElementById('meteo-label'); if (ml && ml.getAttribute('data-t')) ml.textContent = t(ml.getAttribute('data-t'));
   }, 50);
 }
 
@@ -6240,7 +6150,7 @@ function animateSectionTitle(titleEl) {
       orderBtn.style.background = '#27ae60';
       vibrate([20,60,40]);
       setTimeout(() => {
-        orderBtn.textContent = "🍷 Aggiungi all'ordine";
+        orderBtn.textContent = t('surpriseAddOrder');
         orderBtn.style.background = '';
       }, 1500);
     };
@@ -7274,7 +7184,7 @@ function playCinCin() {
     playNote(1320,0.0,2.2,0.20); playNote(1760,0.0,1.8,0.12); playNote(2640,0.0,1.4,0.07);
     playNote(1108,0.12,2.0,0.15); playNote(1480,0.12,1.6,0.09);
     playNote(880,0.28,2.8,0.10); playNote(1046,0.32,2.4,0.07);
-  } catch(e) { console.log('Audio non disponibile:', e); }
+  } catch(e) { /* audio non disponibile */ }
 }
 
 /* ════════════════════════════════════════
@@ -7656,6 +7566,54 @@ setTimeout(function() { (function() {
 })();
 
 
+
+
+
+/* ════════════════════════════════════════
+   📲 CONDIVISIONE ORDINE VIA WHATSAPP
+════════════════════════════════════════ */
+function sendOrderWhatsApp() {
+  const items = Object.values(myOrder);
+  if (items.length === 0) return;
+
+  const lang = currentLang || 'it';
+
+  // Intestazione messaggio
+  const headers = {
+    it: '🍷 *Al Bakaro* — Il mio ordine:',
+    en: '🍷 *Al Bakaro* — My order:',
+    de: '🍷 *Al Bakaro* — Meine Bestellung:',
+    sl: '🍷 *Al Bakaro* — Moje naročilo:'
+  };
+
+  const lines = [headers[lang] || headers.it, ''];
+
+  let total = 0;
+  let hasPrice = false;
+
+  items.forEach(item => {
+    const qty   = item.qty || 1;
+    const price = (item.price && item.price !== '—' && item.price !== 'GIN')
+      ? parseFloat(item.price)
+      : null;
+    const priceStr = price !== null ? ` — €${(price * qty).toFixed(2)}` : '';
+    const qtyStr   = qty > 1 ? ` ×${qty}` : '';
+    lines.push(`• ${item.name}${qtyStr}${priceStr}`);
+    if (price !== null) { total += price * qty; hasPrice = true; }
+  });
+
+  if (hasPrice) {
+    const totalLabels = { it:'Totale stimato', en:'Estimated total', de:'Geschätzter Betrag', sl:'Ocenjeni skupaj' };
+    lines.push('');
+    lines.push(`*${totalLabels[lang] || totalLabels.it}: €${total.toFixed(2)}*`);
+  }
+
+  const text = encodeURIComponent(lines.join('\n'));
+  // Apre WhatsApp con il messaggio precompilato
+  // Senza numero di telefono — il cliente può scegliere il contatto
+  // (oppure sostituire con wa.me/39XXXXXXXXXX per numero fisso del locale)
+  window.open('https://wa.me/?text=' + text, '_blank');
+}
 
 
 </script>
