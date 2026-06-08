@@ -276,7 +276,7 @@
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
+      from { opacity: 0; transform: translateY(32px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -324,7 +324,7 @@
       position: relative;
       overflow: hidden;
       opacity: 0;
-      transform: translateY(22px);
+      transform: translateY(32px);
     }
 
     .menu-item::before {
@@ -5307,7 +5307,6 @@ function _el(id) {
 }
 
 function initAnimations() {
-  // Disconnetti il vecchio observer prima di crearne uno nuovo
   if (_sectionObserver) {
     _sectionObserver.disconnect();
     _sectionObserver = null;
@@ -5315,29 +5314,41 @@ function initAnimations() {
 
   const sections = document.querySelectorAll('.menu-section');
 
-  // Raccogliamo tutti gli item in ordine di sezione
-  // con un indice globale per lo stagger complessivo
-  const allItems = [];
-  sections.forEach((sec, si) => {
-    sec.style.animationDelay = `${si * 0.04}s`;
-    sec.classList.add('visible');
-    sec.querySelectorAll('.menu-item').forEach((item, ii) => {
-      item.style.setProperty('--i', ii);
-      allItems.push(item);
-    });
-  });
+  // Funzione che anima un singolo item con Web Animations API
+  // Garantisce lo stato iniziale indipendentemente dalla cascata CSS
+  function animateItem(item, delay) {
+    item.style.opacity   = '0';
+    item.style.transform = 'translateY(32px)';
+    item.classList.add('visible');
 
-  // Doppio rAF: garantisce che il browser abbia fatto un paint con opacity:0
-  // Poi applica l'animazione direttamente via style (bypassa conflitti CSS cascata)
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      allItems.forEach((item, i) => {
-        setTimeout(() => {
-          // Anima direttamente via style per evitare conflitti con altri blocchi .visible
-          item.style.animation = `fadeUp 0.55s cubic-bezier(0.16,1,0.3,1) ${i*0.055}s both`;
-          item.classList.add('visible');
-        }, i * 55);
-      });
+    setTimeout(() => {
+      const anim = item.animate(
+        [
+          { opacity: 0, transform: 'translateY(32px)' },
+          { opacity: 1, transform: 'translateY(0px)' }
+        ],
+        {
+          duration: 700,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          fill: 'forwards'
+        }
+      );
+      anim.onfinish = () => {
+        // Rimuovi gli stili inline a fine animazione
+        item.style.opacity   = '';
+        item.style.transform = '';
+        item.style.animation = '';
+      };
+    }, delay);
+  }
+
+  // Anima subito le schede già in viewport (primo render)
+  let idx = 0;
+  sections.forEach((sec, si) => {
+    sec.classList.add('visible');
+    sec.querySelectorAll('.menu-item').forEach((item) => {
+      animateItem(item, 80 + idx * 60);
+      idx++;
     });
   });
 
@@ -5351,25 +5362,15 @@ function initAnimations() {
     });
   }, 180);
 
-  // Per lo scroll: osserva le sezioni fuori viewport (categorie lunghe)
+  // Observer per sezioni fuori viewport (scroll verso il basso)
   _sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       _sectionObserver.unobserve(entry.target);
       const items = entry.target.querySelectorAll('.menu-item:not(.visible)');
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          items.forEach((item, i) => {
-            item.style.setProperty('--i', i);
-            setTimeout(() => {
-              item.style.animation = `fadeUp 0.55s cubic-bezier(0.16,1,0.3,1) ${i*0.055}s both`;
-              item.classList.add('visible');
-            }, i * 55);
-          });
-        });
-      });
+      items.forEach((item, i) => animateItem(item, i * 60));
     });
-  }, { threshold: 0.04, rootMargin: '0px 0px 60px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px 80px 0px' });
 
   sections.forEach(sec => _sectionObserver.observe(sec));
 }
