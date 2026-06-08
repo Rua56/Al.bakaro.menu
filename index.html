@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+<script>
+window.onerror = function(msg, src, line, col, err) {
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:999999;background:#c00;color:#fff;padding:12px;font:13px monospace;word-break:break-all;';
+  d.textContent = '❌ ' + msg + ' | ' + (src||'').split('/').pop() + ':' + line + ':' + col;
+  document.body.appendChild(d);
+  setTimeout(function(){ d.remove(); }, 10000);
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:999999;background:#900;color:#fff;padding:12px;font:13px monospace;word-break:break-all;';
+  d.textContent = '❌ Promise: ' + e.reason;
+  document.body.appendChild(d);
+  setTimeout(function(){ d.remove(); }, 10000);
+});
+</script>
+
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 
@@ -44,7 +62,7 @@
   <style>
 /* ── SCALA Z-INDEX ────────────────────────────────────────
    10    stelline header / particelle
-   50    soundscape-btn, special-menu-btn
+   50    special-menu-btn
    100   sticky-controls
    200   scroll-vine
    400   leaflet map
@@ -2570,7 +2588,7 @@
       cursor: pointer;
       box-shadow: 0 4px 16px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      font-size: 1.2rem;
+      padding: 0;
     }
     #special-menu-btn:hover { transform: scale(1.08); }
     #special-menu-btn.open  { transform: rotate(45deg) scale(1.05); }
@@ -2971,33 +2989,7 @@
       text-align: center;
     }
 
-    /* ══ SOUNDSCAPE ══ */
-    #soundscape-btn {
-      position: fixed;
-      bottom: 5.5rem;
-      left: 1.2rem;
-      z-index: 50;
-      width: 2.6rem; height: 2.6rem;
-      background: rgba(20,30,50,0.85);
-      border: 1px solid rgba(100,160,255,0.25);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      font-size: 1rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
-      backdrop-filter: blur(6px);
-      transition: transform 0.2s, background 0.2s;
-    }
-    #soundscape-btn:hover { transform: scale(1.1); }
-    #soundscape-btn.playing {
-      border-color: rgba(100,200,255,0.6);
-      box-shadow: 0 0 14px rgba(100,160,255,0.3);
-      animation: soundPulse 2s ease-in-out infinite;
-    }
-    @keyframes soundPulse {
-      0%,100% { box-shadow: 0 0 14px rgba(100,160,255,0.3); }
-      50%      { box-shadow: 0 0 24px rgba(100,160,255,0.5); }
-    }
+
 
 
     /* Foto bottiglie vino */
@@ -3250,7 +3242,133 @@
       scroll-behavior: smooth;
     }
 
-  </style>
+  
+    /* ══════════════════════════════════════
+       🎲 DADO DEL GIORNO
+    ══════════════════════════════════════ */
+    /* dado-btn fisso rimosso — ora nel pannello speciale */
+    @keyframes dadoRoll {
+      0%,100% { transform: rotate(0deg) scale(1); }
+      25%  { transform: rotate(-20deg) scale(1.15); }
+      75%  { transform: rotate(20deg) scale(1.15); }
+    }
+
+    #dado-overlay {
+      position: fixed; inset: 0; z-index: 9998;
+      background: rgba(8,4,2,0.82);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #dado-overlay.show { opacity: 1; pointer-events: all; }
+
+    #dado-card {
+      background: linear-gradient(160deg, var(--espresso) 0%, var(--bark) 100%);
+      border: 1px solid rgba(193,127,60,0.35);
+      border-bottom: none;
+      border-radius: 20px 20px 0 0;
+      width: 100%; max-width: 520px;
+      padding: 1.6rem 1.6rem 2.4rem;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    #dado-overlay.show #dado-card { transform: translateY(0); }
+
+    .dado-handle {
+      width: 36px; height: 4px;
+      background: rgba(193,127,60,0.35);
+      border-radius: 2px;
+      margin: 0 auto 1.4rem;
+    }
+    .dado-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem; letter-spacing: 0.2em;
+      color: var(--amber); text-transform: uppercase;
+      display: block; margin-bottom: 0.2rem;
+    }
+    .dado-emoji { font-size: 2.8rem; display: block; margin-bottom: 0.6rem; text-align: center; }
+    .dado-cicchetto {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--parchment); text-align: center;
+      margin-bottom: 0.25rem;
+    }
+    .dado-plus {
+      text-align: center; color: var(--amber);
+      font-size: 1.4rem; margin: 0.5rem 0;
+    }
+    .dado-vino {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-style: italic;
+      color: var(--parchment); text-align: center;
+      margin-bottom: 0.25rem;
+    }
+    .dado-perche {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 0.8rem; color: var(--stone);
+      text-align: center; line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
+    .dado-actions {
+      display: flex; gap: 0.8rem; justify-content: center;
+    }
+    .dado-reroll {
+      background: rgba(193,127,60,0.15);
+      border: 1px solid rgba(193,127,60,0.4);
+      color: var(--amber);
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      letter-spacing: 0.1em; padding: 0.5rem 1.1rem;
+      border-radius: 20px; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .dado-reroll:hover { background: rgba(193,127,60,0.28); }
+    .dado-close-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--stone);
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      letter-spacing: 0.1em; padding: 0.5rem 1.1rem;
+      border-radius: 20px; cursor: pointer;
+    }
+
+    /* ══════════════════════════════════════
+       🌡️ TERMOMETRO / VINO METEO
+    ══════════════════════════════════════ */
+    #meteo-strip {
+      display: none;
+      background: linear-gradient(90deg, rgba(193,127,60,0.08), rgba(193,127,60,0.03));
+      border-top: 1px solid rgba(193,127,60,0.15);
+      border-bottom: 1px solid rgba(193,127,60,0.15);
+      padding: 0.55rem 1.2rem;
+      align-items: center; gap: 0.7rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #meteo-strip.visible { display: flex; }
+    #meteo-strip:hover { background: rgba(193,127,60,0.12); }
+    .meteo-temp {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--amber); letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .meteo-sep {
+      width: 1px; height: 1rem;
+      background: rgba(193,127,60,0.25); flex-shrink: 0;
+    }
+    .meteo-label {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 0.75rem; color: var(--stone);
+    }
+    .meteo-vino {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--parchment); margin-left: auto;
+      white-space: nowrap;
+    }
+
+     </style>
 </head>
 <body>
 
@@ -3362,7 +3480,23 @@
 </div>
 
 <!-- ═══════════════════ PANNELLO SPECIALE ═══════════════════ -->
-<button id="special-menu-btn" onclick="toggleSpecialMenu()" title="Funzioni speciali" aria-label="Esperienze speciali">✦</button>
+<button id="special-menu-btn" onclick="toggleSpecialMenu()" title="Funzioni speciali" aria-label="Esperienze speciali">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72" width="28" height="28" aria-hidden="true">
+    <!-- Taglierino centrato a sinistra -->
+    <rect x="4" y="10" width="28" height="38" rx="4" ry="4"
+          fill="none" stroke="#f5d78e" stroke-width="3"/>
+    <rect x="13" y="4" width="10" height="9" rx="3"
+          fill="none" stroke="#f5d78e" stroke-width="2.8"/>
+    <!-- Calice a destra -->
+    <path d="M38 14 Q38 32 47 32 Q56 32 56 14 Z"
+          fill="none" stroke="#f5d78e" stroke-width="3" stroke-linejoin="round"/>
+    <line x1="47" y1="32" x2="47" y2="46" stroke="#f5d78e" stroke-width="3"/>
+    <line x1="41" y1="46" x2="53" y2="46" stroke="#f5d78e" stroke-width="3" stroke-linecap="round"/>
+    <!-- Vino nel calice -->
+    <path d="M40 26 Q40 32 47 32 Q54 32 54 26 Z"
+          fill="rgba(245,215,142,0.4)"/>
+  </svg>
+</button>
 
 <div id="special-menu-overlay" onclick="closeSpecialMenu()">
   <div id="special-menu-panel" onclick="event.stopPropagation()">
@@ -3382,10 +3516,19 @@
     </div>
 
     <div class="special-panel-item" onclick="closeSpecialMenu(); setTimeout(openSurprise, 300)">
-      <div class="special-panel-icon icon-surprise">🎲</div>
+      <div class="special-panel-icon icon-surprise">🍾</div>
       <div class="special-panel-info">
         <span class="special-panel-name" id="panel-surprise-name" data-t="panelSurpriseName">Sorprendimi</span>
         <span class="special-panel-desc" id="panel-surprise-desc" data-t="panelSurpriseDesc">Il vino perfetto per te</span>
+      </div>
+      <span class="special-panel-arrow">›</span>
+    </div>
+
+    <div class="special-panel-item" onclick="closeSpecialMenu(); setTimeout(function(){ if(window.openDado) window.openDado(); }, 300)">
+      <div class="special-panel-icon" style="background:linear-gradient(135deg,#3a1a05,#6b3010);border:1px solid rgba(193,127,60,0.35)">🎲</div>
+      <div class="special-panel-info">
+        <span class="special-panel-name">Abbinamento del momento</span>
+        <span class="special-panel-desc">Cicchetto + vino, scelti per te</span>
       </div>
       <span class="special-panel-arrow">›</span>
     </div>
@@ -3405,6 +3548,23 @@
   </div>
 </div>
 
+<!-- ═══════════════════ DADO DEL GIORNO ═══════════════════ -->
+<div id="dado-overlay" onclick="closeDado(event)">
+  <div id="dado-card">
+    <div class="dado-handle"></div>
+    <span class="dado-tag">✦ Abbinamento del momento ✦</span>
+    <span id="dado-emoji" class="dado-emoji">🎲</span>
+    <div id="dado-cicchetto" class="dado-cicchetto"></div>
+    <div class="dado-plus">+</div>
+    <div id="dado-vino" class="dado-vino"></div>
+    <p id="dado-perche" class="dado-perche"></p>
+    <div class="dado-actions">
+      <button class="dado-reroll" onclick="rollDado()">🎲 Ancora</button>
+      <button class="dado-close-btn" onclick="closeDadoBtn()">Chiudi</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════ MAPPA COLLIO ═══════════════════ -->
 <div id="collio-map-overlay">
   <button class="collio-map-close" onclick="closeCollioMap()" aria-label="Chiudi mappa">✕</button>
@@ -3417,9 +3577,6 @@
     <p class="tooltip-hint" data-t="collioTooltip">Tocca una zona per scoprire i vini</p>
   </div>
 </div>
-
-<!-- ═══════════════════ SOUNDSCAPE ═══════════════════ -->
-<button id="soundscape-btn" onclick="toggleSoundscape()" title="Atmosfera sonora" aria-label="Attiva/disattiva musica di sottofondo">🎵</button>
 
 <div id="quiz-overlay">
   <button class="quiz-close" onclick="closeQuiz()" aria-label="Chiudi quiz">✕</button>
@@ -3623,6 +3780,8 @@
   <nav class="category-nav" id="catNav"></nav>
   <div class="swipe-hint" id="swipeDots"></div>
 </div>
+
+<div id="meteo-strip"><span class="meteo-temp" id="meteo-temp">🌡️</span><div class="meteo-sep"></div><span class="meteo-label" id="meteo-label">vino ideale</span><span class="meteo-vino" id="meteo-vino"></span></div>
 
 <!-- ═══════════════════ CONTROLS ═══════════════════ -->
 <div class="search-wrap">
@@ -6634,207 +6793,7 @@ function spawnAromaWords(wineName, originEl) {
 
 })();
 
-/* ════════════════════════════════════════
-   SOUNDSCAPE — JAZZ LOUNGE ELEGANTE
-════════════════════════════════════════ */
-(function() {
-  var ctx = null;
-  var isPlaying = false;
-  var masterGain = null;
-  var schedulerTimer = null;
-  var nextNoteTime = 0;
-  var currentStep = 0;
 
-  // Scale jazz: Dorian mode in Bb — caldo e sofisticato
-  var JAZZ_NOTES = [
-    [116.5, 130.8, 146.8, 164.8, 174.6, 196.0, 220.0, 246.9],
-    [233.1, 261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 493.9],
-    [466.2, 523.3, 587.3, 659.3, 698.5, 784.0, 880.0, 987.8],
-  ];
-
-  // Progressione jazz II-V-I in Bb
-  var CHORD_PROG = [
-    { root: 233.1, notes: [233.1, 277.2, 329.6, 392.0] },   // Cm7 (II)
-    { root: 174.6, notes: [174.6, 220.0, 261.6, 329.6] },   // F7  (V)
-    { root: 233.1, notes: [233.1, 293.7, 349.2, 440.0] },   // Bbmaj7 (I)
-    { root: 196.0, notes: [196.0, 246.9, 293.7, 349.2] },   // Gm7 (VI)
-  ];
-
-  var chordIndex = 0;
-  var beatCount = 0;
-
-  function initCtx() {
-    if (ctx) return;
-    ctx = new (window.AudioContext || window.webkitAudioContext)();
-    masterGain = ctx.createGain();
-    masterGain.gain.value = 0;
-
-    // Riverbero (convolver con impulso sintetico)
-    var revLen = ctx.sampleRate * 2.5;
-    var revBuf = ctx.createBuffer(2, revLen, ctx.sampleRate);
-    for (var ch = 0; ch < 2; ch++) {
-      var rd = revBuf.getChannelData(ch);
-      for (var ri = 0; ri < revLen; ri++) {
-        rd[ri] = (Math.random() * 2 - 1) * Math.pow(1 - ri / revLen, 2.5);
-      }
-    }
-    var reverb = ctx.createConvolver();
-    reverb.buffer = revBuf;
-    var revGain = ctx.createGain();
-    revGain.gain.value = 0.25;
-
-    // Compressor per suono più pieno
-    var comp = ctx.createDynamicsCompressor();
-    comp.threshold.value = -18;
-    comp.knee.value = 12;
-    comp.ratio.value = 3;
-
-    masterGain.connect(comp);
-    masterGain.connect(reverb);
-    reverb.connect(revGain);
-    revGain.connect(comp);
-    comp.connect(ctx.destination);
-  }
-
-  // Nota con inviluppo ADSR
-  function playNote(freq, startTime, duration, vol, type) {
-    var osc  = ctx.createOscillator();
-    var env  = ctx.createGain();
-    var type2 = type || 'sine';
-    osc.type = type2;
-    osc.frequency.value = freq;
-
-    // Vibrato sottile per il jazz
-    var vibLfo = ctx.createOscillator();
-    var vibGain = ctx.createGain();
-    vibLfo.frequency.value = 5.5;
-    vibGain.gain.value = freq * 0.008;
-    vibLfo.connect(vibGain);
-    vibGain.connect(osc.frequency);
-    vibLfo.start(startTime);
-    vibLfo.stop(startTime + duration + 0.1);
-
-    env.gain.setValueAtTime(0, startTime);
-    env.gain.linearRampToValueAtTime(vol, startTime + 0.02);
-    env.gain.setValueAtTime(vol, startTime + duration * 0.7);
-    env.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
-
-    osc.connect(env);
-    env.connect(masterGain);
-    osc.start(startTime);
-    osc.stop(startTime + duration + 0.05);
-  }
-
-  // Nota bassa con tono warmup
-  function playBass(freq, startTime, duration) {
-    var osc = ctx.createOscillator();
-    var env = ctx.createGain();
-    var filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 400;
-
-    osc.type = 'triangle';
-    osc.frequency.value = freq;
-    env.gain.setValueAtTime(0, startTime);
-    env.gain.linearRampToValueAtTime(0.18, startTime + 0.04);
-    env.gain.exponentialRampToValueAtTime(0.001, startTime + duration * 0.9);
-
-    osc.connect(filter);
-    filter.connect(env);
-    env.connect(masterGain);
-    osc.start(startTime);
-    osc.stop(startTime + duration);
-  }
-
-  // Hi-hat leggero (walking jazz feel)
-  function playHihat(startTime, vol) {
-    var buf = ctx.createBuffer(1, ctx.sampleRate * 0.05, ctx.sampleRate);
-    var d = buf.getChannelData(0);
-    for (var i = 0; i < d.length; i++) d[i] = (Math.random()*2-1) * (1 - i/d.length);
-    var src = ctx.createBufferSource();
-    src.buffer = buf;
-    var filter = ctx.createBiquadFilter();
-    filter.type = 'highpass';
-    filter.frequency.value = 6000;
-    var env = ctx.createGain();
-    env.gain.setValueAtTime(vol, startTime);
-    env.gain.exponentialRampToValueAtTime(0.001, startTime + 0.04);
-    src.connect(filter);
-    filter.connect(env);
-    env.connect(masterGain);
-    src.start(startTime);
-    src.stop(startTime + 0.05);
-  }
-
-  var BPM = 96; // swing jazz tempo
-  var beat = 60 / BPM;
-  var swing = beat * 0.65; // swing feel
-
-  function scheduleJazz() {
-    while (nextNoteTime < ctx.currentTime + 0.3) {
-      var t = nextNoteTime;
-      var b = beatCount % 4;
-      var chord = CHORD_PROG[chordIndex % CHORD_PROG.length];
-
-      // Walking bass — nota per battuta
-      var bassNote = chord.notes[b % chord.notes.length] / 2;
-      playBass(bassNote, t, beat * 0.85);
-
-      // Accordi comping sui beat 2 e 4 (stile pianist jazz)
-      if (b === 1 || b === 3) {
-        chord.notes.forEach(function(n, i) {
-          var vol = 0.04 + Math.random() * 0.02;
-          var offset = i * 0.008;
-          playNote(n, t + offset, beat * 0.7, vol, 'sine');
-        });
-      }
-
-      // Melodia jazz — frase ogni 2 battute, con ritardo swing
-      if (b === 0) {
-        var melScale = Math.random() > 0.5 ? JAZZ_NOTES[1] : JAZZ_NOTES[2];
-        var numNotes = 2 + Math.floor(Math.random() * 3);
-        for (var mn = 0; mn < numNotes; mn++) {
-          if (Math.random() > 0.35) {
-            var mIdx = Math.floor(Math.random() * melScale.length);
-            var mOffset = mn * (beat * 0.55);
-            var mDur = beat * (0.3 + Math.random() * 0.3);
-            playNote(melScale[mIdx], t + mOffset, mDur, 0.05 + Math.random()*0.03, 'sine');
-          }
-        }
-      }
-
-      // Hi-hat su tutti i beat
-      playHihat(t, 0.025 + (b % 2 === 0 ? 0.01 : 0));
-
-      // Avanza
-      beatCount++;
-      if (beatCount % 8 === 0) chordIndex++;
-      nextNoteTime += beat;
-    }
-    schedulerTimer = setTimeout(scheduleJazz, 50);
-  }
-
-  window.toggleSoundscape = function() {
-    var btn = document.getElementById('soundscape-btn');
-    if (!isPlaying) {
-      initCtx();
-      if (ctx.state === 'suspended') ctx.resume();
-      masterGain.gain.setValueAtTime(0, ctx.currentTime);
-      masterGain.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 2.5);
-      nextNoteTime = ctx.currentTime + 0.1;
-      beatCount = 0;
-      chordIndex = 0;
-      isPlaying = true;
-      scheduleJazz();
-      if (btn) { btn.textContent = '🔇'; btn.classList.add('playing'); }
-    } else {
-      clearTimeout(schedulerTimer);
-      masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5);
-      isPlaying = false;
-      if (btn) { btn.textContent = '🎵'; btn.classList.remove('playing'); }
-    }
-  };
-})();
 
 /* ════════════════════════════════════════
    PANNELLO LATERALE FUNZIONI SPECIALI
@@ -7560,6 +7519,152 @@ setTimeout(function() { (function() {
   }
 })();
 
+
+
+/* ════════════════════════════════════════
+   🎲 DADO DEL GIORNO
+════════════════════════════════════════ */
+(function() {
+
+  // Abbinamenti reali dal menu Al Bakaro
+  // [cicchetto, emoji, vino, perché]
+  const ABBINAMENTI = [
+    // ── Cicchetti della settimana ──
+    ['Crudo San Daniele',                   '🍖', 'Friulano — Castello di Spessa',      "Il Friulano è l'abbinamento identitario del Friuli: prosciutto e vino dello stesso territorio."],
+    ['Cotto e Kren',                        '🥩', 'Ribolla Gialla — Sturm',             'La sapidità del cotto e la pungenza del kren chiedono la freschezza minerale della Ribolla.'],
+    ['Mortadella, Burrata e Pistacchio',    '🧀', 'Prosecco — Astoria',                 'Le bollicine sgrassano la burrata e amplificano i pistacchi, esaltando la mortadella.'],
+    ['Lardo di Patanegra',                  '🥓', 'Malvasia — Sturm',                   'Il profumo aromatico della Malvasia bilancia la grassezza vellutata del lardo iberico.'],
+    ['Burrata, Melanzane e Pomodorini',     '🍅', 'Pinot Bianco — Toros',               'La freschezza e mineralità del Pinot Bianco pulisce il palato dopo la cremosità della burrata.'],
+    ['Crema al Dentice',                    '🐟', 'Vitovska — Bajta',                   'La mineralità calcarea della Vitovska del Carso si sposa con il pesce del Golfo di Trieste.'],
+    ['Salmone, Philadelphia e Guacamole',   '🥑', 'Sauvignon — Doro Princic',           "L'intensità erbacea del Sauvignon taglia il grasso del philadelphia e del salmone affumicato."],
+    // ── Cicchetti fissi ──
+    ['Speck e Brie',                        '🧀', 'Kerner — Strasserhoff',              'I profumi alpini del Kerner esaltano lo speck altoatesino, e la mineralità sgrasssa il brie.'],
+    ['Crema Carbonara e Guanciale Nostrano','🥚', 'Chardonnay — Toros',                 'La struttura fruttata dello Chardonnay del Collio bilancia la ricchezza della carbonara.'],
+    ['Crema Cacio e Pepe e Guanciale Nostrano','🌶️','Ribolla Gialla Spumantizzata — Tenuta Stella','Le bollicine e la mineralità della Ribolla sgrassano e rinfrescano il pepe e il guanciale.'],
+    ['Salame e Formaggio',                  '🧀', 'Collio — Terre del Faet',            'Il blend di autoctoni friulani con la sua sapidità accompagna perfettamente salumi e formaggi.'],
+    ['Formaggio e Miele',                   '🍯', 'Gewurztraminer — Bellutti',          'La dolcezza aromatica del Gewurztraminer esalta il miele e contrasta il carattere del formaggio.'],
+    ['Stracciatella, Melanzane e Pomodorini','🍆','Malvasia — Terre del Faet',          'La freschezza e mineralità della Malvasia del Collio esalta la dolcezza dei pomodorini estivi.'],
+    ['Gorgonzola, Noci e Miele',            '🫙', 'Zibibbo — Carusi',                  'Il dolce aromatico dello Zibibbo siciliano è il contrasto perfetto per il gorgonzola piccante.'],
+    ['Gorgonzola e Crema di Radicchio',     '🥗', 'Cabernet Franc — Castelvecchio',    'Il Cabernet Franc del Carso con le sue note speziate regge il carattere deciso del gorgonzola.'],
+    ['Gamberi in Savor',                    '🦐', 'Pinot Grigio — Castello di Spessa', "L'agrodolce del saor trova equilibrio nella pulizia fruttata del Pinot Grigio del Collio."],
+    ['Baccalà Mantecato',                   '🐟', 'Friulano — Villa Vasi',             'Il baccalà mantecato con la sua sapidità intensa chiede la nota ammandorlata e sapida del Friulano.'],
+    ['Salmone e Burro',                     '🧈', 'Monblanc — Castello di Buttrio',    'Il blend friulano fresco e armonico del Monblanc si abbina alla delicatezza del salmone e burro.'],
+    // ── Cicchetti caldi ──
+    ['Pinsa Crudo, Rucola e Stracciatella', '🍕', 'Amadeus — Castello di Spessa',      'Lo spumante del Collio con la sua mineralità fresca è il compagno ideale della pinsa croccante.'],
+    ['Pinsa Mortadella, Burrata e Pistacchio','🍕','Ferrari Maximum',                   'La complessità del Ferrari Trentodoc regge la ricchezza della mortadella e della burrata.'],
+    ['Pinsa Stracciatella e Acciughe del Cantabrico','🐟','Ribolla Gialla — Sturm',    'La salinità delle acciughe del Cantabrico chiama la freschezza sapida e minerale della Ribolla.'],
+    ['Pinsa Veggie',                        '🌿', 'Malvasia — Ronco dei Tassi',        "La Malvasia del Collio, vino dell'anno Food&Travel, esalta le verdure con la sua sapidità floreale."],
+    ['Polpette di Carne',                   '🍖', 'Sassirossi — Masut da Rive',        "Il blend Merlot-Cabernet dell'Isonzo con tannini morbidi è perfetto con la rotondità delle polpette."],
+    ['Polpette di Tonno e Olive',           '🐟', 'Vitovska — Bajta',                  'La mineralità del Carso e il pesce del Golfo: abbinamento territoriale autentico.'],
+    ['Sarde Panate',                        '🐟', 'Pinot Grigio Ramato — Villa Vasi',  'Il Ramato con la sua struttura e colore rame è abbastanza robusto da tenere testa alle sarde.'],
+    ['Mozzarella in Carrozza con Acciughe', '🧀', 'Rosé — Oltrenero',                 'Il rosé spumante lombardo con la sua eleganza bilancia la mozzarella fritta e il sale delle acciughe.'],
+  ];
+
+  let currentIdx = -1;
+
+  window.openDado = function() {
+    try {
+      rollDado();
+      var overlay = document.getElementById('dado-overlay');
+      if (!overlay) { alert('dado-overlay non trovato'); return; }
+      overlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    } catch(e) {
+      alert('Errore dado: ' + e.message);
+    }
+  };
+
+  window.rollDado = function() {
+    try {
+      var btn = document.getElementById('dado-btn');
+      if (btn) { btn.classList.add('rolling'); setTimeout(function(){ btn.classList.remove('rolling'); }, 500); }
+
+      var idx;
+      do { idx = Math.floor(Math.random() * ABBINAMENTI.length); } while (idx === currentIdx);
+      currentIdx = idx;
+
+      var row = ABBINAMENTI[idx];
+      var cicchetto = row[0], emoji = row[1], vino = row[2], perche = row[3];
+      document.getElementById('dado-emoji').textContent      = emoji;
+      document.getElementById('dado-cicchetto').textContent  = cicchetto;
+      document.getElementById('dado-vino').textContent       = vino;
+      document.getElementById('dado-perche').textContent     = perche;
+    } catch(e) {
+      alert('Errore rollDado: ' + e.message);
+    }
+  };
+
+    window.closeDado = function(e) {
+    if (e && e.target !== document.getElementById('dado-overlay')) return;
+    closeDadoBtn();
+  };
+
+  window.closeDadoBtn = function() {
+    document.getElementById('dado-overlay').classList.remove('show');
+    document.body.style.overflow = '';
+  };
+
+})();
+
+
+/* ════════════════════════════════════════
+   🌡️ TERMOMETRO / VINO DEL METEO
+════════════════════════════════════════ */
+(function() {
+
+  function getTempProfile(celsius) {
+    // Abbinamento temperatura → tipo di vino ideale
+    if (celsius <= 5)  return { icon:'🥶', label:'Freddo glaciale', vino:'Ferrari Perlè',              tipo:'Bollicine calde' };
+    if (celsius <= 10) return { icon:'❄️',  label:'Freddo pungente', vino:'Kerner — Strasserhoff',     tipo:'Bianco alpino' };
+    if (celsius <= 15) return { icon:'🌬️', label:'Fresco',          vino:'Ribolla Gialla — Sturm',    tipo:'Bianco fresco' };
+    if (celsius <= 20) return { icon:'🌤️', label:'Mite',            vino:'Pinot Bianco — Toros',      tipo:'Bianco elegante' };
+    if (celsius <= 24) return { icon:'☀️',  label:'Tiepido',         vino:'Prosecco — Astoria',        tipo:'Bollicine' };
+    if (celsius <= 28) return { icon:'🌞', label:'Caldo',           vino:'Rosé — Oltrenero',          tipo:'Rosé fresco' };
+    if (celsius <= 32) return { icon:'🔥', label:'Molto caldo',     vino:'Vitovska — Bajta',          tipo:'Bianco minerale' };
+    return                     { icon:'🥵', label:'Afa!',            vino:'Franciacorta Dosage Zero', tipo:'Bollicine ghiacciate' };
+  }
+
+  function showMeteo(celsius) {
+    const strip   = document.getElementById('meteo-strip');
+    const tempEl  = document.getElementById('meteo-temp');
+    const labelEl = document.getElementById('meteo-label');
+    const vinoEl  = document.getElementById('meteo-vino');
+    const p       = getTempProfile(celsius);
+
+    tempEl.textContent  = p.icon + ' ' + Math.round(celsius) + '°C';
+    labelEl.textContent = p.label + ' → ';
+    vinoEl.textContent  = p.vino;
+    strip.classList.add('visible');
+
+    // Click apre la scheda sommelier del vino consigliato
+    strip.onclick = () => openSommelier(p.vino);
+  }
+
+  // Richiedi geolocalizzazione e poi OpenMeteo (no API key)
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(pos => {
+      const { latitude: lat, longitude: lon } = pos.coords;
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+        .then(r => r.json())
+        .then(d => {
+          if (d.current_weather) showMeteo(d.current_weather.temperature);
+        })
+        .catch(() => {});
+    }, () => {}, { timeout: 8000 });
+  }
+
+})();
+
+
+
+
 </script>
+
+
+
+
+
+<!-- ═══════════════════ METEO STRIP ═══════════════════ -->
+
 </body>
 </html>
