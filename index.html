@@ -262,28 +262,88 @@ window.addEventListener('unhandledrejection', function(e) {
 
     .category-nav::-webkit-scrollbar { display: none; }
 
-    .cat-btn {
+        .cat-btn {
       flex-shrink: 0;
-      background: rgba(92,51,23,0.08);
-      border: 1.5px solid rgba(92,51,23,0.2);
-      color: var(--walnut);
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-bottom-color: rgba(255, 255, 255, 0.05);
+      color: var(--parchment);
       font-family: 'Lora', serif;
       font-style: italic;
       font-size: 0.85rem;
       padding: 0.45rem 1.1rem;
       border-radius: 30px;
       cursor: pointer;
-      transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
       white-space: nowrap;
+      position: relative;
+      box-shadow:
+        0 4px 16px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.16),
+        inset 0 -1px 0 rgba(0,0,0,0.08);
+      transition: background 0.22s ease, box-shadow 0.22s ease,
+                  border-color 0.22s ease, color 0.22s ease;
     }
-
-    .cat-btn:hover { background: rgba(92,51,23,0.15); border-color: var(--walnut); }
+    .cat-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      border-radius: 30px 30px 0 0;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.18) 0%,
+        rgba(255,255,255,0.03) 100%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
     .cat-btn.active {
-      background: var(--walnut);
-      border-color: var(--walnut);
+      background: rgba(193,127,60,0.55);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-color: rgba(245,215,142,0.5);
+      border-bottom-color: rgba(193,127,60,0.2);
       color: var(--parchment);
       font-style: normal;
+      font-weight: 600;
+      box-shadow:
+        0 6px 24px rgba(193,127,60,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.3),
+        inset 0 -1px 0 rgba(0,0,0,0.15);
     }
+    .cat-btn.active::before {
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.28) 0%,
+        rgba(255,255,255,0.04) 100%
+      );
+    }
+    .cat-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255,255,255,0.25);
+      box-shadow:
+        0 6px 22px rgba(0,0,0,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        inset 0 -1px 0 rgba(0,0,0,0.1);
+    }
+    body.night .cat-btn {
+      background: rgba(0,0,0,0.2);
+      border-color: rgba(255,255,255,0.1);
+      border-bottom-color: rgba(255,255,255,0.03);
+      color: var(--stone);
+    }
+    body.night .cat-btn:hover {
+      background: rgba(0,0,0,0.32);
+      color: var(--parchment);
+    }
+    body.night .cat-btn.active {
+      background: rgba(193,127,60,0.4);
+      border-color: rgba(245,215,142,0.35);
+      color: var(--parchment);
+    }
+
+
+    
 
     /* ── MAIN CONTENT ── */
     main {
@@ -300,7 +360,7 @@ window.addEventListener('unhandledrejection', function(e) {
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(32px); }
+      from { opacity: 0; transform: translateY(52px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -2909,7 +2969,7 @@ window.addEventListener('unhandledrejection', function(e) {
       position: relative;
       overflow: hidden;
       opacity: 0;
-      transform: translateY(32px);
+      transform: translateY(52px);
       transform-style: preserve-3d;
       perspective: 800px;
     }
@@ -2925,8 +2985,8 @@ window.addEventListener('unhandledrejection', function(e) {
 
     /* ── L2: Visibile (dopo animazione) ── */
     .menu-item.visible {
-      animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-      animation-delay: calc(var(--i, 0) * 0.045s);
+      animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: calc(var(--i, 0) * 0.07s);
       transition: transform 0.18s ease, box-shadow 0.18s ease,
                   border-color 0.18s ease, background 0.3s ease;
     }
@@ -3255,6 +3315,59 @@ window.addEventListener('unhandledrejection', function(e) {
     body.night #special-menu-btn:hover,
     body.night #scrollTop:hover {
       background: rgba(0, 0, 0, 0.28);
+    }
+
+  
+    /* ════════════════════════════════════════
+       ❤️ PREFERITI
+    ════════════════════════════════════════ */
+    .fav-btn {
+      background: none;
+      border: none;
+      padding: 0.2rem 0.3rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: -0.1rem;
+      opacity: 0.45;
+    }
+    .fav-btn.active {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+    .fav-btn:active { transform: scale(0.85); }
+
+    @keyframes favPop {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.4); }
+      70%  { transform: scale(0.9); }
+      100% { transform: scale(1.15); }
+    }
+    .fav-btn.popping { animation: favPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+    /* Badge preferiti nella nav */
+
+    /* Sezione preferiti vuota */
+    .favs-empty {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--stone);
+      font-family: 'Lora', serif;
+      font-style: italic;
+    }
+    .favs-empty-icon { font-size: 2.5rem; display: block; margin-bottom: 0.8rem; }
+
+  
+    /* ── Layout card con fav btn ── */
+    .item-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      flex-shrink: 0;
     }
 
   </style>
@@ -3885,6 +3998,10 @@ const i18n = {
     orderWhatsApp: "📲 Invia al banco",
     orderItemsSingular: "1 prodotto selezionato",
     orderItemsPlural: "prodotti selezionati",
+  
+    favCat: "❤️ Preferiti",
+    favEmpty: "Nessun preferito ancora",
+    favEmptySub: "Tocca ❤️ su un prodotto per salvarlo qui",
   },
   en: {
     claim: "The first cicchetteria in Gorizia",
@@ -3995,6 +4112,10 @@ const i18n = {
     orderWhatsApp: "📲 Send to bar",
     orderItemsSingular: "1 item selected",
     orderItemsPlural: "items selected",
+  
+    favCat: "❤️ Favourites",
+    favEmpty: "No favourites yet",
+    favEmptySub: "Tap ❤️ on any item to save it here",
   },
   de: {
     claim: "Die erste Cicchetteria in Görz",
@@ -4105,6 +4226,10 @@ const i18n = {
     orderWhatsApp: "📲 An Theke senden",
     orderItemsSingular: "1 Produkt ausgewählt",
     orderItemsPlural: "Produkte ausgewählt",
+  
+    favCat: "❤️ Favoriten",
+    favEmpty: "Noch keine Favoriten",
+    favEmptySub: "Tippe ❤️ auf ein Produkt, um es zu speichern",
   },
 
   sl: {
@@ -4216,6 +4341,10 @@ const i18n = {
     orderWhatsApp: "📲 Pošlji na točilnico",
     orderItemsSingular: "1 artikel izbran",
     orderItemsPlural: "artiklov izbranih",
+  
+    favCat: "❤️ Priljubljeni",
+    favEmpty: "Še ni priljubljenih",
+    favEmptySub: "Dotaknite se ❤️ na izdelku, da ga shranite sem",
   },
 };
 
@@ -4847,6 +4976,9 @@ function buildCatNav() {
       `<div class="swipe-dot ${currentCat === id ? 'active' : ''}"></div>`
     ).join('');
   }
+
+  // Reinserisci il bottone preferiti (buildCatNav svuota la nav)
+  if (typeof window._favsEnsureBtn === 'function') window._favsEnsureBtn();
 }
 
 function removeBgWhite(img) {
@@ -4972,7 +5104,10 @@ function buildItemCard(item, catId) {
       ${abbinaBtn}
       ${orderWrapHtml}
     </div>
-    <div class="item-price${parseFloat(item.price) >= 50 ? ' premium' : ''}"><span class="price-display">${item.price === '—' ? '' : item.price === 'GIN' ? '🫙' : '<span class=\"price-symbol\">€</span><span class=\"price-number\">' + item.price + '</span>'}</span></div>
+    <div class="item-right">
+      <div class="item-price${parseFloat(item.price) >= 50 ? ' premium' : ''}"><span class="price-display">${item.price === '—' ? '' : item.price === 'GIN' ? '🫙' : '<span class=\"price-symbol\">€</span><span class=\"price-number\">' + item.price + '</span>'}</span></div>
+      <button class="fav-btn" data-name="${item.name['it']}" data-cat="${catId}" aria-label="Aggiungi ai preferiti">❤️</button>
+    </div>
   `;
 
   // Sommelier btn
@@ -7694,6 +7829,242 @@ function sendOrderWhatsApp() {
   // (oppure sostituire con wa.me/39XXXXXXXXXX per numero fisso del locale)
   window.open('https://wa.me/?text=' + text, '_blank');
 }
+
+
+
+
+/* ════════════════════════════════════════
+   ❤️ SISTEMA PREFERITI
+════════════════════════════════════════ */
+(function() {
+
+  // ── Storage ──────────────────────────────────────────────────────────────
+  var STORAGE_KEY = 'bakaro_favs_v1';
+
+  function loadFavs() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch(e) { return []; }
+  }
+
+  function saveFavs(favs) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(favs)); }
+    catch(e) {}
+  }
+
+  function makeFavKey(name, cat) { return cat ? name + '::' + cat : name; }
+  function isFav(name, cat) { return loadFavs().indexOf(makeFavKey(name, cat)) !== -1; }
+
+  function toggleFav(name, cat) {
+    var key  = makeFavKey(name, cat);
+    var favs = loadFavs();
+    var idx  = favs.indexOf(key);
+    if (idx === -1) { favs.push(key); }
+    else            { favs.splice(idx, 1); }
+    saveFavs(favs);
+    return idx === -1;
+  }
+
+  // ── Render bottoni ❤️ sulle card ─────────────────────────────────────────
+  function updateFavBtn(btn) {
+    var name   = btn.dataset.name;
+    var cat    = btn.dataset.cat || '';
+    var active = isFav(name, cat);
+    btn.classList.toggle('active', active);
+    btn.textContent = active ? '❤️' : '🤍';
+    btn.setAttribute('aria-label', active ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti');
+  }
+
+  function updateAllFavBtns() {
+    document.querySelectorAll('.fav-btn').forEach(updateFavBtn);
+    updateFavCatBtn();
+  }
+
+  // ── Bottone nella nav (ricreato dopo ogni buildCatNav) ───────────────────
+  function ensureFavBtn() {
+    var nav = document.getElementById('catNav');
+    if (!nav) return;
+    // Rimuovi il precedente (buildCatNav svuota la nav ad ogni render)
+    var old = nav.querySelector('.cat-btn-favs');
+    if (old) old.remove();
+
+    var btn = document.createElement('button');
+    btn.className = 'cat-btn cat-btn-favs' + (typeof currentCat !== 'undefined' && currentCat === 'preferiti' ? ' active' : '');
+    btn.onclick = function() { setCategory('preferiti', 0); };
+    updateFavBtnLabel(btn);
+    nav.insertBefore(btn, nav.firstChild);
+  }
+
+  function updateFavBtnLabel(btn) {
+    var count = loadFavs().length;
+    var label = t('favCat');
+    btn.innerHTML = label + (count > 0
+      ? ' <span class="cat-fav-count" style="background:rgba(220,60,60,0.85);color:#fff;font-size:0.6rem;font-style:normal;font-weight:700;border-radius:10px;padding:0 5px;margin-left:2px;vertical-align:middle;line-height:1.6;display:inline-block;">' + count + '</span>'
+      : '');
+  }
+
+  function updateFavCatBtn() {
+    var btn = document.querySelector('.cat-btn-favs');
+    if (!btn) return;
+    btn.classList.toggle('active', typeof currentCat !== 'undefined' && currentCat === 'preferiti');
+    updateFavBtnLabel(btn);
+  }
+
+  // ── Click sui fav-btn ────────────────────────────────────────────────────
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.fav-btn');
+    if (!btn) return;
+    e.stopPropagation();
+
+    var name  = btn.dataset.name;
+    var cat   = btn.dataset.cat || '';
+    var added = toggleFav(name, cat);
+
+    btn.classList.remove('popping');
+    void btn.offsetWidth;
+    btn.classList.add('popping');
+    btn.addEventListener('animationend', function() { btn.classList.remove('popping'); }, { once: true });
+
+    if (navigator.vibrate) navigator.vibrate(added ? [20, 10, 20] : 15);
+
+    updateAllFavBtns();
+
+    // Se siamo nella sezione preferiti e rimuoviamo, aggiorna la vista
+    if (!added && typeof currentCat !== 'undefined' && currentCat === 'preferiti') {
+      setTimeout(function() {
+        var main = document.getElementById('menuMain');
+        if (main) renderFavsSection(main);
+      }, 300);
+    }
+  });
+
+  // ── Override render per intercettare la categoria preferiti ──────────────
+  var _origRenderContent = window._renderContent;
+  window._renderContent = function(main) {
+    if (typeof currentCat !== 'undefined' && currentCat === 'preferiti') {
+      renderFavsSection(main);
+    } else {
+      _origRenderContent(main);
+    }
+    setTimeout(function() {
+      updateAllFavBtns();
+      ensureFavBtn();
+    }, 80);
+  };
+
+  // ── Sezione preferiti ────────────────────────────────────────────────────
+  function renderFavsSection(main) {
+    main.innerHTML = '';
+    var favs = loadFavs();
+
+    if (favs.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'favs-empty';
+      empty.innerHTML =
+        '<span class="favs-empty-icon">🤍</span>' +
+        '<strong>' + t('favEmpty') + '</strong><br>' +
+        '<span>' + t('favEmptySub') + '</span>';
+      main.appendChild(empty);
+      return;
+    }
+
+    // Raccoglie gli item dal MENU decodificando chiave "nome::cat"
+    var favItems = [];
+    favs.forEach(function(key) {
+      var parts   = key.split('::');
+      var favName = parts[0];
+      var favCat  = parts[1] || null;
+      MENU.forEach(function(section) {
+        if (favCat && section.id !== favCat) return;
+        (section.items || []).forEach(function(item) {
+          if (item.name['it'] === favName) {
+            favItems.push({ item: item, catId: section.id, key: key });
+          }
+        });
+      });
+    });
+    // Deduplicazione per chiave
+    var seen = {};
+    favItems = favItems.filter(function(obj) {
+      if (seen[obj.key]) return false;
+      seen[obj.key] = true;
+      return true;
+    });
+
+    if (favItems.length === 0) {
+      var sec = document.createElement('div');
+      sec.className = 'favs-empty';
+      sec.innerHTML = '<span class="favs-empty-icon">🤍</span><strong>' + t('favEmpty') + '</strong>';
+      main.appendChild(sec);
+      return;
+    }
+
+    var section = document.createElement('div');
+    section.className = 'menu-section visible';
+    section.setAttribute('data-id', 'preferiti');
+
+    var header = document.createElement('div');
+    header.className = 'section-header';
+    header.innerHTML = '<h2 class="section-title">' + t('favCat') + '</h2>';
+    section.appendChild(header);
+
+    var grid = document.createElement('div');
+    grid.className = 'menu-grid';
+
+    favItems.forEach(function(obj, i) {
+      var card = buildItemCard(obj.item, obj.catId);
+      card.style.setProperty('--i', i);
+      grid.appendChild(card);
+    });
+
+    section.appendChild(grid);
+    main.appendChild(section);
+
+    // Inizializza bottoni ordine
+    section.querySelectorAll('.order-btn-wrap').forEach(function(wrap) {
+      renderOrderWrap(wrap, wrap.dataset.name, wrap.dataset.price);
+    });
+
+    // Animazione fadeUp
+    var items = section.querySelectorAll('.menu-item');
+    items.forEach(function(item) {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(32px)';
+    });
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        items.forEach(function(item, i) {
+          setTimeout(function() {
+            item.animate(
+              [{ opacity: 0, transform: 'translateY(52px)' },
+               { opacity: 1, transform: 'translateY(0)' }],
+              { duration: 750, easing: 'cubic-bezier(0.22,1,0.36,1)', fill: 'forwards' }
+            );
+            item.classList.add('visible');
+          }, i * 80);
+        });
+      });
+    });
+
+    updateAllFavBtns();
+  }
+
+  // ── Init ─────────────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      ensureFavBtn();
+      updateAllFavBtns();
+    }, 700);
+  });
+
+  document.addEventListener('langchange', function() {
+    updateAllFavBtns();
+    ensureFavBtn();
+  });
+
+  window._favsUpdateAll = updateAllFavBtns;
+  window._favsEnsureBtn = ensureFavBtn;
+
+})();
 
 
 </script>
