@@ -4171,6 +4171,153 @@
       40%  { filter: drop-shadow(0 0 22px rgba(193,127,60,0.7)) drop-shadow(0 0 8px rgba(245,215,142,0.5)); }
       100% { filter: drop-shadow(0 0 6px rgba(193,127,60,0.3)); }
     }
+
+    /* ════════════════════════════════════════
+       CHI SIAMO
+    ════════════════════════════════════════ */
+    #chisiamo-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(8,4,2,0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    #chisiamo-overlay.show { opacity: 1; pointer-events: all; }
+
+    #chisiamo-card {
+      background: rgba(250,243,228,0.96);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-bottom: none;
+      border-radius: 20px 20px 0 0;
+      width: 100%; max-width: 520px;
+      padding: 1.6rem 1.6rem calc(2rem + env(safe-area-inset-bottom, 0px));
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      max-height: 88vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 -8px 40px rgba(44,26,14,0.18);
+      position: relative;
+    }
+    #chisiamo-overlay.show #chisiamo-card { transform: translateY(0); }
+
+    .chisiamo-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(193,127,60,0.12);
+      border: 1px solid rgba(193,127,60,0.25);
+      border-radius: 50%; width: 2rem; height: 2rem;
+      color: var(--walnut); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+    }
+    .chisiamo-handle {
+      width: 36px; height: 4px;
+      background: rgba(193,127,60,0.3);
+      border-radius: 2px;
+      margin: 0 auto 1.4rem;
+    }
+    .chisiamo-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem; letter-spacing: 0.22em;
+      color: var(--amber); text-transform: uppercase;
+      text-align: center; margin-bottom: 0.6rem;
+    }
+    .chisiamo-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--walnut); text-align: center;
+      margin-bottom: 1.4rem;
+    }
+    .chisiamo-body p {
+      font-family: 'Lora', serif;
+      font-size: 0.88rem; line-height: 1.8;
+      color: var(--stone); margin-bottom: 1rem;
+    }
+    .chisiamo-body em { font-style: italic; color: var(--walnut); }
+    .chisiamo-firma {
+      text-align: right;
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1rem !important;
+      color: var(--walnut) !important;
+      margin-top: 1.4rem !important;
+    }
+
+    /* Bottone Chi siamo — vicino alla social bar */
+    .chisiamo-btn {
+      display: block;
+      margin: 0.8rem auto 0;
+      background: none;
+      border: 1px solid rgba(193,127,60,0.35);
+      border-radius: 20px;
+      padding: 0.4rem 1.2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem; letter-spacing: 0.15em;
+      color: var(--amber); cursor: pointer;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .chisiamo-btn:active { background: rgba(193,127,60,0.12); }
+
+    /* Night mode */
+    body.night #chisiamo-card {
+      background: rgba(28,16,6,0.95) !important;
+      border-color: rgba(255,255,255,0.08);
+    }
+    body.night .chisiamo-body p { color: var(--stone); }
+    body.night .chisiamo-title  { color: var(--parchment); }
+    body.night .chisiamo-firma  { color: var(--honey) !important; }
+    body.night .chisiamo-btn    { border-color: rgba(193,127,60,0.25); }
+
+    /* ════════════════════════════════════════
+       ANIMAZIONE CALICE CHE SI RIEMPIE
+    ════════════════════════════════════════ */
+    #calice-overlay {
+      position: fixed; inset: 0; z-index: 99999;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(8,4,2,0);
+      pointer-events: none;
+      transition: background 0.25s ease;
+    }
+    #calice-overlay.active {
+      background: rgba(8,4,2,0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    #calice-svg {
+      width: 140px; height: 190px;
+      opacity: 0;
+      transform: scale(0.7) translateY(20px);
+      transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      filter: drop-shadow(0 8px 32px rgba(180,30,30,0.35));
+    }
+    #calice-overlay.active #calice-svg {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    #calice-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem; letter-spacing: 0.2em;
+      color: rgba(245,215,142,0.9);
+      text-transform: uppercase;
+      margin-top: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease 0.2s;
+    }
+    #calice-overlay.active #calice-label { opacity: 1; }
+
+    @keyframes waveMove {
+      0%   { d: path("M0 160 Q30 150 60 155 Q90 160 120 155 L120 160 Z"); }
+      50%  { d: path("M0 155 Q30 162 60 157 Q90 152 120 158 L120 160 Z"); }
+      100% { d: path("M0 160 Q30 150 60 155 Q90 160 120 155 L120 160 Z"); }
+    }
+    #calice-wave.animating {
+      animation: waveMove 0.8s ease-in-out infinite;
+    }
 </style>
 </head>
 <body>
@@ -4283,6 +4430,62 @@
     <!-- Errore -->
     <div class="som-ia-error" id="som-ia-error" data-t="somIaError">
       Il Sommelier è momentaneamente impegnato. Riprova tra poco.
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ═══════════════════ ANIMAZIONE CALICE ═══════════════════ -->
+<div id="calice-overlay" aria-hidden="true">
+  <svg id="calice-svg" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Clip path a forma di calice per il vino -->
+      <clipPath id="calice-clip">
+        <path d="M18 10 Q14 38 18 58 Q24 80 60 92 Q96 80 102 58 Q106 38 102 10 Z"/>
+      </clipPath>
+    </defs>
+
+    <!-- Vino che sale (clippato dentro il calice) -->
+    <g clip-path="url(#calice-clip)">
+      <!-- Onda liquida -->
+      <path id="calice-wave" d="M0 160 Q30 150 60 155 Q90 160 120 155 L120 160 Z" fill="rgba(180,30,30,0.85)"/>
+      <!-- Corpo liquido sotto l'onda -->
+      <rect id="calice-fill" x="0" y="160" width="120" height="160" fill="rgba(160,20,20,0.85)"/>
+    </g>
+
+    <!-- Bordo calice sopra il vino -->
+    <!-- Coppa -->
+    <path d="M18 10 Q14 38 18 58 Q24 80 60 92 Q96 80 102 58 Q106 38 102 10 Z"
+          fill="none" stroke="rgba(245,215,142,0.9)" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Bordo superiore -->
+    <line x1="14" y1="10" x2="106" y2="10" stroke="rgba(245,215,142,0.9)" stroke-width="3" stroke-linecap="round"/>
+    <!-- Stelo -->
+    <line x1="60" y1="92" x2="60" y2="138" stroke="rgba(245,215,142,0.9)" stroke-width="3" stroke-linecap="round"/>
+    <!-- Base -->
+    <line x1="32" y1="138" x2="88" y2="138" stroke="rgba(245,215,142,0.9)" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- Riflesso sul calice -->
+    <path d="M28 18 Q26 40 30 58" stroke="rgba(255,255,255,0.25)" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </svg>
+  <div id="calice-label"></div>
+</div>
+
+<!-- ═══════════════════ CHI SIAMO ═══════════════════ -->
+<div id="chisiamo-overlay" onclick="if(event.target===this)closeChiSiamo()">
+  <div id="chisiamo-card">
+    <button class="chisiamo-close" onclick="closeChiSiamo()" aria-label="Chiudi">✕</button>
+    <div class="chisiamo-handle"></div>
+    <div class="chisiamo-tag">✦ Al Bakaro · Gorizia</div>
+    <div class="chisiamo-title">Ciao, sono Martina.</div>
+    <div class="chisiamo-body">
+      <p>Al Bakaro l'ho aperto perché Gorizia aveva bisogno di un posto così. Un posto dove fermarsi davvero — non solo bere qualcosa in fretta, ma sedersi, respirare, guardare la piazza e scegliere un calice con calma.</p>
+      <p>Piazza della Vittoria è una delle più belle d'Italia, e per anni ci sono passata davanti pensando: <em>qui manca qualcosa di intimo, di vero.</em> Così ho deciso di farlo io.</p>
+      <p>Ho chiamato il locale Al Bakaro perché in dialetto veneziano "bacaro" è la bottega del vino, il posto dove ci si ritrovava per un'ombra e due chiacchiere. Quella tradizione — semplice, generosa, senza fronzoli — è quello che ho cercato di portare qui, in questo angolo di Friuli al confine con la Slovenia.</p>
+      <p>La carta dei vini l'ho costruita assaggio dopo assaggio. Ho visitato le cantine, ho parlato con i produttori, ho scelto solo quello che mi convinceva davvero. Troverai tanti vini del Collio e del Carso — il nostro territorio — ma anche qualche voce da fuori, perché il vino è anche curiosità e scoperta.</p>
+      <p>I cicchetti li cambio ogni settimana seguendo quello che trovo di buono al mercato. Non ho un menù fisso perché seguo la stagione, l'umore e quello che mi entusiasma in quel momento. Così ogni settimana c'è sempre qualcosa di nuovo da scoprire.</p>
+      <p>Se hai una domanda su un vino, chiedimi. Se non sai cosa scegliere, dimmi cosa ti piace e ci penso io. Sono sempre qui.</p>
+      <p class="chisiamo-firma">— <em>Martina</em></p>
     </div>
   </div>
 </div>
@@ -4585,6 +4788,7 @@
       Instagram
     </a>
   </div>
+  <button class="chisiamo-btn" onclick="openChiSiamo()">✦ Chi siamo</button>
 </header>
 
 <!-- ═══════════════════ STICKY CONTROLS ═══════════════════ -->
@@ -6034,7 +6238,7 @@ function buildItemCard(item, catId) {
     : '';
 
   // Wrapper ordine (senza innerHTML con dati variabili — lo costruiamo dopo)
-  const orderWrapHtml = `<div class="order-btn-wrap" data-name="${item.name['it']}" data-price="${item.price}"></div>`;
+  const orderWrapHtml = `<div class="order-btn-wrap" data-name="${item.name['it']}" data-price="${item.price}" data-cat="${catId}"></div>`;
 
   const territoryBadge = getTerritoryBadge(item.name['it']);
 
@@ -6352,7 +6556,8 @@ function renderOrderWrap(wrap, itemName, itemPrice) {
   } else {
     wrap.innerHTML = '<button class="order-btn">🍷 Aggiungi</button>';
     wrap.querySelector('.order-btn').addEventListener('click', function() {
-      toggleOrder(itemName, itemPrice, itemName, this);
+      var cat = wrap.dataset.cat || '';
+      toggleOrder(itemName, itemPrice, cat, this);
     });
   }
 }
@@ -6366,6 +6571,7 @@ function toggleOrder(itemName, itemPrice, itemCat, btn) {
     vibrate([20, 60, 40]);
     playUncork();
     if (btn) flyGlassToFab(btn);
+    if (typeof showCaliceAnim === 'function') showCaliceAnim(itemCat, itemName);
   }
   updateOrderUI();
   updateGlassCounter();
@@ -9826,5 +10032,101 @@ function sendOrderWhatsApp() {
   }
 })();
 </script>
+
+<script>
+(function() {
+  window.openChiSiamo = function() {
+    document.getElementById('chisiamo-overlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    vibrate(15);
+  };
+  window.closeChiSiamo = function() {
+    document.getElementById('chisiamo-overlay').classList.remove('show');
+    document.body.style.overflow = '';
+  };
+})();
+</script>
+
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   ANIMAZIONE CALICE CHE SI RIEMPIE
+═══════════════════════════════════════════════════════════════ */
+(function() {
+  var WINE_CATS_ANIM = ['bollicine','bollicine-bottiglia','vini-bianchi',
+                        'vini-bianchi-bottiglia','vini-rossi','vini-rossi-bottiglia'];
+
+  // Colore vino per categoria
+  var WINE_COLORS = {
+    'bollicine':            'rgba(220,195,100,0.85)',
+    'bollicine-bottiglia':  'rgba(220,195,100,0.85)',
+    'vini-bianchi':         'rgba(210,185,80,0.85)',
+    'vini-bianchi-bottiglia':'rgba(210,185,80,0.85)',
+    'vini-rossi':           'rgba(160,20,20,0.85)',
+    'vini-rossi-bottiglia': 'rgba(160,20,20,0.85)'
+  };
+
+  var _timer = null;
+
+  window.showCaliceAnim = function(cat, wineName) {
+    if (WINE_CATS_ANIM.indexOf(cat) < 0) return;
+
+    var overlay = document.getElementById('calice-overlay');
+    var fill    = document.getElementById('calice-fill');
+    var wave    = document.getElementById('calice-wave');
+    var label   = document.getElementById('calice-label');
+    if (!overlay) return;
+
+    // Colore in base al tipo di vino
+    var color = WINE_COLORS[cat] || 'rgba(160,20,20,0.85)';
+    fill.setAttribute('fill', color);
+    wave.setAttribute('fill', color);
+
+    // Label con nome del vino (troncato)
+    var short = wineName ? wineName.split('—')[0].trim().split('–')[0].trim() : '';
+    if (short.length > 28) short = short.slice(0,26) + '…';
+    label.textContent = short || '✦';
+
+    // Reset posizione fill
+    fill.setAttribute('y', '160');
+    wave.classList.remove('animating');
+
+    // Mostra overlay
+    overlay.classList.add('active');
+    if (_timer) clearTimeout(_timer);
+
+    // Anima il vino che sale
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        wave.classList.add('animating');
+        // Anima il rettangolo che sale con JS (compatibile Safari)
+        var start = null;
+        var duration = 900; // ms
+        var fromY = 160;
+        var toY   = 48;    // fino a ~60% del calice
+
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          // Easing ease-out
+          var ease = 1 - Math.pow(1 - progress, 3);
+          var y = fromY + (toY - fromY) * ease;
+          fill.setAttribute('y', y.toFixed(1));
+          wave.setAttribute('transform', 'translate(0,' + (y - 160).toFixed(1) + ')');
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
+
+    // Nascondi dopo 1.6s
+    _timer = setTimeout(function() {
+      overlay.classList.remove('active');
+      wave.classList.remove('animating');
+    }, 1600);
+  };
+})();
+</script>
+
 </body>
 </html>
