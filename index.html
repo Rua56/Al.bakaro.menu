@@ -26,7 +26,8 @@ window.addEventListener('unhandledrejection', function(e) {
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Al Bakaro">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"/>
 
   <!-- ═══ TITOLO ═══ -->
   <title>Al Bakaro — vino &amp; tartine · Gorizia</title>
@@ -2968,10 +2969,9 @@ window.addEventListener('unhandledrejection', function(e) {
       gap: 1rem;
       position: relative;
       overflow: hidden;
-      opacity: 0;
-      transform: translateY(52px);
       transform-style: preserve-3d;
       perspective: 800px;
+      /* opacity e transform iniziali impostati da initAnimations via JS */
     }
     .menu-item::before {
       content: '';
@@ -2985,20 +2985,19 @@ window.addEventListener('unhandledrejection', function(e) {
 
     /* ── L2: Visibile (dopo animazione) ── */
     .menu-item.visible {
-      animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
-      animation-delay: calc(var(--i, 0) * 0.07s);
+      /* animazione gestita da Web Animations API in initAnimations() */
       transition: transform 0.18s ease, box-shadow 0.18s ease,
                   border-color 0.18s ease, background 0.3s ease;
     }
 
     /* ── L2: Hover ── */
-    .menu-item:hover,
+    .menu-item:active,
     .menu-item.tapped {
       transform: translateX(3px);
       box-shadow: 0 4px 18px rgba(44,26,14,0.10);
       border-color: rgba(193,127,60,0.35);
     }
-    .menu-item:hover::before,
+    .menu-item:active::before,
     .menu-item.tapped::before { opacity: 1; }
 
     /* ── L2: Tapped (glassmorphism) ── */
@@ -3037,10 +3036,10 @@ window.addEventListener('unhandledrejection', function(e) {
     }
 
     /* ── L2: Hover su immagini ── */
-    .menu-item:hover .bottle-img,
+    .menu-item:active .bottle-img,
     .menu-item.tapped .bottle-img { transform: scale(1.08) translateY(-3px); }
-    .menu-item:hover .cicchetto-img { transform: scale(1.04); }
-    .menu-item:hover .item-price::after,
+    .menu-item:active .cicchetto-img { transform: scale(1.04); }
+    .menu-item:active .item-price::after,
     .menu-item.tapped .item-price::after { height: 100%; }
 
     /* ── L2: Gin layout speciale ── */
@@ -3370,9 +3369,298 @@ window.addEventListener('unhandledrejection', function(e) {
       flex-shrink: 0;
     }
 
+  
+    /* ════════════════════════════════════════
+       ✨ LUXURY ENHANCEMENTS
+    ════════════════════════════════════════ */
+
+    /* ── 1. Cursore dorato personalizzato (desktop) ── */
+
+
+    /* ── 2. Skeleton loading ── */
+    @keyframes skeletonShimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(
+        90deg,
+        rgba(193,127,60,0.08) 25%,
+        rgba(245,215,142,0.18) 50%,
+        rgba(193,127,60,0.08) 75%
+      );
+      background-size: 400px 100%;
+      animation: skeletonShimmer 1.4s ease infinite;
+      border-radius: 4px;
+    }
+    .skeleton-card {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(193,127,60,0.1);
+      border-radius: 6px;
+      padding: 1rem 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+    .skeleton-title  { height: 16px; width: 60%; margin-bottom: 8px; }
+    .skeleton-desc   { height: 11px; width: 90%; margin-bottom: 5px; }
+    .skeleton-desc2  { height: 11px; width: 70%; margin-bottom: 12px; }
+    .skeleton-price  { height: 18px; width: 40px; margin-left: auto; }
+
+    /* ── 3. Drop cap nelle descrizioni di sezione ── */
+
+
+    /* ── 4. Micro-kerning sistemico ── */
+    .section-title  { letter-spacing: 0.04em; }
+    .item-name      { letter-spacing: 0.01em; }
+    .item-price     { letter-spacing: 0.06em; }
+    .lang-btn       { letter-spacing: 0.08em; }
+    h1, .header-claim { letter-spacing: 0.02em; }
+
+    /* ── 5. Riflesso speculare card vino/bollicine ── */
+    .menu-section[data-id="bollicine"]              .menu-item::after,
+    .menu-section[data-id="bollicine-bottiglia"]    .menu-item::after,
+    .menu-section[data-id="vini-bianchi"]           .menu-item::after,
+    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item::after,
+    .menu-section[data-id="vini-rossi"]             .menu-item::after,
+    .menu-section[data-id="vini-rossi-bottiglia"]   .menu-item::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255,255,255,0.6) 30%,
+        rgba(255,255,255,0.9) 50%,
+        rgba(255,255,255,0.6) 70%,
+        transparent 100%
+      );
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .menu-section[data-id="bollicine"]              .menu-item:hover::after,
+    .menu-section[data-id="bollicine-bottiglia"]    .menu-item:hover::after,
+    .menu-section[data-id="vini-bianchi"]           .menu-item:hover::after,
+    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item:hover::after,
+    .menu-section[data-id="vini-rossi"]             .menu-item:hover::after,
+    .menu-section[data-id="vini-rossi-bottiglia"]   .menu-item:hover::after {
+      opacity: 1;
+      height: 2px;
+    }
+
+    /* ── 6. Transizione categoria — velo ambrato ── */
+    #category-veil {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center,
+        rgba(193,127,60,0.15) 0%,
+        rgba(44,26,14,0.4) 100%
+      );
+      pointer-events: none;
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+    #category-veil.active { opacity: 1; }
+
+    /* ── 7. Parallax – le stelle scrollano più lento ── */
+    /* parallax rimosso — ottimizzazione mobile */
+
+    /* ── 8. Reveal titolo lettera per lettera ── */
+    @keyframes letterReveal {
+      from { opacity: 0; transform: translateY(8px); filter: blur(2px); }
+      to   { opacity: 1; transform: translateY(0);   filter: blur(0); }
+    }
+    .section-title.reveal-done .letter {
+      display: inline-block;
+      animation: letterReveal 0.4s cubic-bezier(0.22,1,0.36,1) both;
+      /* Il colore gradient viene già dal parent via -webkit-text-fill-color
+         Gli span inline ereditano il colore riempimento dal parent */
+      -webkit-text-fill-color: inherit;
+      color: inherit;
+    }
+
+    /* ── Night mode: riflessi più evidenti ── */
+    body.night .menu-section[data-id="bollicine"]              .menu-item::after,
+    body.night .menu-section[data-id="bollicine-bottiglia"]    .menu-item::after,
+    body.night .menu-section[data-id="vini-bianchi"]           .menu-item::after,
+    body.night .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item::after,
+    body.night .menu-section[data-id="vini-rossi"]             .menu-item::after,
+    body.night .menu-section[data-id="vini-rossi-bottiglia"]   .menu-item::after {
+      opacity: 0.8;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(245,215,142,0.5) 30%,
+        rgba(245,215,142,0.8) 50%,
+        rgba(245,215,142,0.5) 70%,
+        transparent 100%
+      );
+    }
+
+  
+    /* ════════════════════════════════════════
+       📱 OTTIMIZZAZIONI MOBILE
+    ════════════════════════════════════════ */
+
+    /* Touch targets minimi 44px (Apple HIG) */
+    .cat-btn          { min-height: 44px; padding: 0.5rem 1.1rem; }
+    .lang-btn         { min-height: 44px; min-width: 44px; }
+    .fav-btn          { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .order-btn-wrap button { min-height: 44px; }
+    .som-btn          { min-height: 40px; }
+    .special-menu-btn { width: 52px !important; height: 52px !important; }
+    #scrollTop        { width: 52px !important; height: 52px !important; }
+
+    /* Elimina tap highlight blu su iOS */
+    * { -webkit-tap-highlight-color: transparent; }
+
+    /* Testo non selezionabile su elementi UI */
+    .cat-btn, .lang-btn, .fav-btn, .order-btn-wrap,
+    .special-panel-item, .cat-nav { user-select: none; -webkit-user-select: none; }
+
+    /* Scroll inerziale nativo iOS */
+    #menuMain        { -webkit-overflow-scrolling: touch; }
+    #catNav          { -webkit-overflow-scrolling: touch; }
+
+    /* Previeni zoom involontario su input iOS */
+    input, select, textarea { font-size: 16px !important; }
+
+    /* Area di sicurezza iPhone (notch, home indicator) */
+    body {
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    #special-menu-btn, #scrollTop {
+      bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    }
+    #order-fab {
+      bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Font rendering ottimizzato per retina */
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Previeni overflow orizzontale */
+    html, body { max-width: 100vw; overflow-x: hidden; }
+
+    /* Card: padding più generoso per dita */
+    .menu-item { padding: 1.1rem 1.2rem; }
+
+    /* Modal bottom-sheet: arriva fino all'area sicura */
+    #sommelier-modal > div,
+    #order-card,
+    #dado-card,
+    #surprise-overlay > div,
+    #quiz-overlay > div {
+      padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Skeleton: ottimizzato per schermo piccolo */
+    .skeleton-card { margin-bottom: 0.5rem; }
+
+    /* Sezione preferiti vuota: testo leggibile su mobile */
+    .favs-empty { font-size: 0.95rem; padding: 2.5rem 1.2rem; }
+
+  
+    /* ════════════════════════════════════════
+       🔍 ZOOM BOTTIGLIA FULLSCREEN
+    ════════════════════════════════════════ */
+    .bottle-zoom-hint {
+      position: absolute;
+      bottom: 4px; right: 4px;
+      font-size: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+    }
+    .gin-img-wrap:hover .bottle-zoom-hint,
+    .gin-img-wrap:active .bottle-zoom-hint { opacity: 0.8; }
+    .gin-img-wrap {
+      position: relative;
+      cursor: zoom-in;
+    }
+
+    #bottle-zoom-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(255, 255, 255, 0.97);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      touch-action: pinch-zoom;
+    }
+    #bottle-zoom-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #bottle-zoom-name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--walnut);
+      text-align: center;
+      padding: 0 2rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.03em;
+    }
+    #bottle-zoom-img-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      overflow: hidden;
+      touch-action: pinch-zoom;
+    }
+    #bottle-zoom-img {
+      max-width: 72vw;
+      max-height: 68vh;
+      object-fit: contain;
+      border-radius: 4px;
+      transform-origin: center center;
+      touch-action: pinch-zoom;
+      user-select: none;
+      -webkit-user-drag: none;
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.12));
+      transition: transform 0.15s ease;
+    }
+    #bottle-zoom-close {
+      position: absolute;
+      top: env(safe-area-inset-top, 16px);
+      right: 1.2rem;
+      background: rgba(44,26,14,0.08);
+      border: 1px solid rgba(44,26,14,0.15);
+      border-radius: 50%;
+      width: 2.5rem; height: 2.5rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      color: var(--walnut);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    #bottle-zoom-hint-text {
+      font-family: 'Lora', serif;
+      font-size: 0.72rem;
+      font-style: italic;
+      color: rgba(92,51,23,0.4);
+      margin-top: 1rem;
+      letter-spacing: 0.04em;
+    }
+
   </style>
 </head>
 <body>
+<!-- Velo transizione categoria -->
+<div id="category-veil"></div>
 
 <!-- ═══════════════════ CORIANDOLI ═══════════════════ -->
 <canvas id="confetti-canvas"></canvas>
@@ -3908,22 +4196,22 @@ const i18n = {
     tag_new: "Novità",
     empty: "Nessun prodotto trovato.",
     glutenNote: "Cicchetti senza glutine a 1€ in più (minimo 2)",
-    desc_bollicine_bott: "Dal Prosecco al Trentodoc Ferrari, dalla Franciacorta Ca' del Bosco allo Champagne Perrier-Jouët — bollicine per ogni grande occasione.",
-    desc_vini_bianchi_bott: "31 etichette selezionate: dagli autoctoni friulani ai vini naturali, dagli orange wine di Primosic ai grandi bianchi di Movia e Radikon.",
-    desc_bollicine: "Le migliori bollicine del territorio, servite al calice per esaltarne i profumi e la freschezza.",
-    desc_vini_bianchi: "Una selezione di vini bianchi dal Friuli Venezia Giulia e dintorni — etichette scelte per carattere, territorio e artigianalità.",
-    desc_vini_rossi_bott: "8 etichette rosse in bottiglia: dal Carso carsico alla Toscana di Antinori, passando per Isonzo, Alto Adige e Puglia.",
-    desc_vini_rossi: "Rossi di personalità, dal Carso alla Puglia, selezionati per accompagnare ogni momento della serata.",
-    desc_aperitivi: "L'aperitivo è un rito. Da noi lo celebriamo con Prosecco, spiriti selezionati e tanta voglia di stare insieme.",
-    desc_birre: "Dalle lager classiche alle birre artigianali Antikorpo — per chi ama il luppolo in tutte le sue forme.",
-    desc_cocktails: "Classici della miscelazione reinterpretati con cura. Ogni drink è un piccolo viaggio.",
-    desc_gin: "Una collezione di gin da tutto il mondo — dai London Dry ai botanici più esotici. Scegli il tuo e noi creiamo la magia.",
-    desc_cicchetti_sett: "Le tartine che trovi in vetrina oggi. Cambiano ogni settimana seguendo stagionalità, ispirazione e creatività.",
-    desc_cicchetti_caldi: "Cicchetti preparati al momento e serviti caldi — il cuore caldo del nostro bancone.",
-    desc_cicchetti_fissi: "I nostri cicchetti sempre presenti — un viaggio tra salumi, formaggi e specialità di mare che racconta il territorio.",
-    desc_bibite: "Per chi preferisce dissetarsi senza alcol — dalle acque alle bibite premium Fever-Tree.",
-    desc_amari: "Amari del territorio, grappe Nonino e digestivi per chiudere in bellezza — dalla Friuli alla Calabria, dai Balcani alla Valtellina",
-    desc_analcolici: "Tutto il gusto dell'aperitivo, senza alcol. Perché il piacere di stare insieme non ha bisogno di compromessi.",
+    desc_bollicine_bott: "Dal Prosecco al Trentodoc Ferrari, dalla Franciacorta allo Champagne. Per chi vuole rendere speciale la serata — basta chiedere.",
+    desc_vini_bianchi_bott: "31 etichette selezionate: dagli autoctoni friulani ai vini naturali, dagli orange wine ai grandi bianchi di Movia e Radikon. Se hai un dubbio, parliamone.",
+    desc_bollicine: "Le migliori bollicine del territorio, servite al calice per esaltarne i profumi e la freschezza. Chiedici quale stappa meglio il tuo momento.",
+    desc_vini_bianchi: "Una selezione di vini bianchi dal Friuli Venezia Giulia e dintorni — etichette scelte con cura. Se sei indeciso, siamo qui per guidarti.",
+    desc_vini_rossi_bott: "8 etichette rosse in bottiglia: dal Carso alla Toscana di Antinori, passando per Isonzo, Alto Adige e Puglia. Ogni bottiglia ha una storia — chiedila.",
+    desc_vini_rossi: "Rossi di personalità, dal Carso alla Puglia, selezionati per accompagnare ogni momento. Dicci cosa stai mangiando — troveremo il compagno giusto.",
+    desc_aperitivi: "L'aperitivo è un rito. Da noi lo celebriamo con Prosecco, spiriti selezionati e miscelazione artigianale. Siediti, rilassati — il resto lo facciamo noi.",
+    desc_birre: "Dalle lager classiche alle birre artigianali Antikorpo — per chi ama il luppolo con un po' di carattere. Fredde e servite come si deve.",
+    desc_cocktails: "Classici della miscelazione reinterpretati con cura. Ogni drink è un piccolo viaggio. Se hai un'idea in testa, prova a descrivercela.",
+    desc_gin: "Una collezione di gin da tutto il mondo — dai London Dry ai botanici più esotici. Non sai da dove iniziare? Dicci cosa ti piace e costruiamo insieme il tuo G&T.",
+    desc_cicchetti_sett: "Le tartine che trovi in vetrina oggi. Cambiano ogni settimana seguendo stagionalità e ispirazione. Se vuoi sapere cosa c'è di fresco, chiedi — te lo diciamo volentieri.",
+    desc_cicchetti_caldi: "Cicchetti preparati al momento e serviti caldi — il cuore caldo del nostro bancone. Aspetta qualche minuto: ne vale sempre la pena.",
+    desc_cicchetti_fissi: "I nostri cicchetti sempre presenti — un viaggio tra salumi, formaggi e specialità che tornano ogni giorno perché piacciono davvero. Classici per una ragione.",
+    desc_bibite: "Per chi preferisce dissetarsi senza alcol — dalle acque alle bibite premium Fever-Tree. Perché anche una buona bibita merita rispetto.",
+    desc_amari: "Amari del territorio, grappe Nonino e digestivi per chiudere in bellezza — dalla Selezione Vecchio Amaro del Capo al Fernet. Il modo migliore per salutarsi.",
+    desc_analcolici: "Tutto il gusto dell'aperitivo, senza alcol. Perché il piacere di stare insieme non dipende da cosa c'è nel bicchiere.",
   
     orderTitle: "Il mio ordine",
     orderEmpty: "Nessun prodotto selezionato",
@@ -4022,22 +4310,22 @@ const i18n = {
     tag_new: "New",
     empty: "No items found.",
     glutenNote: "Gluten-free cicchetti at +1€ each (minimum 2)",
-    desc_bollicine: "The finest local sparkling wines, served by the glass to bring out their aromas and freshness.",
-    desc_bollicine_bott: "From Prosecco to Ferrari Trentodoc, Ca' del Bosco Franciacorta to Champagne Perrier-Jouët — for every great occasion.",
-    desc_vini_bianchi_bott: "31 bottles: Friulian natives, natural wines, orange wines from Primosic, Movia and Radikon.",
-    desc_vini_bianchi: "A selection of white wines from Friuli Venezia Giulia and beyond — labels chosen for character, terroir and craftsmanship.",
-    desc_vini_rossi_bott: "8 red wines by the bottle: from Carso to Antinori Tuscany, through Isonzo, Alto Adige and Puglia.",
-    desc_vini_rossi: "Full of personality reds, from Karst to Puglia, selected to accompany every moment of your evening.",
-    desc_aperitivi: "The aperitivo is a ritual. We celebrate it with Prosecco, selected spirits and the joy of being together.",
-    desc_birre: "From classic lagers to Antikorpo craft beers — for those who love hops in all their forms.",
-    desc_cocktails: "Classic cocktails lovingly reinvented. Every drink is a small journey.",
-    desc_gin: "A collection of gins from around the world — from London Dry to the most exotic botanicals. Choose yours and we create the magic.",
-    desc_cicchetti_sett: "The crostini you find in the display today. They change every week following seasonality, inspiration and creativity.",
-    desc_cicchetti_caldi: "Cicchetti prepared fresh and served hot — the warm heart of our counter.",
-    desc_cicchetti_fissi: "Our ever-present cicchetti — a journey through cured meats, cheeses and seafood specialties that tells the story of our territory.",
-    desc_bibite: "For those who prefer to refresh without alcohol — from waters to premium Fever-Tree soft drinks.",
-    desc_amari: "Bitters, Nonino grappas and digestifs to end in style — from Friuli to Calabria, from the Balkans to Valtellina",
-    desc_analcolici: "All the taste of the aperitivo, without alcohol. Because the pleasure of being together needs no compromises.",
+    desc_bollicine: "The finest local bubbles, served by the glass to bring out their aromas and freshness. Ask us which one opens your moment best.",
+    desc_bollicine_bott: "From Prosecco to Ferrari Trentodoc, from Franciacorta to Champagne. To make the evening special — just ask.",
+    desc_vini_bianchi_bott: "31 selected labels: from Friulian natives to natural wines, from orange wines to the great whites of Movia and Radikon. If in doubt, let's talk.",
+    desc_vini_bianchi: "A selection of white wines from Friuli Venezia Giulia and beyond. If you're unsure, we're here to help you choose.",
+    desc_vini_rossi_bott: "8 red labels: from Carso to Tuscany, through Isonzo, Alto Adige and Puglia. Every bottle has a story — ask for it.",
+    desc_vini_rossi: "Full-character reds from Carso to Puglia. Tell us what you're eating — we'll find the perfect match.",
+    desc_aperitivi: "Aperitivo is a ritual. We celebrate it with Prosecco, selected spirits and artisan mixing. Sit down, relax — we'll take care of the rest.",
+    desc_birre: "From classic lagers to Antikorpo craft beers — for those who love hops with a bit of character. Cold and served properly.",
+    desc_cocktails: "Classic cocktails reinterpreted with care. Every drink is a little journey. If you have something in mind, try to describe it to us.",
+    desc_gin: "A gin collection from around the world. Don't know where to start? Tell us what you like and we'll build your G&T together.",
+    desc_cicchetti_sett: "Today's tartines in the display. They change each week with the seasons. Ask what's fresh today — we'll tell you gladly.",
+    desc_cicchetti_caldi: "Cicchetti made to order and served hot — the warm heart of our counter. Wait a few minutes: it's always worth it.",
+    desc_cicchetti_fissi: "Our permanent cicchetti — a journey through cured meats, cheeses and specialities that return every day because people love them. Classics for a reason.",
+    desc_bibite: "For those who prefer to refresh without alcohol — from waters to premium Fever-Tree mixers. Because a good soft drink deserves respect too.",
+    desc_amari: "Local bitters, Nonino grappas and digestifs to close in style. The best way to say goodbye.",
+    desc_analcolici: "All the flavour of aperitivo, without alcohol. Because the pleasure of being together doesn't depend on what's in the glass.",
   
     orderTitle: "My order",
     orderEmpty: "No items selected",
@@ -4136,22 +4424,22 @@ const i18n = {
     tag_new: "Neu",
     empty: "Keine Produkte gefunden.",
     glutenNote: "Glutenfreie Cicchetti für +1€ mehr (mindestens 2)",
-    desc_bollicine: "Die besten Schaumweine der Region, glasweise serviert, um ihre Aromen und Frische zu betonen.",
-    desc_bollicine_bott: "Von Prosecco bis Ferrari Trentodoc, Ca' del Bosco Franciacorta bis Champagne Perrier-Jouët — für jeden besonderen Anlass.",
-    desc_vini_bianchi_bott: "31 Flaschen: friulanische Autochthone, Naturweine, Orange Wines von Primosic, Movia und Radikon.",
-    desc_vini_bianchi: "Eine Auswahl an Weißweinen aus dem Friaul und der Umgebung — Etiketten, die für Charakter, Terroir und Handwerk ausgewählt wurden.",
-    desc_vini_rossi_bott: "8 Rotweinen in der Flasche: vom Karst bis zur Toskana von Antinori, durch Isonzo, Südtirol und Apulien.",
-    desc_vini_rossi: "Persönlichkeitsstarke Rotweine vom Karst bis Apulien, ausgewählt für jeden Moment des Abends.",
-    desc_aperitivi: "Der Aperitiv ist ein Ritual. Wir feiern ihn mit Prosecco, ausgewählten Spirituosen und viel Lebensfreude.",
-    desc_birre: "Von klassischen Lagerbieren bis zu Antikorpo-Craftbieren — für alle, die Hopfen in all seinen Formen lieben.",
-    desc_cocktails: "Klassische Cocktails liebevoll neu interpretiert. Jeder Drink ist eine kleine Reise.",
-    desc_gin: "Eine Ginsammlung aus aller Welt — von London Dry bis zu den exotischsten Botanicals. Wähle deinen und wir zaubern den Rest.",
-    desc_cicchetti_sett: "Die Häppchen, die Sie heute in der Vitrine finden. Sie ändern sich jede Woche nach Saisonalität, Inspiration und Kreativität.",
-    desc_cicchetti_caldi: "Frisch zubereitete und heiß servierte Cicchetti — das warme Herz unserer Theke.",
-    desc_cicchetti_fissi: "Unsere immer präsenten Cicchetti — eine Reise durch Aufschnitt, Käse und Meeresfrüchte-Spezialitäten, die das Territorium erzählt.",
-    desc_bibite: "Für alle, die sich ohne Alkohol erfrischen möchten — von Wasser bis zu premium Fever-Tree Getränken.",
-    desc_amari: "Amari der Region, Nonino-Grappas und Digestifs zum krönenden Abschluss — von Friaul bis Kalabrien, vom Balkan bis ins Veltlin",
-    desc_analcolici: "Der volle Aperitivo-Genuss, ohne Alkohol. Denn das Vergnügen, zusammen zu sein, braucht keine Kompromisse.",
+    desc_bollicine: "Die besten Schaumweine der Region, glasweise serviert. Frag uns, welcher am besten zu deinem Augenblick passt.",
+    desc_bollicine_bott: "Von Prosecco bis Ferrari Trentodoc, von Franciacorta bis Champagner. Um den Abend besonders zu machen — einfach fragen.",
+    desc_vini_bianchi_bott: "31 ausgewählte Etiketten: von friulanischen Rebsorten bis zu Naturweinen. Bei Fragen einfach ansprechen.",
+    desc_vini_bianchi: "Eine Auswahl von Weißweinen aus dem Friaul und Umgebung. Wenn du unsicher bist, helfen wir dir gerne.",
+    desc_vini_rossi_bott: "8 Rotweine in der Flasche: vom Karst bis zur Toskana. Jede Flasche hat eine Geschichte — frag danach.",
+    desc_vini_rossi: "Charaktervolle Rotweine vom Karst bis Apulien. Sag uns, was du isst — wir finden den richtigen Begleiter.",
+    desc_aperitivi: "Aperitivo ist ein Ritual. Wir zelebrieren es mit Prosecco und handwerklicher Mixologie. Setz dich, entspann dich — wir kümmern uns um den Rest.",
+    desc_birre: "Von klassischen Lagern bis zu Antikorpo-Craftbieren — für alle, die Hopfen mit Charakter lieben. Kalt und wie es sein soll serviert.",
+    desc_cocktails: "Klassische Cocktails mit Sorgfalt neu interpretiert. Jeder Drink ist eine kleine Reise. Wenn du etwas im Sinn hast, beschreib es uns.",
+    desc_gin: "Eine Gin-Sammlung aus aller Welt. Weißt du nicht, wo du anfangen sollst? Sag uns, was dir gefällt — wir kreieren zusammen deinen G&T.",
+    desc_cicchetti_sett: "Die Tartines in der heutigen Vitrine. Sie wechseln jede Woche. Frag nach dem Frischen des Tages — wir erzählen es dir gerne.",
+    desc_cicchetti_caldi: "Frisch zubereitete und heiß servierte Cicchetti — das warme Herz unserer Theke. Warte ein paar Minuten: Es lohnt sich immer.",
+    desc_cicchetti_fissi: "Unsere immer verfügbaren Cicchetti — weil sie einfach immer geliebt werden. Klassiker aus gutem Grund.",
+    desc_bibite: "Für alle, die sich ohne Alkohol erfrischen möchten — von Wasser bis Fever-Tree. Weil auch ein gutes Getränk Respekt verdient.",
+    desc_amari: "Lokale Bitterliköre, Nonino-Grappas und Digestifs für einen schönen Abschluss. Die beste Art, sich zu verabschieden.",
+    desc_analcolici: "Der ganze Geschmack des Aperitivos, ohne Alkohol. Denn das Vergnügen zusammen zu sein, hängt nicht vom Inhalt des Glases ab.",
   
     orderTitle: "Meine Bestellung",
     orderEmpty: "Keine Produkte gewählt",
@@ -4251,22 +4539,22 @@ const i18n = {
     tag_new: "Novost",
     empty: "Noben izdelek ni bil najden.",
     glutenNote: "Cicchetti brez glutena za 1€ več (najmanj 2)",
-    desc_bollicine_bott: "Od Prosecca do Trentodoc Ferrari, od Franciacorte Ca' del Bosco do Champagne Perrier-Jouët — mehurčki za vsako posebno priložnost.",
-    desc_vini_bianchi_bott: "31 izbranih etikiet: od furlanskih avtohtonih sort do naravnih vin, od orange wine Primosic do velikih belcev Movia in Radikon.",
-    desc_bollicine: "Najboljši mehurčki tega ozemlja, postreženi v kozarcu za poudarek arom in svežine.",
-    desc_vini_bianchi: "Izbor belih vin iz Furlanije Julijske krajine in okolice — etikete izbrane po značaju, ozemlju in rokodelski kakovosti.",
-    desc_vini_rossi_bott: "8 rdečih etikiet v steklenici: od Krasa do Toskane Antinori, prek Soče, Južne Tirolske in Puglie.",
-    desc_vini_rossi: "Rdeča z značajem, od Krasa do Puglie, izbrana za vsak trenutek večera.",
-    desc_aperitivi: "Aperitiv je obred. Pri nas ga slavimo s Proseccom, izbranimi žganji in veliko voljo biti skupaj.",
-    desc_birre: "Od klasičnih lager do craft piv Antikorpo — za ljubitelje hmelja v vseh oblikah.",
-    desc_cocktails: "Klasiki mešane pijače, reinterpretirani s skrbnostjo. Vsak drink je malo potovanje.",
-    desc_gin: "Zbirka ginov z vsega sveta — od London Dry do najbolj eksotičnih botanical. Izberite svojega in mi ustvarimo čarovnijo.",
-    desc_cicchetti_sett: "Tartine, ki jih danes najdete v vitrini. Menjajo se vsak teden glede na sezonost, navdih in ustvarjalnost.",
-    desc_cicchetti_caldi: "Cicchetti pripravljeni sproti in postreženi vroči — toplo srce našega pulta.",
-    desc_cicchetti_fissi: "Naši vedno prisotni cicchetti — potovanje med mesninami, siri in morskimi specialitetami, ki pripoveduje o ozemlju.",
-    desc_bibite: "Za tiste, ki raje pijejo brez alkohola — od vod do premium pijač Fever-Tree.",
-    desc_amari: "Domači amari, grape Nonino in digestivi za lep zaključek — od Furlanije do Kalabrije, od Balkana do Valteline.",
-    desc_analcolici: "Ves okus aperitiva, brez alkohola. Ker užitek biti skupaj ne potrebuje kompromisov.",
+    desc_bollicine_bott: "Od Prosecca do Ferrari Trentodoc, od Franciacorte do Champagna. Za posebne trenutke — samo vprašajte.",
+    desc_vini_bianchi_bott: "31 izbranih etikiet: od furlanskih sort do naravnih vin. Če imate vprašanja, smo tu.",
+    desc_bollicine: "Najboljši mehurčki območja, servirani v kozarcu. Vprašajte nas, kateri najbolj odpre vaš trenutek.",
+    desc_vini_bianchi: "Izbor belih vin iz Furlanije Julijske krajine. Če ste v dvomih, vam z veseljem pomagamo izbrati.",
+    desc_vini_rossi_bott: "8 rdečih etikiet: od Krasa do Toskane. Vsaka steklenica ima zgodbo — vprašajte zanjo.",
+    desc_vini_rossi: "Rdeča vina z značajem, od Krasa do Puglie. Povejte nam, kaj jeste — najdemo pravo kombinacijo.",
+    desc_aperitivi: "Aperitiv je ritual. Praznujemo ga s Proseccom in obrtniško mešanico. Sedi, sprosti se — za ostalo poskrbimo mi.",
+    desc_birre: "Od klasičnih lagerjev do Antikorpo craft piv — za ljubitelje hmelja z značajem. Hladno in postreženo kot se spodobi.",
+    desc_cocktails: "Klasični koktejli, skrbno reinterpretirani. Vsak napitek je malo potovanje. Če imate idejo, nam jo opišite.",
+    desc_gin: "Zbirka ginov z vsega sveta. Ne veste, kje začeti? Povejte nam, kaj imate radi — skupaj sestavimo vaš G&T.",
+    desc_cicchetti_sett: "Tartine v današnji vitrini. Menjajo se vsak teden. Vprašajte, kaj je danes sveže — z veseljem povemo.",
+    desc_cicchetti_caldi: "Cicchetti pripravljeni na naročilo in servirani vroče. Počakajte nekaj minut — vedno se splača.",
+    desc_cicchetti_fissi: "Naši stalni cicchetti — ker jih vsi ljubijo. Klasika z razlogom.",
+    desc_bibite: "Za tiste, ki raje osvežijo brez alkohola — od vode do Fever-Tree. Ker si dober brezalkoholni napitek zasluži spoštovanje.",
+    desc_amari: "Lokalni grenčki, Nonino grape in digestivi za lep zaključek. Najboljši način za slovo.",
+    desc_analcolici: "Ves okus aperitiva brez alkohola. Ker veselje biti skupaj ni odvisno od tega, kaj je v kozarcu.",
   
     orderTitle: "Moje naročilo",
     orderEmpty: "Ni izbranih izdelkov",
@@ -5084,7 +5372,7 @@ function buildItemCard(item, catId) {
   const imgUrl   = ginImgUrl || bottleImgUrl || null;
   const imgClass = ginImgUrl ? 'gin-img' : 'bottle-img';
   const ginImgHtml = imgUrl
-    ? `<div class="gin-img-wrap"><img class="${imgClass}" src="${imgUrl}" alt="${item.name['it']}" loading="lazy" crossorigin="anonymous" onload="removeBgWhite(this)" onerror="this.closest('.gin-img-wrap').style.display='none'"/></div>`
+    ? `<div class="gin-img-wrap" data-zoom-src="${imgUrl}" data-zoom-name="${item.name[currentLang]||item.name['it']}"><img class="${imgClass}" src="${imgUrl}" alt="${item.name['it']}" loading="lazy" crossorigin="anonymous" onload="removeBgWhite(this)" onerror="this.closest('.gin-img-wrap').style.display='none'"/><span class="bottle-zoom-hint">🔍</span></div>`
     : '';
 
   // Wrapper ordine (senza innerHTML con dati variabili — lo costruiamo dopo)
@@ -5211,8 +5499,8 @@ function _renderContent(main) {
     };
     const descKey = descMap[section.id];
     const rawDesc  = descKey ? t(descKey) : '';
-      const hasNum   = /^31 /.test(rawDesc);
-      const fmtDesc  = rawDesc.replace(/^31 /, '<span class="desc-num">31</span> ');
+      const hasNum   = /^\d+/.test(rawDesc);
+      const fmtDesc  = rawDesc.replace(/^(\d+)/, '<span class="desc-num">$1</span>');
       const descHtml = descKey ? `<p class="section-desc${hasNum ? ' has-num' : ''}">${fmtDesc}</p>` : '';
 
     const sec = document.createElement('section');
@@ -5596,43 +5884,86 @@ function initAnimations() {
     _sectionObserver = null;
   }
 
-  const sections = document.querySelectorAll('.menu-section');
-
-  // Funzione che anima un singolo item con Web Animations API
-  // Garantisce lo stato iniziale indipendentemente dalla cascata CSS
-  function animateItem(item, delay) {
+  // Imposta ogni scheda come invisibile prima di osservarla
+  document.querySelectorAll('.menu-item').forEach(item => {
     item.style.opacity   = '0';
-    item.style.transform = 'translateY(32px)';
-    item.classList.add('visible');
+    item.style.transform = 'translateY(52px)';
+  });
 
-    setTimeout(() => {
-      const anim = item.animate(
-        [
-          { opacity: 0, transform: 'translateY(32px)' },
-          { opacity: 1, transform: 'translateY(0px)' }
-        ],
-        {
-          duration: 700,
-          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-          fill: 'forwards'
-        }
-      );
-      anim.onfinish = () => {
-        // Rimuovi gli stili inline a fine animazione
-        item.style.opacity   = '';
-        item.style.transform = '';
-        item.style.animation = '';
-      };
-    }, delay);
-  }
+  let _batchTimer = null;
+  let _batchIndex = 0;
 
-  // Anima subito le schede già in viewport (primo render)
-  let idx = 0;
-  sections.forEach((sec, si) => {
+  _sectionObserver = new IntersectionObserver((entries) => {
+    const visible = entries.filter(e => e.isIntersecting);
+    if (!visible.length) return;
+
+    visible.forEach(entry => _sectionObserver.unobserve(entry.target));
+
+    clearTimeout(_batchTimer);
+    _batchTimer = setTimeout(() => { _batchIndex = 0; }, 500);
+
+    // Ordina per posizione verticale — quelle più in alto animano prima
+    visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+    visible.forEach((entry, i) => {
+      const item  = entry.target;
+      const idx   = _batchIndex + i;
+      _batchIndex++;
+
+      // Stagger: 55ms per scheda + piccola variazione casuale per naturalezza
+      const delay = idx * 55 + Math.random() * 20;
+
+      // Distanza verticale proporzionale alla posizione nello schermo
+      const rect   = entry.boundingClientRect;
+      const fromY  = Math.min(60, 32 + (rect.top / window.innerHeight) * 28);
+
+      setTimeout(() => {
+        item.animate(
+          [
+            {
+              opacity: 0,
+              transform: `translateY(${fromY}px) scale(0.97)`,
+              filter: 'blur(4px)',
+              offset: 0
+            },
+            {
+              opacity: 0.5,
+              transform: `translateY(${fromY * 0.25}px) scale(0.99)`,
+              filter: 'blur(1px)',
+              offset: 0.5
+            },
+            {
+              opacity: 1,
+              transform: 'translateY(0px) scale(1)',
+              filter: 'blur(0px)',
+              offset: 1
+            }
+          ],
+          {
+            duration: 950,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            fill: 'forwards'
+          }
+        ).onfinish = () => {
+          item.style.cssText = item.style.cssText
+            .replace(/opacity:[^;]+;?/g, '')
+            .replace(/transform:[^;]+;?/g, '')
+            .replace(/filter:[^;]+;?/g, '');
+          item.style.opacity = '1';
+        };
+      }, delay);
+    });
+  }, {
+    threshold: 0.04,
+    rootMargin: '0px 0px 20px 0px'
+  });
+
+  // Marca le sezioni visibili e osserva ogni singola scheda
+  document.querySelectorAll('.menu-section').forEach(sec => {
     sec.classList.add('visible');
-    sec.querySelectorAll('.menu-item').forEach((item) => {
-      animateItem(item, 80 + idx * 60);
-      idx++;
+    sec.querySelectorAll('.menu-item').forEach(item => {
+      item.classList.add('visible');
+      _sectionObserver.observe(item);
     });
   });
 
@@ -5645,18 +5976,6 @@ function initAnimations() {
       }
     });
   }, 180);
-
-  // Observer per sezioni fuori viewport (scroll verso il basso)
-  _sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      _sectionObserver.unobserve(entry.target);
-      const items = entry.target.querySelectorAll('.menu-item:not(.visible)');
-      items.forEach((item, i) => animateItem(item, i * 60));
-    });
-  }, { threshold: 0.05, rootMargin: '0px 0px 80px 0px' });
-
-  sections.forEach(sec => _sectionObserver.observe(sec));
 }
 
 /* ════════════════════════════════════════
@@ -6984,33 +7303,6 @@ function spawnAromaWords(wineName, originEl) {
   };
 })();
 
-/* ════════════════════════════════════════
-   PARALLASSE 3D CARD
-════════════════════════════════════════ */
-(function() {
-  let lastTouchX = 0, lastTouchY = 0;
-
-  // Touch — calcola inclinazione dalla posizione del dito sulla card
-  document.addEventListener('touchstart', e => {
-    const card = e.target.closest('.menu-item');
-    if (!card) return;
-    const t = e.touches[0];
-    const rect = card.getBoundingClientRect();
-    lastTouchX = (t.clientX - rect.left) / rect.width - 0.5;
-    lastTouchY = (t.clientY - rect.top)  / rect.height - 0.5;
-    const rotX = -lastTouchY * 8;
-    const rotY =  lastTouchX * 8;
-    card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
-    card.classList.add('tilt');
-  }, { passive: true });
-
-  document.addEventListener('touchend', e => {
-    const card = e.target.closest('.menu-item');
-    if (!card) return;
-    card.style.transform = '';
-    card.classList.remove('tilt');
-  }, { passive: true });
-})();
 
 
 
@@ -8067,6 +8359,270 @@ function sendOrderWhatsApp() {
 })();
 
 
+
+
+/* ════════════════════════════════════════
+   ✨ LUXURY JS — MOBILE OPTIMIZED
+════════════════════════════════════════ */
+(function() {
+
+  // ── 1. Skeleton loading ───────────────────────────────────────────────────
+  function showSkeleton(container, count) {
+    count = count || 3;
+    container.innerHTML = '';
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < count; i++) {
+      var card = document.createElement('div');
+      card.className = 'skeleton-card';
+      card.innerHTML =
+        '<div class="skeleton skeleton-title"></div>' +
+        '<div class="skeleton skeleton-desc"></div>' +
+        '<div class="skeleton skeleton-desc2"></div>' +
+        '<div class="skeleton skeleton-price"></div>';
+      frag.appendChild(card);
+    }
+    container.appendChild(frag);
+  }
+
+  var _origSetCategory = window.setCategory;
+  if (typeof _origSetCategory === 'function') {
+    window.setCategory = function(cat, dir) {
+      var main = document.getElementById('menuMain');
+      if (main) {
+        setTimeout(function() {
+          if (!main.querySelector('.menu-item')) showSkeleton(main, 3);
+        }, 60);
+      }
+      _origSetCategory(cat, dir);
+    };
+  }
+
+  // ── 2. Velo ambrato tra categorie ─────────────────────────────────────────
+  var veil = document.getElementById('category-veil');
+  var _origRender = window.render;
+  if (veil && typeof _origRender === 'function') {
+    window.render = function(animate, dir) {
+      if (animate) {
+        veil.classList.add('active');
+        setTimeout(function() { veil.classList.remove('active'); }, 180);
+      }
+      _origRender(animate, dir);
+    };
+  }
+
+  // ── 3. Reveal titoli lettera per lettera ──────────────────────────────────
+  function revealTitle(titleEl) {
+    if (titleEl.classList.contains('reveal-done')) return;
+    titleEl.classList.add('reveal-done');
+    // Animazione sul titolo intero — non per lettera
+    // (per lettera rompe il gradient text su Safari iOS)
+    titleEl.animate(
+      [{ opacity: 0, transform: 'translateY(8px)' },
+       { opacity: 1, transform: 'translateY(0)' }],
+      { duration: 600, easing: 'cubic-bezier(0.22,1,0.36,1)', fill: 'forwards' }
+    );
+  }
+
+  var titleObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        revealTitle(entry.target);
+        titleObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  function observeTitles() {
+    document.querySelectorAll('.section-title:not(.reveal-done)').forEach(function(el) {
+      titleObserver.observe(el);
+    });
+  }
+
+  var _origRenderContent2 = window._renderContent;
+  window._renderContent = function(main) {
+    _origRenderContent2(main);
+    setTimeout(observeTitles, 300);
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(observeTitles, 800);
+  });
+
+})();
+
+
+
+
+/* ════════════════════════════════════════
+   🔍 ZOOM BOTTIGLIA FULLSCREEN
+════════════════════════════════════════ */
+(function() {
+
+  var overlay  = null;
+  var zoomImg  = null;
+  var zoomName = null;
+
+  function init() {
+    overlay  = document.getElementById('bottle-zoom-overlay');
+    zoomImg  = document.getElementById('bottle-zoom-img');
+    zoomName = document.getElementById('bottle-zoom-name');
+    if (!overlay) return;
+
+    // Pinch-to-zoom nativo via touch
+    var startDist = 0;
+    var currentScale = 1;
+    var baseScale = 1;
+
+    overlay.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 2) {
+        startDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        baseScale = currentScale;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    overlay.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 2) {
+        var dist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        currentScale = Math.min(4, Math.max(0.8, baseScale * (dist / startDist)));
+        zoomImg.style.transform = 'scale(' + currentScale + ')';
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    overlay.addEventListener('touchend', function(e) {
+      if (e.touches.length < 2) {
+        // Se scala < 1 rimbalza a 1
+        if (currentScale < 1) {
+          currentScale = 1;
+          zoomImg.style.transition = 'transform 0.3s ease';
+          zoomImg.style.transform  = 'scale(1)';
+          setTimeout(function() { zoomImg.style.transition = ''; }, 300);
+        }
+      }
+    });
+
+    // Double tap per reset/fit
+    var lastTap = 0;
+    overlay.addEventListener('touchend', function(e) {
+      if (e.touches.length !== 0) return;
+      var now = Date.now();
+      if (now - lastTap < 300) {
+        // Double tap: toggle tra 1x e 2.5x
+        currentScale = currentScale > 1.5 ? 1 : 2.5;
+        zoomImg.style.transition = 'transform 0.3s cubic-bezier(0.22,1,0.36,1)';
+        zoomImg.style.transform  = 'scale(' + currentScale + ')';
+        setTimeout(function() { zoomImg.style.transition = ''; }, 300);
+        e.preventDefault();
+      }
+      lastTap = now;
+    });
+  }
+
+  window.openBottleZoom = function(src, name) {
+    if (!overlay) init();
+    if (!overlay || !zoomImg) return;
+
+    // Reset stato
+    zoomImg.style.transform = 'scale(1)';
+    zoomImg.src = src;
+    zoomName.textContent = name || '';
+
+    // Animazione entrata
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Swipe down per chiudere
+    var startY = 0;
+    var isDragging = false;
+
+    function onTouchStart(e) {
+      if (e.touches.length !== 1) return;
+      startY = e.touches[0].clientY;
+      isDragging = true;
+    }
+    function onTouchMove(e) {
+      if (!isDragging || e.touches.length !== 1) return;
+      var dy = e.touches[0].clientY - startY;
+      if (dy > 0) {
+        overlay.style.transform = 'translateY(' + dy + 'px)';
+        overlay.style.opacity   = String(1 - dy / 300);
+      }
+    }
+    function onTouchEnd(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      var dy = e.changedTouches[0].clientY - startY;
+      if (dy > 100) {
+        closeBottleZoom();
+      } else {
+        overlay.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        overlay.style.transform  = '';
+        overlay.style.opacity    = '';
+        setTimeout(function() { overlay.style.transition = ''; }, 300);
+      }
+    }
+
+    overlay.addEventListener('touchstart', onTouchStart, { passive: true });
+    overlay.addEventListener('touchmove',  onTouchMove,  { passive: true });
+    overlay.addEventListener('touchend',   onTouchEnd,   { passive: true });
+
+    // Cleanup al close
+    overlay._cleanupSwipe = function() {
+      overlay.removeEventListener('touchstart', onTouchStart);
+      overlay.removeEventListener('touchmove',  onTouchMove);
+      overlay.removeEventListener('touchend',   onTouchEnd);
+    };
+
+    if (navigator.vibrate) navigator.vibrate(8);
+  };
+
+  window.closeBottleZoom = function(e) {
+    if (e && e.target !== overlay && e.target !== document.getElementById('bottle-zoom-close')) return;
+    if (!overlay) return;
+
+    overlay.classList.remove('open');
+    overlay.style.transform = '';
+    overlay.style.opacity   = '';
+    document.body.style.overflow = '';
+
+    if (overlay._cleanupSwipe) {
+      overlay._cleanupSwipe();
+      overlay._cleanupSwipe = null;
+    }
+
+    // Reset immagine dopo transizione
+    setTimeout(function() {
+      if (zoomImg) {
+        zoomImg.style.transform = 'scale(1)';
+        zoomImg.src = '';
+      }
+    }, 300);
+  };
+
+  document.addEventListener('DOMContentLoaded', init);
+
+  // Event delegation per .gin-img-wrap
+  document.addEventListener('click', function(e) {
+    var wrap = e.target.closest('.gin-img-wrap');
+    if (!wrap) return;
+    var src  = wrap.dataset.zoomSrc;
+    var name = wrap.dataset.zoomName || '';
+    if (src) {
+      e.stopPropagation();
+      window.openBottleZoom(src, name);
+    }
+  });
+
+})();
+
+
 </script>
 
 
@@ -8074,6 +8630,17 @@ function sendOrderWhatsApp() {
 
 
 <!-- ═══════════════════ METEO STRIP ═══════════════════ -->
+
+
+<!-- ═══════════════════ ZOOM BOTTIGLIA ═══════════════════ -->
+<div id="bottle-zoom-overlay" onclick="closeBottleZoom(event)">
+  <button id="bottle-zoom-close" onclick="closeBottleZoom()" aria-label="Chiudi">✕</button>
+  <div id="bottle-zoom-name"></div>
+  <div id="bottle-zoom-img-wrap">
+    <img id="bottle-zoom-img" src="" alt="" draggable="false"/>
+  </div>
+  <div id="bottle-zoom-hint-text">Pizzica per ingrandire</div>
+</div>
 
 </body>
 </html>
