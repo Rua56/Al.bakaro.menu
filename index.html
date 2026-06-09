@@ -484,7 +484,7 @@
     .swipe-dot.active { background: var(--amber); width: 14px; border-radius: 2px; }
 
     /* ── Night toggle ── */
-    #nightToggle { position: fixed; top: max(1rem, calc(env(safe-area-inset-top, 0px) + 0.5rem)); right: 1rem; z-index: 200; background: rgba(44,26,14,0.85); border: 1.5px solid rgba(193,127,60,0.35); border-radius: 30px; padding: 0.35rem 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; color: var(--parchment); font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.1em; backdrop-filter: blur(6px); transition: background 0.3s ease, transform 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+    #nightToggle { position: fixed; top: max(1rem, calc(env(safe-area-inset-top, 0px) + 0.5rem)); right: 1rem; z-index: 200; background: rgba(44,26,14,0.85); border: 1.5px solid rgba(193,127,60,0.35); border-radius: 30px; padding: 0.35rem 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; color: var(--parchment); font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.1em; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); transition: background 0.3s ease, transform 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
     #nightToggle:hover { border-color: var(--amber); }
     #nightToggle .toggle-icon { font-size: 1rem; transition: transform 0.5s ease; }
     body.night #nightToggle .toggle-icon {transform: rotate(180deg); }
@@ -535,7 +535,7 @@
       height: 2.8rem;
       /* Liquid Glass */
       background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-bottom-color: rgba(255, 255, 255, 0.06);
@@ -1049,7 +1049,7 @@
       font-size: 0.6rem;
       letter-spacing: 0.1em;
       color: var(--parchment);
-      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
       z-index: 10;
     }
     #glass-counter.visible { display: flex; }
@@ -2353,7 +2353,7 @@
       height: 3rem;
       /* Liquid Glass */
       background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-bottom-color: rgba(255, 255, 255, 0.06);
@@ -2811,7 +2811,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
-      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
     }
     #sommelier-ia-overlay.open {
       opacity: 1;
@@ -3218,7 +3218,7 @@
     #dado-overlay {
       position: fixed; inset: 0; z-index: 9998;
       background: rgba(8,4,2,0.82);
-      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
       display: flex; align-items: flex-end; justify-content: center;
       opacity: 0; pointer-events: none;
       transition: opacity 0.3s ease;
@@ -3643,7 +3643,7 @@
       font-size: 1.1rem;
       color: var(--walnut);
       cursor: pointer;
-      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
     #bottle-zoom-hint-text {
@@ -3664,14 +3664,14 @@
     #sommelier-modal.open,
     #order-modal.open {
       background: rgba(8, 4, 2, 0.5) !important;
-      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
 
     /* Card sommelier — glass warm */
     #sommelier-card {
       background: rgba(250, 243, 228, 0.88) !important;
-      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%);
       -webkit-backdrop-filter: blur(20px) saturate(140%);
       border: 1px solid rgba(255, 255, 255, 0.5);
       border-bottom: none;
@@ -3684,7 +3684,7 @@
     /* Card ordine — glass warm */
     #order-card {
       background: rgba(250, 243, 228, 0.88) !important;
-      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%);
       -webkit-backdrop-filter: blur(20px) saturate(140%);
       border: 1px solid rgba(255, 255, 255, 0.5);
       border-bottom: none;
@@ -3696,7 +3696,7 @@
 
     /* Dado e quiz — glass scuro (già su overlay scuro) */
     #dado-card {
-      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%);
       -webkit-backdrop-filter: blur(24px) saturate(160%);
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow:
@@ -3723,7 +3723,7 @@
     #mood-overlay {
       position: fixed; inset: 0; z-index: 9999;
       background: rgba(8,4,2,0.85);
-      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
@@ -4178,7 +4178,7 @@
     #chisiamo-overlay {
       position: fixed; inset: 0; z-index: 9999;
       background: rgba(8,4,2,0.75);
-      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       display: flex; align-items: flex-end; justify-content: center;
       opacity: 0; pointer-events: none;
@@ -4188,7 +4188,7 @@
 
     #chisiamo-card {
       background: rgba(250,243,228,0.96);
-      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%);
       -webkit-backdrop-filter: blur(20px) saturate(140%);
       border: 1px solid rgba(255,255,255,0.5);
       border-bottom: none;
@@ -4285,7 +4285,7 @@
     }
     #calice-overlay.active {
       background: rgba(8,4,2,0.55);
-      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
     }
     #calice-svg {
@@ -4318,7 +4318,92 @@
     #calice-wave.animating {
       animation: waveMove 0.8s ease-in-out infinite;
     }
+
+    .chisiamo-qr-section {
+      text-align: center;
+      margin-top: 1.6rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(193,127,60,0.2);
+    }
+    .chisiamo-qr-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem; letter-spacing: 0.15em;
+      color: var(--amber); text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    #chisiamo-qr-canvas {
+      display: inline-block;
+      padding: 8px; background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(44,26,14,0.12);
+    }
+    #chisiamo-qr-canvas canvas,
+    #chisiamo-qr-canvas img { display: block; }
+    .chisiamo-qr-url {
+      font-family: 'Lora', serif;
+      font-size: 0.68rem; color: var(--stone);
+      margin-top: 0.6rem; font-style: italic;
+    }
+    body.night .chisiamo-qr-section { border-color: rgba(193,127,60,0.12); }
+    body.night #chisiamo-qr-canvas { background: rgba(255,255,255,0.95); }
+
+    #vino-cicchetto-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(8,4,2,0.75);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    }
+    #vino-cicchetto-overlay.show { opacity: 1; pointer-events: all; }
+    #vino-cicchetto-card {
+      background: rgba(250,243,228,0.96);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid rgba(255,255,255,0.5); border-bottom: none;
+      border-radius: 20px 20px 0 0; width: 100%; max-width: 520px;
+      padding: 1.6rem 1.6rem calc(2rem + env(safe-area-inset-bottom, 0px));
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      max-height: 85vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      box-shadow: 0 -8px 40px rgba(44,26,14,0.18); position: relative;
+    }
+    #vino-cicchetto-overlay.show #vino-cicchetto-card { transform: translateY(0); }
+    .vc-handle { width: 36px; height: 4px; background: rgba(193,127,60,0.3); border-radius: 2px; margin: 0 auto 1.4rem; }
+    .vc-close { position: absolute; top: 1rem; right: 1rem; background: rgba(193,127,60,0.12); border: 1px solid rgba(193,127,60,0.25); border-radius: 50%; width: 2rem; height: 2rem; color: var(--walnut); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+    .vc-tag { display: block; text-align: center; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.22em; color: var(--amber); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .vc-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--walnut); text-align: center; margin-bottom: 0.3rem; }
+    .vc-subtitle { font-family: 'Lora', serif; font-style: italic; font-size: 0.8rem; color: var(--stone); text-align: center; margin-bottom: 1.4rem; }
+    .vc-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 0.4rem; }
+    .vc-type-btn { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 1rem 0.5rem; background: rgba(193,127,60,0.06); border: 1.5px solid rgba(193,127,60,0.2); border-radius: 14px; cursor: pointer; transition: background 0.2s; -webkit-tap-highlight-color: transparent; }
+    .vc-type-btn:active { background: rgba(193,127,60,0.14); border-color: var(--amber); }
+    .vc-type-icon { font-size: 1.8rem; }
+    .vc-type-name { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--walnut); }
+    .vc-result-box { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600; color: var(--walnut); text-align: center; padding: 0.8rem 1rem; background: rgba(193,127,60,0.08); border-radius: 12px; margin: 0.4rem 0; }
+    .vc-result-arrow { text-align: center; font-size: 1.3rem; color: var(--amber); margin: 0.2rem 0; }
+    .vc-result-perche { font-family: 'Lora', serif; font-style: italic; font-size: 0.82rem; color: var(--stone); line-height: 1.7; text-align: center; margin: 0.8rem 0 0.4rem; }
+    .vc-retry-btn { display: block; margin: 0.8rem auto 0; background: none; border: 1px solid rgba(193,127,60,0.3); border-radius: 20px; padding: 0.45rem 1.2rem; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.12em; color: var(--amber); cursor: pointer; }
+    body.night #vino-cicchetto-card { background: rgba(28,16,6,0.95) !important; border-color: rgba(255,255,255,0.08); }
+    body.night .vc-title { color: var(--parchment); }
+    body.night .vc-result-box { color: var(--parchment); background: rgba(193,127,60,0.1); }
+
+    /* Bottone Abbina cicchetto — card vino */
+    .vino-abbina-cic-btn {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      margin-top: 0.55rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(193,127,60,0.08);
+      border: 1px solid rgba(193,127,60,0.3);
+      border-radius: 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem; letter-spacing: 0.08em;
+      color: var(--amber); cursor: pointer;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .vino-abbina-cic-btn:active { background: rgba(193,127,60,0.18); }
+    body.night .vino-abbina-cic-btn { border-color: rgba(193,127,60,0.2); }
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 <!-- Velo transizione categoria -->
@@ -4436,6 +4521,45 @@
 
 
 
+
+<!-- ═══════════════════ VINO → CICCHETTO ═══════════════════ -->
+<div id="vino-cicchetto-overlay" onclick="if(event.target===this)closeVinoCicchetto()">
+  <div id="vino-cicchetto-card">
+    <div class="vc-handle"></div>
+    <button class="vc-close" onclick="closeVinoCicchetto()" aria-label="Chiudi">✕</button>
+    <span class="vc-tag">🍢 Al Bakaro · Sommelier</span>
+    <div class="vc-title">Quale vino hai scelto?</div>
+    <div class="vc-subtitle">Ti suggerisco il cicchetto perfetto</div>
+    <div id="vc-step1">
+      <div class="vc-type-grid">
+        <button class="vc-type-btn" data-vctype="bollicine">
+          <span class="vc-type-icon">🥂</span>
+          <span class="vc-type-name">Bollicine</span>
+        </button>
+        <button class="vc-type-btn" data-vctype="bianco">
+          <span class="vc-type-icon">🍋</span>
+          <span class="vc-type-name">Bianco</span>
+        </button>
+        <button class="vc-type-btn" data-vctype="rosso">
+          <span class="vc-type-icon">🍷</span>
+          <span class="vc-type-name">Rosso</span>
+        </button>
+        <button class="vc-type-btn" data-vctype="orange">
+          <span class="vc-type-icon">🟠</span>
+          <span class="vc-type-name">Orange Wine</span>
+        </button>
+      </div>
+    </div>
+    <div id="vc-result" style="display:none">
+      <div class="vc-result-box vc-result-vino" id="vc-result-vino"></div>
+      <div class="vc-result-arrow">⟺</div>
+      <div class="vc-result-box vc-result-cicchetto" id="vc-result-cicchetto"></div>
+      <p class="vc-result-perche" id="vc-result-perche"></p>
+      <button class="vc-retry-btn" onclick="vcReset()">← Scegli un altro vino</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════ ANIMAZIONE CALICE ═══════════════════ -->
 <div id="calice-overlay" aria-hidden="true">
   <svg id="calice-svg" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
@@ -4486,6 +4610,11 @@
       <p>I cicchetti li cambio ogni settimana seguendo quello che trovo di buono al mercato. Non ho un menù fisso perché seguo la stagione, l'umore e quello che mi entusiasma in quel momento. Così ogni settimana c'è sempre qualcosa di nuovo da scoprire.</p>
       <p>Se hai una domanda su un vino, chiedimi. Se non sai cosa scegliere, dimmi cosa ti piace e ci penso io. Sono sempre qui.</p>
       <p class="chisiamo-firma">— <em>Martina</em></p>
+    <div class="chisiamo-qr-section">
+      <div class="chisiamo-qr-label">📱 Scannerizza per aprire il menù</div>
+      <div id="chisiamo-qr-canvas"></div>
+      <div class="chisiamo-qr-url">rua56.github.io/Al.bakaro.menu</div>
+    </div>
     </div>
   </div>
 </div>
@@ -4558,6 +4687,15 @@
       <div class="special-panel-info">
         <span class="special-panel-name" id="panel-quiz-name" data-t="panelQuizName">Quiz del Sommelier</span>
         <span class="special-panel-desc" id="panel-quiz-desc" data-t="quizSubtitle">Indovina il vino dalla descrizione</span>
+      </div>
+      <span class="special-panel-arrow">›</span>
+    </div>
+
+    <div class="special-panel-item" onclick="closeSpecialMenu(); setTimeout(openVinoCicchetto, 300)">
+      <div class="special-panel-icon" style="background:linear-gradient(135deg,#1a0510,#4a1030);border:1px solid rgba(180,50,100,0.35)">🍢</div>
+      <div class="special-panel-info">
+        <span class="special-panel-name">Vino → Cicchetto</span>
+        <span class="special-panel-desc">Scegli il vino, ti suggerisco il cicchetto</span>
       </div>
       <span class="special-panel-arrow">›</span>
     </div>
@@ -5021,6 +5159,7 @@ const i18n = {
     nightDay: "Giorno",
     nightNight: "Notte",
     abbinaBtn: "🍷 Abbina un vino",
+    abbinaCicchettoBtn: "🍢 Abbina un cicchetto",
   
     orderModalTitle: "🛒 Il mio ordine",
     panelMapName: "Mappa del Collio",
@@ -5150,6 +5289,7 @@ const i18n = {
     nightDay: "Day",
     nightNight: "Night",
     abbinaBtn: "🍷 Pair a wine",
+    abbinaCicchettoBtn: "🍢 Pair a cicchetto",
   
     orderModalTitle: "🛒 My order",
     panelMapName: "Collio Map",
@@ -5279,6 +5419,7 @@ const i18n = {
     nightDay: "Tag",
     nightNight: "Nacht",
     abbinaBtn: "🍷 Wein empfehlen",
+    abbinaCicchettoBtn: "🍢 Cicchetto empfehlen",
   
     orderModalTitle: "🛒 Meine Bestellung",
     panelMapName: "Collio-Karte",
@@ -5409,6 +5550,7 @@ const i18n = {
     nightDay: "Dan",
     nightNight: "Noč",
     abbinaBtn: "🍷 Priporoči vino",
+    abbinaCicchettoBtn: "🍢 Priporoči cicchetto",
   
     orderModalTitle: "🛒 Moje naročilo",
     panelMapName: "Zemljevid Collija",
@@ -6217,9 +6359,14 @@ function buildItemCard(item, catId) {
   const somBtn = somData ? '<button class="wine-sommelier-btn">🍷 Scheda sommelier</button>' : '';
   // Bottone Sommelier IA — solo per cicchetti
   const ABBINA_CATS = ['cicchetti', 'cicchetti-fissi', 'cicchetti-caldi'];
+  const WINE_ABBINA_CATS = ['bollicine','bollicine-bottiglia','vini-bianchi','vini-bianchi-bottiglia','vini-rossi','vini-rossi-bottiglia'];
   const itemDesc = (item.desc && item.desc['it']) || '';
   const abbinaBtn = (ABBINA_CATS.indexOf(catId) >= 0 && item.name['it'] !== 'Cicchetti della Settimana')
     ? `<button class="cicchetto-abbina-btn" aria-label="Abbina un vino" data-cname="${item.name['it']}" data-cdesc="${itemDesc}">${t('abbinaBtn')}</button>`
+    : '';
+  // Bottone inverso: abbina cicchetto ai vini
+  const abbinaCicchettoBtn = (WINE_ABBINA_CATS.indexOf(catId) >= 0)
+    ? `<button class="vino-abbina-cic-btn" aria-label="Abbina un cicchetto" data-wname="${item.name['it']}" data-wcat="${catId}">${t('abbinaCicchettoBtn')}</button>`
     : '';
   // Immagine gin o bottiglia — solo per categorie bottiglia e gin
   const BOTTLE_CATS = ['bollicine-bottiglia','vini-bianchi-bottiglia','vini-rossi-bottiglia','gin'];
@@ -6286,6 +6433,7 @@ function buildItemCard(item, catId) {
       (tagsHtml ? '<div class="item-tags">' + tagsHtml + '</div>' : '') +
       somBtn +
       abbinaBtn +
+      abbinaCicchettoBtn +
       orderWrapHtml +
     '</div>' +
     '<div class="item-right">' +
@@ -8230,6 +8378,19 @@ function spawnAromaWords(wineName, originEl) {
     document.body.style.overflow = '';
   };
 
+  // Delegazione click Abbina cicchetto
+  document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('vino-abbina-cic-btn')) {
+      var wname = e.target.dataset.wname || '';
+      var wcat  = e.target.dataset.wcat  || '';
+      // Cerca cicchetto abbinato per questo vino
+      var cicchetto = findCicchettoForWine(wname, wcat);
+      if (cicchetto && typeof openSommelierIA === 'function') {
+        openSommelierIA(cicchetto.nome, cicchetto.desc, wname);
+      }
+    }
+  });
+
   // Delegazione click pillole vino
   document.addEventListener('click', function(e) {
     if (e.target && e.target.classList.contains('tooltip-wine-pill')) {
@@ -8912,8 +9073,40 @@ setTimeout(function() { (function() {
 
 
   /* Apri il modal per un cicchetto */
-  window.openSommelierIA = function(name, desc) {
+  window.openSommelierIA = function(name, desc, contextWine) {
+    var tagEl = document.querySelector('#sommelier-ia-overlay .som-ia-tag');
+    var overlay2 = document.getElementById('sommelier-ia-overlay');
+
+    // Caso inverso: chiamato da bottone vino → mostra il cicchetto direttamente
+    if (contextWine) {
+      // name = nome cicchetto, desc = perche, contextWine = nome vino
+      document.getElementById('som-ia-name').textContent = contextWine.split(' — ')[0].trim();
+      document.getElementById('som-ia-desc').textContent = '';
+      if (tagEl) tagEl.textContent = '🍢 Cicchetto consigliato';
+      document.getElementById('som-ia-loading').style.display = 'none';
+      document.getElementById('som-ia-error').style.display = 'none';
+
+      // Costruisci risposta diretta con il cicchetto
+      var result = document.getElementById('som-ia-result');
+      var intro  = document.getElementById('som-ia-intro');
+      var wines  = document.getElementById('som-ia-wines');
+      if (intro) intro.textContent = desc || '';
+      if (wines) {
+        wines.innerHTML =
+          '<div class="som-ia-wine-card" style="background:rgba(193,127,60,0.06)">' +
+            '<div class="som-ia-wine-name">🍢 ' + escHtml(name) + '</div>' +
+            '<div class="som-ia-why">' + escHtml(desc || '') + '</div>' +
+          '</div>';
+      }
+      if (result) result.classList.add('visible');
+      if (overlay2) overlay2.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+
+    // Caso normale: chiamato da cicchetto → cerca vino
     document.getElementById('som-ia-name').textContent = name;
+    if (tagEl) tagEl.textContent = typeof t === 'function' ? t('somIaTag') : '🍷 Sommelier · Al Bakaro';
     document.getElementById('som-ia-desc').textContent = desc || '';
     document.getElementById('som-ia-loading').style.display = 'flex';
     document.getElementById('som-ia-result').classList.remove('visible');
@@ -10036,6 +10229,18 @@ function sendOrderWhatsApp() {
 <script>
 (function() {
   window.openChiSiamo = function() {
+    // Genera QR code al primo apertura
+    var qrContainer = document.getElementById('chisiamo-qr-canvas');
+    if (qrContainer && !qrContainer._qrGenerated && typeof QRCode !== 'undefined') {
+      new QRCode(qrContainer, {
+        text: 'https://rua56.github.io/Al.bakaro.menu/',
+        width: 140, height: 140,
+        colorDark: '#2c1a0e',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      qrContainer._qrGenerated = true;
+    }
     document.getElementById('chisiamo-overlay').classList.add('show');
     document.body.style.overflow = 'hidden';
     vibrate(15);
@@ -10125,6 +10330,151 @@ function sendOrderWhatsApp() {
       wave.classList.remove('animating');
     }, 1600);
   };
+})();
+</script>
+
+
+<script>
+(function() {
+    var VC = {
+    bollicine: [
+      { cicchetto: "Mortadella, Burrata e Pistacchio", perche: "Le bollicine sgrassano la burrata e amplificano i pistacchi - abbinamento da aperitivo perfetto." },
+      { cicchetto: "Salmone, Philadelphia e Guacamole", perche: "La freschezza perlante bilancia la cremosita del Philadelphia e la grassezza del salmone affumicato." },
+      { cicchetto: "Crema al Dentice", perche: "Le bollicine puliscono il palato dopo ogni boccone di spuma di pesce, creando un ritmo di assaggio preciso." }
+    ],
+    bianco: [
+      { cicchetto: "Crudo San Daniele", perche: "Il Friulano e l abbinamento identitario del Friuli: prosciutto e vino dello stesso territorio, inseparabili." },
+      { cicchetto: "Cotto e Kren", perche: "La sapidita del cotto e la pungenza del kren trovano la freschezza minerale dei bianchi del Collio." },
+      { cicchetto: "Burrata, Melanzane e Pomodorini", perche: "La mineralita del bianco pulisce il palato dopo la cremosita della burrata, ciclo perfetto." }
+    ],
+    rosso: [
+      { cicchetto: "Speck e Brie", perche: "La grassezza e sapidita dello speck con il brie cremoso trovano il compagno nei tannini di un rosso strutturato." },
+      { cicchetto: "Crema Carbonara e Guanciale Nostrano", perche: "Il guanciale croccante e la crema ricca si sposano con un rosso che regge l intensita del piatto." },
+      { cicchetto: "Gorgonzola, Noci e Miele", perche: "L intensita del gorgonzola con il miele crea un dialogo interessante con i rossi di carattere del Carso." }
+    ],
+    orange: [
+      { cicchetto: "Lardo di Patanegra", perche: "Il profilo tannico e ossidativo dell orange wine bilancia la grassezza vellutata del lardo iberico." },
+      { cicchetto: "Crema Cacio e Pepe e Guanciale Nostrano", perche: "La complessita dell orange wine si confronta alla pari con la struttura intensa del cacio e pepe." },
+      { cicchetto: "Baccala Mantecato", perche: "La sapidita minerale dell orange wine esalta la spuma di baccala su polenta - un abbinamento di confine." }
+    ]
+  };
+
+  var nomiTipo = { bollicine: '🥂 Bollicine', bianco: '🍋 Vino Bianco', rosso: '🍷 Vino Rosso', orange: '🟠 Orange Wine' };
+
+  window.openVinoCicchetto = function() {
+    var overlay = document.getElementById('vino-cicchetto-overlay');
+    if (!overlay) return;
+    vcReset();
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    if (typeof vibrate === 'function') vibrate(15);
+  };
+
+  window.closeVinoCicchetto = function() {
+    var overlay = document.getElementById('vino-cicchetto-overlay');
+    if (!overlay) return;
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  };
+
+  window.vcReset = function() {
+    var s1 = document.getElementById('vc-step1');
+    var res = document.getElementById('vc-result');
+    if (s1) s1.style.display = '';
+    if (res) res.style.display = 'none';
+    var t = document.querySelector('#vino-cicchetto-card .vc-title');
+    var s = document.querySelector('#vino-cicchetto-card .vc-subtitle');
+    if (t) t.textContent = 'Quale vino hai scelto?';
+    if (s) s.textContent = 'Ti suggerisco il cicchetto perfetto';
+  };
+
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.vc-type-btn');
+    if (!btn) return;
+    var type = btn.dataset.vctype;
+    if (!type || !VC[type]) return;
+    var lista = VC[type];
+    var scelta = lista[Math.floor(Math.random() * lista.length)];
+    var s1 = document.getElementById('vc-step1');
+    var res = document.getElementById('vc-result');
+    var elV = document.getElementById('vc-result-vino');
+    var elC = document.getElementById('vc-result-cicchetto');
+    var elP = document.getElementById('vc-result-perche');
+    if (s1) s1.style.display = 'none';
+    if (elV) elV.textContent = nomiTipo[type] || type;
+    if (elC) elC.textContent = '🍢 ' + scelta.cicchetto;
+    if (elP) elP.textContent = scelta.perche;
+    if (res) res.style.display = '';
+    var t = document.querySelector('#vino-cicchetto-card .vc-title');
+    var s = document.querySelector('#vino-cicchetto-card .vc-subtitle');
+    if (t) t.textContent = 'Il tuo abbinamento';
+    if (s) s.textContent = 'Consigliato dal sommelier di Al Bakaro';
+    if (typeof vibrate === 'function') vibrate([15, 40, 20]);
+  });
+})();
+</script>
+
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   ABBINAMENTO INVERSO: vino → cicchetto
+═══════════════════════════════════════════════════════════════ */
+(function() {
+
+  // Mappa vino (nome o categoria) → cicchetto consigliato
+  var VINO_CICCHETTO = {
+    // Bollicine
+    'Prosecco — Astoria':                       { nome: 'Mortadella, Burrata e Pistacchio', desc: 'Le bollicine sgrassano la burrata e amplificano i pistacchi.' },
+    "Prosecco L'Infedele — Astoria":            { nome: 'Mortadella, Burrata e Pistacchio', desc: 'Prosecco vivace e cremosita della burrata: abbinamento da aperitivo.' },
+    'Ferrari Maximum':                           { nome: 'Crema al Dentice', desc: 'Il Trentodoc elegante si sposa con la spuma di pesce del Golfo.' },
+    'Ferrari Perlè':                             { nome: 'Salmone, Philadelphia e Guacamole', desc: 'Un grande metodo classico merita un cicchetto altrettanto raffinato.' },
+    'Ribolla Gialla Spumantizzata — Tenuta Stella': { nome: 'Crudo San Daniele', desc: 'Ribolla del Collio con il prosciutto del territorio: abbinamento identitario.' },
+    'Rosé — Oltrenero':                          { nome: 'Salmone, Philadelphia e Guacamole', desc: 'Il rosé fruttato bilancia salmone, Philadelphia e il verde del guacamole.' },
+    // Bianchi calice
+    'Pinot Bianco — Toros':                      { nome: 'Burrata, Melanzane e Pomodorini', desc: 'La freschezza del Pinot Bianco pulisce il palato dopo la cremosita della burrata.' },
+    'Chardonnay — Toros':                        { nome: 'Crema Carbonara e Guanciale Nostrano', desc: 'Lo Chardonnay strutturato regge la crema intensa e il guanciale croccante.' },
+    'Ribolla Gialla — Sturm':                    { nome: 'Cotto e Kren', desc: 'La sapidita del cotto e la pungenza del kren chiedono la freschezza minerale della Ribolla.' },
+    'Malvasia — Sturm':                          { nome: 'Lardo di Patanegra', desc: 'Il profumo aromatico della Malvasia bilancia la grassezza vellutata del lardo iberico.' },
+    'Friulano — Castello di Spessa':             { nome: 'Crudo San Daniele', desc: 'Il Friulano e abbinamento identitario del Friuli: prosciutto e vino dello stesso territorio.' },
+    'Sauvignon — Doro Princic':                  { nome: 'Crema al Dentice', desc: 'La mineralita e la freschezza del Sauvignon esaltano la spuma di pesce.' },
+    'Vitovska — Bajta':                          { nome: 'Gamberi in Savor', desc: 'La mineralita calcarea della Vitovska del Carso si sposa con i gamberi agrodolci.' },
+    'Kerner — Strasserhoff':                     { nome: 'Speck e Brie', desc: 'Il Kerner alpino e fresco e compagno ideale dello speck alto atesino.' },
+    'Zibibbo — Carusi':                          { nome: 'Gorgonzola, Noci e Miele', desc: 'La dolcezza aromatica dello Zibibbo dialoga con gorgonzola e miele.' },
+    'Pinot Grigio — Castello di Spessa':         { nome: 'Salmone e Burro', desc: 'Il Pinot Grigio strutturato del Collio accompagna il salmone con burro alle erbe.' },
+    // Rossi calice
+    'Cabernet Franc — Castelvecchio':            { nome: 'Crema Carbonara e Guanciale Nostrano', desc: 'Le note speziate del Cabernet Franc esaltano il guanciale croccante.' },
+    'Cabernet Sauvignon — Castello di Spessa':   { nome: 'Gorgonzola e Crema di Radicchio', desc: 'Il Cabernet tannico e elegante regge l intensita del gorgonzola piccante.' },
+    'Pinot Nero — Masut da Rive':                { nome: 'Speck e Brie', desc: 'La finezza del Pinot Nero si incontra con la delicatezza dello speck e del brie.' },
+    'Schiava — Tiefenbrunner':                   { nome: 'Mortadella, Burrata e Pistacchio', desc: 'La leggerezza della Schiava accompagna senza coprire la mortadella e la burrata.' },
+    'Primitivo di Manduria — Altemura':          { nome: 'Lardo di Patanegra', desc: 'Il calore e la morbidezza del Primitivo bilanciano la grassezza del lardo iberico.' },
+    'Malvasia Nera — Paololeo':                  { nome: 'Gorgonzola, Noci e Miele', desc: 'I frutti neri e le spezie dolci della Malvasia Nera dialogano con gorgonzola e miele.' },
+    'Sassirossi — Masut da Rive':                { nome: 'Crema Cacio e Pepe e Guanciale Nostrano', desc: 'La struttura del blend Merlot-Cabernet regge la cremosita intensa del cacio e pepe.' },
+  };
+
+  // Fallback per categoria quando il vino non e in mappa
+  var CAT_FALLBACK = {
+    'bollicine':              { nome: 'Mortadella, Burrata e Pistacchio', desc: 'Le bollicine sgrassano la burrata e amplificano i pistacchi.' },
+    'bollicine-bottiglia':    { nome: 'Salmone, Philadelphia e Guacamole', desc: 'Le bollicine perlanti bilanciano la cremosita del Philadelphia.' },
+    'vini-bianchi':           { nome: 'Cotto e Kren', desc: 'La freschezza minerale dei bianchi del Collio e perfetta con il kren pungente.' },
+    'vini-bianchi-bottiglia': { nome: 'Crudo San Daniele', desc: 'Un grande bianco del Collio merita il prosciutto del territorio.' },
+    'vini-rossi':             { nome: 'Speck e Brie', desc: 'I rossi di carattere trovano il loro compagno nello speck e nel brie cremoso.' },
+    'vini-rossi-bottiglia':   { nome: 'Gorgonzola e Crema di Radicchio', desc: 'I rossi strutturati reggono l intensita del gorgonzola piccante.' },
+  };
+
+  window.findCicchettoForWine = function(wineName, winecat) {
+    // Match esatto sul nome
+    if (VINO_CICCHETTO[wineName]) return VINO_CICCHETTO[wineName];
+    // Match parziale (prime 20 lettere)
+    var key = wineName.slice(0, 20).toLowerCase();
+    for (var k in VINO_CICCHETTO) {
+      if (k.toLowerCase().indexOf(key) !== -1 || key.indexOf(k.slice(0,15).toLowerCase()) !== -1) {
+        return VINO_CICCHETTO[k];
+      }
+    }
+    // Fallback categoria
+    return CAT_FALLBACK[winecat] || null;
+  };
+
 })();
 </script>
 
