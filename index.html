@@ -7545,8 +7545,8 @@ function spawnAromaWords(wineName, originEl) {
 
     var pillsHtml = zone.wines.length > 0
       ? zone.wines.map(function(w) {
-          var safW = w.replace(/"/g, '&quot;');
-          return '<span class="tooltip-wine-pill" data-wine="' + safW + '" onclick="goToWine(this.dataset.wine)">' + w + '</span>';
+          var safW = w.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+          return '<span class="tooltip-wine-pill" onclick="goToWine(\'' + safW + '\')">' + w + '</span>';
         }).join('')
       : '<span style="font-family:Lora,serif;font-style:italic;font-size:0.75rem;color:var(--stone)">Zona vinicola del Collio</span>';
 
@@ -7558,6 +7558,8 @@ function spawnAromaWords(wineName, originEl) {
 
   window.goToWine = function(wineName) {
     closeCollioMap();
+
+    // Trova la categoria del vino nel MENU
     var wineIds = ['bollicine','bollicine-bottiglia','vini-bianchi','vini-bianchi-bottiglia','vini-rossi','vini-rossi-bottiglia'];
     var found = null;
     MENU.forEach(function(sec) {
@@ -7566,22 +7568,40 @@ function spawnAromaWords(wineName, originEl) {
         if (item.name['it'] === wineName) found = sec.id;
       });
     });
-    if (found) {
-      currentCat = found;
-      render(true);
-      setTimeout(function() {
-        var cards = document.querySelectorAll('.menu-item');
-        for (var i = 0; i < cards.length; i++) {
-          var nameEl = cards[i].querySelector('.item-name');
-          if (nameEl && nameEl.textContent.trim().indexOf(wineName.substring(0,12)) === 0) {
-            cards[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            cards[i].classList.add('tapped');
-            setTimeout(function(c){ c.classList.remove('tapped'); }, 1000, cards[i]);
-            break;
-          }
+    if (!found) return;
+
+    // Funzione che cerca la card e ci scrolla sopra con retry
+    function scrollToCard(attempts) {
+      var cards = document.querySelectorAll('.menu-item');
+      for (var i = 0; i < cards.length; i++) {
+        var nameEl = cards[i].querySelector('.item-name');
+        if (nameEl && nameEl.textContent.trim() === wineName) {
+          // Scroll manuale — più affidabile di scrollIntoView su Safari iOS
+          var rect = cards[i].getBoundingClientRect();
+          var target = window.pageYOffset + rect.top - (window.innerHeight / 2) + (rect.height / 2);
+          window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+          // Highlight
+          cards[i].classList.add('tapped');
+          setTimeout(function(c) { c.classList.remove('tapped'); }, 1400, cards[i]);
+          return true;
         }
-      }, 400);
+      }
+      // Card non ancora nel DOM — riprova
+      if (attempts > 0) {
+        setTimeout(function() { scrollToCard(attempts - 1); }, 150);
+      }
+      return false;
     }
+
+    // Cambia categoria senza animazione — le card sono nel DOM subito
+    currentCat = found;
+    render(false);
+    // Aspetta 2 frame per layout calcolato, poi scrolla
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        scrollToCard(5);
+      });
+    });
   };
 
 })();
