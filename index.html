@@ -125,7 +125,7 @@
     header {
       background: linear-gradient(160deg, var(--bark) 0%, var(--espresso) 60%, var(--walnut) 100%);
       color: var(--parchment);
-      padding: 3.5rem 1.5rem 2.5rem;
+      padding: 2.5rem 1.5rem 2.5rem;
       padding-top: calc(3.5rem + env(safe-area-inset-top, 0px));
       text-align: center;
       position: relative;
@@ -484,7 +484,7 @@
     .swipe-dot.active { background: var(--amber); width: 14px; border-radius: 2px; }
 
     /* ── Night toggle ── */
-    #nightToggle { position: fixed; top: 1rem; right: 1rem; z-index: 200; background: rgba(44,26,14,0.85); border: 1.5px solid rgba(193,127,60,0.35); border-radius: 30px; padding: 0.35rem 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; color: var(--parchment); font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.1em; backdrop-filter: blur(6px); transition: background 0.3s ease, transform 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+    #nightToggle { position: fixed; top: max(1rem, calc(env(safe-area-inset-top, 0px) + 0.5rem)); right: 1rem; z-index: 200; background: rgba(44,26,14,0.85); border: 1.5px solid rgba(193,127,60,0.35); border-radius: 30px; padding: 0.35rem 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; color: var(--parchment); font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.1em; backdrop-filter: blur(6px); transition: background 0.3s ease, transform 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
     #nightToggle:hover { border-color: var(--amber); }
     #nightToggle .toggle-icon { font-size: 1rem; transition: transform 0.5s ease; }
     body.night #nightToggle .toggle-icon {transform: rotate(180deg); }
@@ -2489,6 +2489,7 @@
       align-items: center;
       justify-content: flex-start;
       padding: 1.5rem 1rem 2rem;
+      padding-top: calc(1.5rem + env(safe-area-inset-top, 0px));
       overflow-y: auto;
       opacity: 0;
       pointer-events: none;
@@ -3786,6 +3787,16 @@
     .menu-item:not(:active) {
       will-change: auto;
     }
+
+    /* ── PWA standalone: compensa status bar ── */
+    @media (display-mode: standalone) {
+      body {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+      header {
+        padding-top: calc(3.5rem + env(safe-area-inset-top, 0px));
+      }
+    }
 </style>
 </head>
 <body>
@@ -3997,7 +4008,7 @@
 </div>
 
 <!-- ═══════════════════ MAPPA COLLIO ═══════════════════ -->
-<div id="collio-map-overlay">
+<div id="collio-map-overlay" onclick="if(event.target===this)closeCollioMap()">
   <button class="collio-map-close" onclick="closeCollioMap()" aria-label="Chiudi mappa">✕</button>
   <div class="collio-map-header">
     <span class="collio-map-tag" data-t="collioTag">🗺️ IL TERRITORIO</span>
@@ -7507,12 +7518,14 @@ function spawnAromaWords(wineName, originEl) {
 
   window.openCollioMap = function() {
     document.getElementById('collio-map-overlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
     vibrate(15);
     setTimeout(initLeafletMap, 200);
   };
 
   window.closeCollioMap = function() {
     document.getElementById('collio-map-overlay').classList.remove('show');
+    document.body.style.overflow = '';
   };
 
   window.selectZone = function(zoneId) {
