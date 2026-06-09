@@ -800,13 +800,67 @@
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
     #splash.hide { opacity: 0; transform: scale(1.04); pointer-events: none; }
-    .splash-logo { width: 260px; opacity: 0; transform: translateY(18px); animation: splashLogoIn 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
-    .splash-claim { font-family: 'Lora', serif; font-style: italic; font-size: 0.9rem; color: var(--honey); letter-spacing: 0.18em; opacity: 0; animation: splashLogoIn 0.7s cubic-bezier(0.16,1,0.3,1) 0.8s both; margin-top: 0.8rem; }
-    .splash-dots { display: flex; gap: 0.45rem; margin-top: 2rem; opacity: 0; animation: splashLogoIn 0.5s ease 1.1s both; }
-    .splash-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); animation: dotPulse 1.2s ease infinite; }
-    .splash-dot:nth-child(2) { animation-delay: 0.2s; }
-    .splash-dot:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes splashLogoIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    .splash-logo {
+      width: 280px;
+      opacity: 0;
+      transform: translateY(24px) scale(0.96);
+      animation: splashLogoIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s both;
+      filter: drop-shadow(0 0 0px rgba(193,127,60,0));
+    }
+    .splash-logo.glow {
+      animation: splashLogoIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s both,
+                 splashLogoGlow 2s ease 1.7s both;
+    }
+    .splash-claim {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--honey);
+      letter-spacing: 0.2em;
+      opacity: 0;
+      animation: splashLogoIn 0.8s cubic-bezier(0.16,1,0.3,1) 1.3s both;
+      margin-top: 1rem;
+    }
+    .splash-tagline {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.35em;
+      color: rgba(193,127,60,0.6);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: splashLogoIn 0.6s ease 1.8s both;
+      margin-top: 0.5rem;
+    }
+    .splash-dots {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: splashLogoIn 0.5s ease 1.6s both;
+    }
+    .splash-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--amber);
+      animation: dotPulse 1.4s ease infinite;
+    }
+    .splash-dot:nth-child(2) { animation-delay: 0.25s; }
+    .splash-dot:nth-child(3) { animation-delay: 0.5s; }
+    /* Particelle dorate splash */
+    .splash-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,215,142,0.9), rgba(193,127,60,0.4));
+      pointer-events: none;
+      animation: splashParticleRise var(--dur,3s) ease-out var(--delay,0s) both;
+    }
+    @keyframes splashParticleRise {
+      0%   { opacity: 0; transform: translateY(0) scale(0); }
+      15%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-180px) scale(1) translateX(var(--dx,0px)); }
+    }
+    @keyframes splashLogoIn {
+      from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes dotPulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
 
     /* ── Pattern di sfondo per categoria ── */
@@ -3797,6 +3851,326 @@
         padding-top: calc(3.5rem + env(safe-area-inset-top, 0px));
       }
     }
+
+    /* ════════════════════════════════════════
+       CARD VINO PREMIUM — tre livelli
+    ════════════════════════════════════════ */
+
+    /* ── Livello 1: Mescita al calice + bottiglie ─────────────────────────── */
+    .menu-section[data-id="bollicine"] .menu-item.wine-label-card,
+    .menu-section[data-id="bollicine-bottiglia"] .menu-item.wine-label-card,
+    .menu-section[data-id="vini-bianchi"] .menu-item.wine-label-card,
+    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item.wine-label-card,
+    .menu-section[data-id="vini-rossi"] .menu-item.wine-label-card,
+    .menu-section[data-id="vini-rossi-bottiglia"] .menu-item.wine-label-card {
+      border-left-width: 3px !important;
+      border-left-style: solid !important;
+      padding-left: 1rem !important;
+    }
+    .menu-section[data-id="bollicine"] .menu-item.wine-label-card,
+    .menu-section[data-id="bollicine-bottiglia"] .menu-item.wine-label-card {
+      border-left-color: #c9a84c !important;
+    }
+    .menu-section[data-id="vini-bianchi"] .menu-item.wine-label-card,
+    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item.wine-label-card {
+      border-left-color: #c8b560 !important;
+    }
+    .menu-section[data-id="vini-rossi"] .menu-item.wine-label-card,
+    .menu-section[data-id="vini-rossi-bottiglia"] .menu-item.wine-label-card {
+      border-left-color: #8b1a1a !important;
+    }
+
+    /* Cantina sopra il nome — leggibile e distinta */
+    .wine-calice-cantina {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: #7a4f1e;
+      text-transform: uppercase;
+      font-weight: 600;
+      opacity: 1;
+      margin-bottom: 0.15rem;
+      display: block;
+    }
+    .night .wine-calice-cantina {
+      color: #c9a84c;
+    }
+
+    /* ── Livello 2: Bottiglia ──────────────────────────────────────────────── */
+    .menu-section[data-id="bollicine-bottiglia"] .menu-item.wine-label-card,
+    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item.wine-label-card,
+    .menu-section[data-id="vini-rossi-bottiglia"] .menu-item.wine-label-card {
+      background: linear-gradient(
+        135deg,
+        rgba(252,246,232,0.98) 0%,
+        rgba(248,240,220,0.95) 40%,
+        rgba(244,234,210,0.98) 100%
+      ) !important;
+      border: 1px solid rgba(193,127,60,0.25) !important;
+      box-shadow:
+        0 2px 12px rgba(44,26,14,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.8) !important;
+      min-height: 7rem;
+      padding-left: 1rem !important;
+      position: relative;
+    }
+
+    /* ── Linea laterale colorata per categoria bottiglia ── */
+    .menu-section[data-id="bollicine-bottiglia"] .menu-item.wine-label-card {
+      border-left: 3px solid #c9a84c !important;
+    }
+    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item.wine-label-card {
+      border-left: 3px solid #c8b560 !important;
+    }
+    .menu-section[data-id="vini-rossi-bottiglia"] .menu-item.wine-label-card {
+      border-left: 3px solid #8b1a1a !important;
+    }
+
+    /* Texture carta pergamena sottile */
+    .menu-section[data-id="bollicine-bottiglia"] .menu-item.wine-label-card::before,
+    .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item.wine-label-card::before,
+    .menu-section[data-id="vini-rossi-bottiglia"] .menu-item.wine-label-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 23px,
+          rgba(193,127,60,0.04) 23px,
+          rgba(193,127,60,0.04) 24px
+        );
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Separatore ornamentale tra nome e descrizione — bottiglia */
+    .wine-ornament {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0.2rem 0 0.25rem;
+      opacity: 0.4;
+    }
+    .wine-ornament-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(193,127,60,0.6), transparent);
+    }
+    .wine-ornament-dot {
+      font-size: 0.4rem;
+      color: var(--amber);
+    }
+
+    /* Anno vendemmia badge */
+    .wine-vintage {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      opacity: 0.75;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+
+
+
+
+
+
+    /* ════════════════════════════════════════
+       VINI PREMIUM ≥50€ — unico blocco definitivo
+    ════════════════════════════════════════ */
+    #menuMain .menu-item.wine-label-card.gran-riserva {
+      background: linear-gradient(
+        150deg,
+        #fffcf0 0%,
+        #fff8e4 30%,
+        #fdf1cc 60%,
+        #fff8e6 100%
+      ) !important;
+      border: 1.5px solid rgba(193,127,60,0.6) !important;
+      animation: goldGlow 2.8s ease-in-out infinite !important;
+    }
+    @keyframes goldGlow {
+      0%, 100% { filter: drop-shadow(0 0 4px rgba(193,127,60,0.35)) drop-shadow(0 0 10px rgba(193,127,60,0.12)); }
+      50%       { filter: drop-shadow(0 0 8px rgba(212,168,60,0.70)) drop-shadow(0 0 20px rgba(212,168,60,0.25)); }
+    }
+    .menu-item.wine-label-card.gran-riserva .item-price {
+      color: #8b6218 !important;
+      font-weight: 700;
+    }
+
+
+    /* ════════════════════════════════════════
+       NIGHT MODE — card vino corrette
+    ════════════════════════════════════════ */
+
+    /* Card bottiglia normali — scure in night */
+    .night .menu-section[data-id="bollicine-bottiglia"] .menu-item.wine-label-card,
+    .night .menu-section[data-id="vini-bianchi-bottiglia"] .menu-item.wine-label-card,
+    .night .menu-section[data-id="vini-rossi-bottiglia"] .menu-item.wine-label-card {
+      background: linear-gradient(145deg,
+        rgba(30,15,5,0.96) 0%,
+        rgba(42,20,7,0.98) 50%,
+        rgba(30,15,5,0.96) 100%) !important;
+      border-color: rgba(193,127,60,0.2) !important;
+    }
+
+    /* Prezzi in night mode — bianchi/caldi per default, NON dorati */
+    .night .menu-item.wine-label-card .item-price .price-number,
+    .night .menu-item.wine-label-card .item-price .price-symbol {
+      -webkit-text-fill-color: var(--light-honey) !important;
+      background: none !important;
+      animation: none !important;
+      color: var(--light-honey) !important;
+    }
+
+    /* Prezzi premium in night — shimmer dorato solo sulle gran-riserva */
+    .night #menuMain .menu-item.wine-label-card.gran-riserva .item-price .price-number {
+      background: linear-gradient(
+        90deg,
+        #c17f3c 0%, #f5d78e 30%, #fff8e7 50%, #f5d78e 70%, #c17f3c 100%
+      ) !important;
+      background-size: 200% auto !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      animation: priceShimmer 2.5s linear infinite !important;
+    }
+    .night #menuMain .menu-item.wine-label-card.gran-riserva .item-price .price-symbol {
+      background: linear-gradient(90deg, #c17f3c, var(--gold)) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      animation: none !important;
+    }
+
+    /* Card premium in night — sfondo dorato scuro caldo */
+    .night #menuMain .menu-item.wine-label-card.gran-riserva {
+      background: linear-gradient(
+        150deg,
+        #2a1704 0%,
+        #3a2008 40%,
+        #2e1a06 70%,
+        #261504 100%
+      ) !important;
+      border-color: rgba(212,168,60,0.55) !important;
+    }
+
+    /* Testo card premium night — oro chiaro */
+    .night #menuMain .menu-item.wine-label-card.gran-riserva .item-name {
+      color: #f0ddb8 !important;
+    }
+    .night #menuMain .menu-item.wine-label-card.gran-riserva .wine-calice-cantina {
+      color: #c9a84c !important;
+    }
+
+    /* ════════════════════════════════════════
+       SOMMELIER — paragrafo narrativo
+    ════════════════════════════════════════ */
+    .som-narrative {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--walnut);
+      text-align: center;
+      padding: 0.6rem 0.4rem 1rem;
+      position: relative;
+      min-height: 0;
+      transition: opacity 0.4s ease;
+    }
+    .som-narrative:empty { display: none; }
+
+    /* Virgolette decorative */
+    .som-narrative::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: rgba(193,127,60,0.25);
+      position: absolute;
+      top: -0.6rem;
+      left: 0.2rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .som-narrative::after {
+      content: '\201D';
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: rgba(193,127,60,0.25);
+      position: absolute;
+      bottom: -0.2rem;
+      right: 0.2rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .night .som-narrative {
+      color: #d4b896;
+    }
+    .night .som-narrative::before,
+    .night .som-narrative::after {
+      color: rgba(193,127,60,0.18);
+    }
+
+    /* ════════════════════════════════════════
+       EFFETTI ATMOSFERICI PER CATEGORIA
+    ════════════════════════════════════════ */
+
+    /* Bollicine — luce fredda dorata in alto */
+    .menu-section[data-id="bollicine"] .section-header,
+    .menu-section[data-id="bollicine-bottiglia"] .section-header {
+      background: linear-gradient(180deg,
+        rgba(184,134,11,0.06) 0%,
+        transparent 100%);
+      border-radius: 4px 4px 0 0;
+      padding-top: 0.4rem;
+      margin-top: -0.4rem;
+    }
+    .menu-section[data-id="bollicine"] .section-ornament-icon::before,
+    .menu-section[data-id="bollicine-bottiglia"] .section-ornament-icon::before {
+      content: "\1F942 · ✦ · ";
+    }
+
+    /* Vini bianchi — luce paglierina minerale */
+    .menu-section[data-id="vini-bianchi"] .section-header,
+    .menu-section[data-id="vini-bianchi-bottiglia"] .section-header {
+      background: linear-gradient(180deg,
+        rgba(160,120,32,0.05) 0%,
+        transparent 100%);
+      border-radius: 4px 4px 0 0;
+      padding-top: 0.4rem;
+      margin-top: -0.4rem;
+    }
+    .menu-section[data-id="vini-bianchi"] .section-ornament-icon::before,
+    .menu-section[data-id="vini-bianchi-bottiglia"] .section-ornament-icon::before {
+      content: "\1F33F · ✦ · ";
+    }
+
+    /* Vini rossi — calore rubino */
+    .menu-section[data-id="vini-rossi"] .section-header,
+    .menu-section[data-id="vini-rossi-bottiglia"] .section-header {
+      background: linear-gradient(180deg,
+        rgba(139,26,26,0.06) 0%,
+        transparent 100%);
+      border-radius: 4px 4px 0 0;
+      padding-top: 0.4rem;
+      margin-top: -0.4rem;
+    }
+    .menu-section[data-id="vini-rossi"] .section-ornament-icon::before,
+    .menu-section[data-id="vini-rossi-bottiglia"] .section-ornament-icon::before {
+      content: "\1F331 · ✦ · ";
+    }
+
+    @keyframes splashLogoGlow {
+      0%   { filter: drop-shadow(0 0 0px rgba(193,127,60,0)); }
+      40%  { filter: drop-shadow(0 0 22px rgba(193,127,60,0.7)) drop-shadow(0 0 8px rgba(245,215,142,0.5)); }
+      100% { filter: drop-shadow(0 0 6px rgba(193,127,60,0.3)); }
+    }
 </style>
 </head>
 <body>
@@ -3839,6 +4213,7 @@
     <div class="sommelier-wine-name" id="som-name"></div>
     <div class="sommelier-cantina" id="som-cantina"></div>
     <div class="sommelier-divider"></div>
+    <div id="som-narrative" class="som-narrative"></div>
     <div id="som-bars"></div>
     <div class="sommelier-note" id="som-note"></div>
     <div class="sommelier-grid">
@@ -3889,7 +4264,7 @@
   <div id="sommelier-ia-card">
     <button class="som-ia-close" onclick="closeSommelierIABtn()" aria-label="Chiudi">✕</button>
     <div class="som-ia-handle"></div>
-    <span class="som-ia-tag" data-t="somIaTag">🍷 Sommelier IA · Al Bakaro</span>
+    <span class="som-ia-tag" data-t="somIaTag">🍷 Il Sommelier · Al Bakaro</span>
     <div class="som-ia-cicchetto" id="som-ia-name"></div>
     <div class="som-ia-subtitle" id="som-ia-desc"></div>
 
@@ -4137,6 +4512,7 @@
 <div id="splash">
   <img class="splash-logo" id="splashLogoImg" alt="Al Bakaro"/>
   <p class="splash-claim">vino &amp; tartine · Gorizia</p>
+  <p class="splash-tagline" id="splash-tagline">La prima cicchetteria di Gorizia</p>
   <div class="splash-dots">
     <div class="splash-dot"></div>
     <div class="splash-dot"></div>
@@ -4281,26 +4657,81 @@
    SPLASH SCREEN
 ════════════════════════════════════════ */
 (function() {
+  // Frasi diverse per giorno della settimana
+  var TAGLINES = {
+    it: ['Lunedì con stile', 'In vino veritas', 'Ogni calice racconta una storia',
+         'Il territorio nel bicchiere', 'Venerdi da brindare', 'Sabato da degustare', 'Domenica in cantina'],
+    en: ['Monday with style', 'In vino veritas', 'Every glass tells a story',
+         'The territory in the glass', 'Friday to toast', 'Saturday to taste', 'Sunday in the cellar'],
+    de: ['Montag mit Stil', 'In vino veritas', 'Jedes Glas erzählt eine Geschichte',
+         'Das Terroir im Glas', 'Freitag zum Anstoßen', 'Samstag zum Verkosten', 'Sonntag im Keller'],
+    sl: ['Ponedeljek z razredom', 'In vino veritas', 'Vsak kozarec pripoveduje zgodbo',
+         'Teritorij v kozarcu', 'Petek za nazdravljanje', 'Sobota za degustacijo', 'Nedelja v kleti'],
+  };
+
+  function spawnSplashParticles(splash) {
+    var count = 18;
+    for (var i = 0; i < count; i++) {
+      (function(i) {
+        var p = document.createElement('div');
+        p.className = 'splash-particle';
+        var size = 3 + Math.random() * 5;
+        var dx   = (Math.random() - 0.5) * 80;
+        p.style.cssText = [
+          'width:'  + size + 'px',
+          'height:' + size + 'px',
+          'left:'   + (20 + Math.random() * 60) + '%',
+          'bottom:' + (10 + Math.random() * 35) + '%',
+          '--dur:'   + (2.5 + Math.random() * 2) + 's',
+          '--delay:' + (0.4 + i * 0.12) + 's',
+          '--dx:'    + dx + 'px',
+        ].join(';');
+        splash.appendChild(p);
+      })(i);
+    }
+  }
+
+  function initSplash() {
+    var splash   = document.getElementById('splash');
+    var tagline  = document.getElementById('splash-tagline');
+    if (!splash) return;
+
+    // Frase del giorno
+    if (tagline) {
+      var lang  = (typeof currentLang !== 'undefined' ? currentLang : 'it') || 'it';
+      var lines = TAGLINES[lang] || TAGLINES['it'];
+      tagline.textContent = lines[new Date().getDay()];
+    }
+
+    // Aggiungi glow al logo
+    var logo = document.getElementById('splashLogoImg');
+    if (logo) logo.classList.add('glow');
+
+    // Particelle dorate
+    spawnSplashParticles(splash);
+  }
+
   function hideSplash() {
-    const splash = document.getElementById('splash');
+    var splash = document.getElementById('splash');
     if (!splash || splash.dataset.hidden) return;
     splash.dataset.hidden = '1';
     splash.classList.add('hide');
-    setTimeout(() => { if (splash.parentNode) splash.remove(); }, 900);
+    setTimeout(function() { if (splash.parentNode) splash.remove(); }, 900);
   }
 
-  // Chiudi appena il DOM è pronto (non aspettare immagini/font)
+  // Init immediato
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(hideSplash, 600);
+      initSplash();
+      setTimeout(hideSplash, 2200);
     });
   } else {
-    // DOM già pronto
-    setTimeout(hideSplash, 800);
+    initSplash();
+    setTimeout(hideSplash, 2200);
   }
 
-  // Fallback assoluto: dopo 4s chiudi comunque, qualunque cosa accada
-  setTimeout(hideSplash, 2500);
+  // Fallback assoluto
+  setTimeout(hideSplash, 4000);
 })();
 
 
@@ -5584,7 +6015,7 @@ function buildItemCard(item, catId) {
   const ABBINA_CATS = ['cicchetti', 'cicchetti-fissi', 'cicchetti-caldi'];
   const itemDesc = (item.desc && item.desc['it']) || '';
   const abbinaBtn = (ABBINA_CATS.indexOf(catId) >= 0 && item.name['it'] !== 'Cicchetti della Settimana')
-    ? `<button class="cicchetto-abbina-btn" aria-label="Abbina un vino" onclick="openSommelierIA('${item.name['it'].replace(/'/g,"\\'")}','${itemDesc.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">${t('abbinaBtn')}</button>`
+    ? `<button class="cicchetto-abbina-btn" aria-label="Abbina un vino" data-cname="${item.name['it']}" data-cdesc="${itemDesc}">${t('abbinaBtn')}</button>`
     : '';
   // Immagine gin o bottiglia — solo per categorie bottiglia e gin
   const BOTTLE_CATS = ['bollicine-bottiglia','vini-bianchi-bottiglia','vini-rossi-bottiglia','gin'];
@@ -5607,23 +6038,56 @@ function buildItemCard(item, catId) {
 
   const territoryBadge = getTerritoryBadge(item.name['it']);
 
-  div.innerHTML = `
-    ${ginImgHtml}
-    <div class="item-info">
-      ${territoryBadge}
-      <div class="item-name">${item.name[currentLang] || item.name['it']}</div>
-      ${cicImgHtml}
-      <div class="item-desc">${(currentLang === 'sl' ? (item.desc['it'] || item.desc['de']) : item.desc[currentLang]) || ''}</div>
-      ${tagsHtml ? `<div class="item-tags">${tagsHtml}</div>` : ''}
-      ${somBtn}
-      ${abbinaBtn}
-      ${orderWrapHtml}
-    </div>
-    <div class="item-right">
-      <div class="item-price${parseFloat(item.price) >= 50 ? ' premium' : ''}"><span class="price-display">${item.price === '—' ? '' : item.price === 'GIN' ? '🫙' : '<span class=\"price-symbol\">€</span><span class=\"price-number\">' + item.price + '</span>'}</span></div>
-      <button class="fav-btn" data-name="${item.name['it']}" data-cat="${catId}" aria-label="Aggiungi ai preferiti">❤️</button>
-    </div>
-  `;
+  // ── Premium wine extras ──────────────────────────────────────────────────
+  const WINE_CATS = ['bollicine','bollicine-bottiglia','vini-bianchi','vini-bianchi-bottiglia','vini-rossi','vini-rossi-bottiglia'];
+  const isWine    = WINE_CATS.indexOf(catId) >= 0;
+  const isBott    = catId.indexOf('-bottiglia') >= 0;
+  const price     = parseFloat(item.price) || 0;
+  const isGranRiserva = isWine && price >= 50;
+
+  // Estrai cantina (parte dopo " — ") per il badge sopra il nome
+  const nameIt   = item.name['it'] || '';
+  const dashIdx  = nameIt.indexOf(' — ');
+  const cantina  = dashIdx > 0 ? nameIt.substring(dashIdx + 3) : '';
+  const nomeVino = dashIdx > 0 ? nameIt.substring(0, dashIdx) : nameIt;
+  const nameLang = item.name[currentLang] || nameIt;
+  const dashLIdx = nameLang.indexOf(' — ');
+  const nomeVinoLang = dashLIdx > 0 ? nameLang.substring(0, dashLIdx) : nameLang;
+  const cantinaLang  = dashLIdx > 0 ? nameLang.substring(dashLIdx + 3) : cantina;
+
+  // Ornamento decorativo per bottiglie
+  const ornament = isBott ? '<div class="wine-ornament"><div class="wine-ornament-line"></div><span class="wine-ornament-dot">✦</span><div class="wine-ornament-line"></div></div>' : '';
+
+  // Badge Gran Riserva rimosso — solo trattamento visivo
+
+  // Cantina in piccolo sopra il nome (solo vini con separatore —)
+  const cantinaBadge = (isWine && cantina) ? '<span class="wine-calice-cantina">' + cantinaLang + '</span>' : '';
+
+  // Nome da mostrare: se vino con cantina, mostra solo il nome del vino
+  const displayName = (isWine && cantina) ? nomeVinoLang : nameLang;
+
+  const descHtml = (currentLang === 'sl' ? (item.desc['it'] || item.desc['de']) : item.desc[currentLang]) || '';
+  const isPremium = parseFloat(item.price) >= 50;
+  const priceClass = isPremium ? ' premium' : '';
+  const priceDisp = item.price === '\u2014' ? '' : item.price === 'GIN' ? '\uD83E\uDEB4' : '<span class="price-symbol">€</span><span class="price-number">' + item.price + '</span>';
+  div.innerHTML =
+    ginImgHtml +
+    '<div class="item-info">' +
+      territoryBadge +
+      cantinaBadge +
+      '<div class="item-name">' + displayName + '</div>' +
+      cicImgHtml +
+      ornament +
+      '<div class="item-desc">' + descHtml + '</div>' +
+      (tagsHtml ? '<div class="item-tags">' + tagsHtml + '</div>' : '') +
+      somBtn +
+      abbinaBtn +
+      orderWrapHtml +
+    '</div>' +
+    '<div class="item-right">' +
+      '<div class="item-price' + priceClass + '"><span class="price-display">' + priceDisp + '</span></div>' +
+      '<button class="fav-btn" data-name="' + item.name['it'] + '" data-cat="' + catId + '" aria-label="Aggiungi ai preferiti">❤️</button>' +
+    '</div>';
 
   // Sommelier btn
   if (somData) {
@@ -5954,13 +6418,20 @@ function openOrder() {
       const qtyLabel = (item.qty || 1) > 1 ? `<span style="color:var(--amber);font-weight:700"> ×${item.qty}</span>` : '';
       return `<div class="order-item">
         <div class="order-item-info">
-          <div class="order-item-name">${item.name}${qtyLabel}</div>
-          <div class="order-item-cat">${item.cat}</div>
+          <div class="order-item-name">${(item.name||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}${qtyLabel}</div>
+          <div class="order-item-cat">${(item.cat||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</div>
         </div>
         <div class="order-item-price">${priceStr}</div>
-        <button class="order-item-remove" onclick="removeFromOrder('${item.name.replace(/'/g,"\'")}')">✕</button>
+        <button class="order-item-remove" data-remove="${item.name.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">&#x2715;</button>
       </div>`;
     }).join('');
+
+    // Event delegation rimozione
+    list.querySelectorAll('.order-item-remove').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        removeFromOrder(this.dataset.remove);
+      });
+    });
 
     // Totale
     let tot = 0;
@@ -6039,6 +6510,20 @@ function openSommelier(name) {
         setTimeout(() => { bar.style.width = w + '%'; }, 80 + i * 60);
       });
     });
+  }
+
+  // Paragrafo narrativo — combina color, nose, style in modo evocativo
+  var narrativeEl = document.getElementById('som-narrative');
+  if (narrativeEl) {
+    var styleText = getLang(data.style) || '';
+    var noseText  = getLang(data.nose)  || '';
+    var colorText = getLang(data.color) || '';
+    // Costruisce la frase: colore. Al naso, profumi. Stile.
+    var parts = [];
+    if (colorText) parts.push(colorText);
+    if (noseText)  parts.push((currentLang==='it'?'Al naso ':currentLang==='en'?'On the nose ':currentLang==='de'?'In der Nase ':'')+noseText.toLowerCase());
+    if (styleText) parts.push(styleText);
+    narrativeEl.textContent = parts.join('. ');
   }
 
   document.getElementById('sommelier-modal').classList.add('show');
@@ -6275,10 +6760,21 @@ function getTerritoryBadge(wineName) {
 }
 
 function applyPremiumEffects() {
-  // Bordo iridescente sui vini premium >50€
+  // Delegazione click su bottoni abbina-vino
+  document.querySelectorAll('.cicchetto-abbina-btn:not([data-dl])').forEach(function(btn) {
+    btn.dataset.dl = '1';
+    btn.addEventListener('click', function() {
+      openSommelierIA(this.dataset.cname || '', this.dataset.cdesc || '');
+    });
+  });
+  // Trattamento premium sui vini ≥50€
   document.querySelectorAll('.menu-item.wine-label-card').forEach(card => {
     const priceEl = card.querySelector('.item-price.premium');
-    if (priceEl) card.classList.add('premium-border');
+    card.classList.remove('gran-riserva');
+    card.style.outline = '';
+    if (priceEl) {
+      card.classList.add('gran-riserva');
+    }
   });
 
   // Fiamma sui cicchetti caldi — vicino al nome
@@ -7528,6 +8024,14 @@ function spawnAromaWords(wineName, originEl) {
     document.body.style.overflow = '';
   };
 
+  // Delegazione click pillole vino
+  document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('tooltip-wine-pill')) {
+      var wn = e.target.dataset.wine || e.target.textContent.trim();
+      if (wn && typeof window.goToWine === 'function') window.goToWine(wn);
+    }
+  });
+
   window.selectZone = function(zoneId) {
     var zone = window.ZONES.find(function(z){ return z.id === zoneId; });
     if (!zone) return;
@@ -7543,8 +8047,8 @@ function spawnAromaWords(wineName, originEl) {
 
     var pillsHtml = zone.wines.length > 0
       ? zone.wines.map(function(w) {
-          var safW = w.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-          return '<span class="tooltip-wine-pill" onclick="goToWine(\'' + safW + '\')">' + w + '</span>';
+          var safW = w.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+          return '<span class="tooltip-wine-pill" data-wine="' + safW + '">' + w + '</span>';
         }).join('')
       : '<span style="font-family:Lora,serif;font-style:italic;font-size:0.75rem;color:var(--stone)">Zona vinicola del Collio</span>';
 
@@ -8224,29 +8728,77 @@ setTimeout(function() { (function() {
     document.body.style.overflow = '';
   }
 
-  /* ── Endpoint del proxy Cloudflare Worker ───────────────────────────────
-     Dopo il deploy, sostituisci con il tuo URL:
-     https://bakaro-sommelier-proxy.TUO-ACCOUNT.workers.dev          */
-  var PROXY_URL = 'https://bakaro-sommelier-proxy.TUO-ACCOUNT.workers.dev';
-
-  /* Chiama il proxy (che a sua volta chiama l'API Anthropic in sicurezza) */
+  /* ── Abbinamento locale — usa i dati già presenti nel menu ── */
   function fetchPairing(cicchetto, desc) {
-    fetch(PROXY_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cicchetto: cicchetto, descrizione: desc || '' })
-    })
-    .then(function(r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    })
-    .then(function(parsed) {
-      renderResult(parsed);
-    })
-    .catch(function() {
-      document.getElementById('som-ia-loading').style.display = 'none';
-      document.getElementById('som-ia-error').style.display = 'block';
-    });
+    // Piccolo delay teatrale (0.8s) per l'animazione loading
+    setTimeout(function() {
+      var result = findLocalPairing(cicchetto);
+      if (result) {
+        renderResult(result);
+      } else {
+        document.getElementById('som-ia-loading').style.display = 'none';
+        document.getElementById('som-ia-error').style.display = 'block';
+      }
+    }, 800);
+  }
+
+  function findLocalPairing(cicchetto) {
+    // Cerca negli ABBINAMENTI del Dado (già presenti nel sito)
+    if (typeof ABBINAMENTI === 'undefined') return null;
+
+    // Match esatto prima, poi parziale
+    var match = null;
+    for (var i = 0; i < ABBINAMENTI.length; i++) {
+      if (ABBINAMENTI[i][0] === cicchetto) { match = ABBINAMENTI[i]; break; }
+    }
+    if (!match) {
+      var cLower = cicchetto.toLowerCase();
+      for (var i = 0; i < ABBINAMENTI.length; i++) {
+        if (ABBINAMENTI[i][0].toLowerCase().indexOf(cLower.slice(0,12)) !== -1) {
+          match = ABBINAMENTI[i]; break;
+        }
+      }
+    }
+    if (!match) return null;
+
+    var wineName = match[2];
+    var perche   = match[3];
+
+    // Cerca prezzo e tipo nel MENU
+    var winePrice = '';
+    var wineType  = '';
+    var wineCats  = ['bollicine','vini-bianchi','vini-rossi',
+                     'bollicine-bottiglia','vini-bianchi-bottiglia','vini-rossi-bottiglia'];
+    if (typeof MENU !== 'undefined') {
+      MENU.forEach(function(sec) {
+        if (wineCats.indexOf(sec.id) === -1) return;
+        sec.items.forEach(function(item) {
+          if (item.name['it'] === wineName) {
+            winePrice = item.price || '';
+            wineType  = sec.id.indexOf('bottiglia') !== -1 ? 'bottiglia' : 'calice';
+          }
+        });
+      });
+    }
+
+    // Intro multilingua
+    var lang = typeof currentLang !== 'undefined' ? currentLang : 'it';
+    var intros = {
+      it: 'Il Sommelier di Al Bakaro consiglia:',
+      en: 'The Al Bakaro Sommelier recommends:',
+      de: 'Der Al Bakaro Sommelier empfiehlt:',
+      sl: 'Sommelier Al Bakaro priporoča:'
+    };
+
+    return {
+      intro: intros[lang] || intros['it'],
+      vini: [{
+        nome:   wineName,
+        prezzo: winePrice,
+        tipo:   wineType,
+        perche: perche
+      }]
+    };
   }
 
   /* Renderizza i vini suggeriti */
@@ -8280,7 +8832,9 @@ setTimeout(function() { (function() {
         var n = btn.dataset.name;
         var p = btn.dataset.price;
         if (typeof myOrder !== 'undefined') {
-          if (!myOrder[n]) myOrder[n] = { price: parseFloat(p) || 0, qty: 0 };
+          if (!myOrder[n]) myOrder[n] = { name: n, price: parseFloat(p) || 0, cat: 'vino', qty: 0 };
+          if (!myOrder[n].name) myOrder[n].name = n;
+          if (!myOrder[n].cat)  myOrder[n].cat  = 'vino';
           myOrder[n].qty++;
           if (typeof updateOrderUI === 'function') updateOrderUI();
           btn.textContent = '✓ Aggiunto';
@@ -8344,6 +8898,7 @@ setTimeout(function() { (function() {
     ['Mozzarella in Carrozza con Acciughe', '🧀', 'Rosé — Oltrenero',                 'Il rosé spumante lombardo con la sua eleganza bilancia la mozzarella fritta e il sale delle acciughe.'],
   ];
 
+  window.ABBINAMENTI = ABBINAMENTI; // esponi globalmente per openSommelierIA
   let currentIdx = -1;
 
   window.openDado = function() {
