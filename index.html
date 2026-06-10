@@ -47,7 +47,6 @@
 
   <!-- ═══ FONT ═══ -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="preconnect" href="https://api.open-meteo.com" crossorigin/>
   <link rel="dns-prefetch" href="https://api.open-meteo.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -4481,116 +4480,8 @@
 .menu-section[data-id="analcolici"] .menu-item::before { background: linear-gradient(180deg, #4a7c59, #27ae60); }
 .menu-section[data-id="amari"] .menu-item::before { background: linear-gradient(180deg, #3a7d44, #27ae60); }
 
-
-    /* ── La mia selezione: nota elegante ── */
-    .order-ready-note {
-      text-align: center;
-      margin: 1rem 0 0.4rem;
-      font-family: 'Lora', serif;
-      font-style: italic;
-      font-size: 0.78rem;
-      color: var(--stone);
-      display: flex; flex-direction: column; gap: 0.4rem;
-    }
-    .order-ready-ornament {
-      font-size: 0.6rem;
-      color: var(--amber);
-      letter-spacing: 0.2em;
-    }
-    body.night .order-ready-note { color: rgba(240,221,184,0.65); }
-
-    /* Nomi item più eleganti */
-    .order-item-name {
-      font-family: 'Playfair Display', serif !important;
-      font-size: 0.95rem !important;
-    }
-
-    /* ── Hint prima visita pannello speciale ── */
-    @keyframes specialHintPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(193,127,60,0.55); }
-      50%      { box-shadow: 0 0 0 14px rgba(193,127,60,0); }
-    }
-    #special-menu-btn.hint-pulse {
-      animation: specialHintPulse 1.6s ease-out infinite;
-    }
-    #special-hint-coach {
-      position: fixed;
-      bottom: calc(7.5rem + env(safe-area-inset-bottom, 0px));
-      right: 1rem;
-      z-index: 950;
-      max-width: 220px;
-      background: rgba(44,26,14,0.95);
-      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-      border: 1px solid rgba(193,127,60,0.4);
-      border-radius: 14px;
-      padding: 0.8rem 1rem;
-      font-family: 'Lora', serif;
-      font-size: 0.78rem;
-      line-height: 1.5;
-      color: #f5e7c8;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      pointer-events: none;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.3);
-    }
-    #special-hint-coach.show {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: all;
-    }
-    #special-hint-coach::after {
-      content: '';
-      position: absolute;
-      bottom: -7px; right: 1.6rem;
-      width: 14px; height: 14px;
-      background: rgba(44,26,14,0.95);
-      border-right: 1px solid rgba(193,127,60,0.4);
-      border-bottom: 1px solid rgba(193,127,60,0.4);
-      transform: rotate(45deg);
-    }
-    #special-hint-coach .hint-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.15em;
-      color: var(--amber);
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-
-    /* ── Chip filtri cibo ── */
-    .food-filter-chips {
-      display: flex; gap: 0.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 0.2rem 0 1.1rem;
-    }
-    .food-chip {
-      background: rgba(193,127,60,0.06);
-      border: 1px solid rgba(193,127,60,0.3);
-      border-radius: 20px;
-      padding: 0.42rem 0.95rem;
-      font-family: 'Cinzel', serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      color: var(--walnut);
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-      -webkit-tap-highlight-color: transparent;
-      min-height: 34px;
-    }
-    .food-chip.active {
-      background: linear-gradient(135deg, #c17f3c, #a3692f);
-      border-color: transparent;
-      color: #fdf6e8;
-      box-shadow: 0 2px 10px rgba(193,127,60,0.35);
-    }
-    .food-chip:active { transform: scale(0.96); }
-    body.night .food-chip { color: var(--light-honey); border-color: rgba(193,127,60,0.25); }
-    body.night .food-chip.active { color: #fdf6e8; }
 </style>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <!-- ═══════════════════ STRUCTURED DATA ═══════════════════ -->
 <script type="application/ld+json">
@@ -4684,12 +4575,9 @@
       <span class="order-total-label" data-t="orderTotal">TOTALE STIMATO</span>
       <span class="order-total-value" id="order-total-val"></span>
     </div>
-    <div class="order-ready-note" id="order-ready-note" style="display:none">
-      <span class="order-ready-ornament">✦ &nbsp;·&nbsp; ✦ &nbsp;·&nbsp; ✦</span>
-      <span data-t="orderReadyNote">Quando sei pronto, ordina al tavolo</span>
-    </div>
     <div class="order-actions" id="order-actions" style="display:none">
-      <button class="order-btn-clear" onclick="clearOrder()" data-t="orderClear">🗑 Svuota selezione</button>
+      <button class="order-btn-clear" onclick="clearOrder()" data-t="orderClear">🗑 Svuota ordine</button>
+      <button class="order-btn-whatsapp" onclick="sendOrderWhatsApp()" data-t="orderWhatsApp">📲 Invia al banco</button>
     </div>
   </div>
 </div>
@@ -4874,11 +4762,6 @@
     </div>
     </div>
   </div>
-</div>
-
-<div id="special-hint-coach" aria-hidden="true">
-  <span class="hint-title">✨ Da scoprire</span>
-  <span id="special-hint-text">Sommelier, mappa del Collio, abbinamenti e altro ti aspettano qui</span>
 </div>
 
 <!-- ═══════════════════ PANNELLO SPECIALE ═══════════════════ -->
@@ -5318,40 +5201,14 @@ document.addEventListener('keydown', function(e) {
    SERVICE WORKER — PWA OFFLINE
 ════════════════════════════════════════ */
 if ('serviceWorker' in navigator) {
-  // Evita errori su Safari iOS con domini non app-bound
-  var _isSafariIOS = /iP(hone|ad|od)/.test(navigator.userAgent) && /WebKit/.test(navigator.userAgent);
   window.addEventListener('load', function() {
-    try {
-      var swCode = [
-        'var CACHE="albakaro-v2";',
-        'var ASSETS=["/Al.bakaro.menu/","/Al.bakaro.menu/index.html"];',
-        'self.addEventListener("install",function(e){',
-        '  e.waitUntil(caches.open(CACHE).then(function(c){return c.addAll(ASSETS);}));',
-        '  self.skipWaiting();',
-        '});',
-        'self.addEventListener("activate",function(e){',
-        '  e.waitUntil(caches.keys().then(function(ks){',
-        '    return Promise.all(ks.filter(function(k){return k!==CACHE;}).map(function(k){return caches.delete(k);}));',
-        '  }));',
-        '  self.clients.claim();',
-        '});',
-        'self.addEventListener("fetch",function(e){',
-        '  if(e.request.method!=="GET")return;',
-        '  e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request);}));',
-        '});'
-      ].join('\n');
-      var blob = new Blob([swCode], {type:'application/javascript'});
-      var swUrl = URL.createObjectURL(blob);
-      navigator.serviceWorker.register(swUrl, {scope: '/Al.bakaro.menu/'})
-        .then(function(reg) {
-          // SW registrato silenziosamente
-        })
-        .catch(function() {
-          // Silenzioso — Safari iOS non supporta SW su domini non app-bound
-        });
-    } catch(e) {
-      // Silenzioso
-    }
+    navigator.serviceWorker.register('sw.js')
+      .then(function(reg) {
+        console.log('[SW] Registered:', reg.scope);
+      })
+      .catch(function(err) {
+        console.log('[SW] Registration failed:', err);
+      });
   });
 }
 
@@ -5497,8 +5354,7 @@ const i18n = {
     orderTitle: "Il mio ordine",
     orderEmpty: "Nessun prodotto selezionato",
     orderTotal: "TOTALE STIMATO",
-    orderClear: "Svuota selezione",
-    orderReadyNote: "Quando sei pronto, ordina al tavolo",
+    orderClear: "Svuota ordine",
     somTemp: "Temperatura",
     somFood: "Abbinamenti",
     somColor: "Colore",
@@ -5518,9 +5374,8 @@ const i18n = {
     nightNight: "Notte",
     abbinaBtn: "🍷 Abbina un vino",
     abbinaCicchettoBtn: "🍢 Abbina un cicchetto",
-    filterAll: "Tutti", filterVeg: "Veg", filterFish: "Pesce", filterMeat: "Carne",
   
-    orderModalTitle: "✦ La mia selezione",
+    orderModalTitle: "🛒 Il mio ordine",
     panelMapName: "Mappa del Collio",
     panelMapDesc: "Esplora il territorio dei vini",
     panelSurpriseName: "Sorprendimi",
@@ -5560,7 +5415,7 @@ const i18n = {
     surpriseAddOrder: "🍷 Aggiungi all'ordine",
     surpriseRetry: "🔄 Riprova",
     surpriseNext: "👤 Prossima persona al tavolo",
-    orderSubtitle: "Segna ciò che ti incuriosisce mentre sfogli",
+    orderSubtitle: "Nessun prodotto selezionato",
     somNote: "🍷 Scheda del sommelier",
     meteoLabel: "vino ideale",
     nightToggle: "Notte",
@@ -5629,8 +5484,7 @@ const i18n = {
     orderTitle: "My order",
     orderEmpty: "No items selected",
     orderTotal: "ESTIMATED TOTAL",
-    orderClear: "Clear selection",
-    orderReadyNote: "When you're ready, order at your table",
+    orderClear: "Clear order",
     somTemp: "Temperature",
     somFood: "Pairings",
     somColor: "Colour",
@@ -5650,9 +5504,8 @@ const i18n = {
     nightNight: "Night",
     abbinaBtn: "🍷 Pair a wine",
     abbinaCicchettoBtn: "🍢 Pair a cicchetto",
-    filterAll: "All", filterVeg: "Veg", filterFish: "Fish", filterMeat: "Meat",
   
-    orderModalTitle: "✦ My selection",
+    orderModalTitle: "🛒 My order",
     panelMapName: "Collio Map",
     panelMapDesc: "Explore the wine territory",
     panelSurpriseName: "Surprise me",
@@ -5692,7 +5545,7 @@ const i18n = {
     surpriseAddOrder: "🍷 Add to order",
     surpriseRetry: "🔄 Try again",
     surpriseNext: "👤 Next person at the table",
-    orderSubtitle: "Mark what intrigues you as you browse",
+    orderSubtitle: "No items selected",
     somNote: "🍷 Sommelier notes",
     meteoLabel: "ideal wine",
     nightToggle: "Night",
@@ -5761,8 +5614,7 @@ const i18n = {
     orderTitle: "Meine Bestellung",
     orderEmpty: "Keine Produkte gewählt",
     orderTotal: "GESCHÄTZTER GESAMTBETRAG",
-    orderClear: "Auswahl leeren",
-    orderReadyNote: "Wenn du bereit bist, bestelle am Tisch",
+    orderClear: "Bestellung leeren",
     somTemp: "Temperatur",
     somFood: "Speisenempfehlungen",
     somColor: "Farbe",
@@ -5782,9 +5634,8 @@ const i18n = {
     nightNight: "Nacht",
     abbinaBtn: "🍷 Wein empfehlen",
     abbinaCicchettoBtn: "🍢 Cicchetto empfehlen",
-    filterAll: "Alle", filterVeg: "Veg", filterFish: "Fisch", filterMeat: "Fleisch",
   
-    orderModalTitle: "✦ Meine Auswahl",
+    orderModalTitle: "🛒 Meine Bestellung",
     panelMapName: "Collio-Karte",
     panelMapDesc: "Weingebiet erkunden",
     panelSurpriseName: "Überrasch mich",
@@ -5824,7 +5675,7 @@ const i18n = {
     surpriseAddOrder: "🍷 Zur Bestellung hinzufügen",
     surpriseRetry: "🔄 Nochmal",
     surpriseNext: "👤 Nächste Person am Tisch",
-    orderSubtitle: "Markiere, was dich neugierig macht",
+    orderSubtitle: "Keine Produkte ausgewählt",
     somNote: "🍷 Sommelier-Notizen",
     meteoLabel: "idealer Wein",
     nightToggle: "Nacht",
@@ -5894,8 +5745,7 @@ const i18n = {
     orderTitle: "Moje naročilo",
     orderEmpty: "Ni izbranih izdelkov",
     orderTotal: "OCENJENA SKUPNA VSOTA",
-    orderClear: "Počisti izbiro",
-    orderReadyNote: "Ko si pripravljen, naroči pri mizi",
+    orderClear: "Počisti naročilo",
     somTemp: "Temperatura",
     somFood: "Priporočeni pari",
     somColor: "Barva",
@@ -5915,9 +5765,8 @@ const i18n = {
     nightNight: "Noč",
     abbinaBtn: "🍷 Priporoči vino",
     abbinaCicchettoBtn: "🍢 Priporoči cicchetto",
-    filterAll: "Vse", filterVeg: "Veg", filterFish: "Ribe", filterMeat: "Meso",
   
-    orderModalTitle: "✦ Moja izbira",
+    orderModalTitle: "🛒 Moje naročilo",
     panelMapName: "Zemljevid Collija",
     panelMapDesc: "Raziščite vinorodno območje",
     panelSurpriseName: "Preseneti me",
@@ -5957,7 +5806,7 @@ const i18n = {
     surpriseAddOrder: "🍷 Dodaj naročilu",
     surpriseRetry: "🔄 Poskusi znova",
     surpriseNext: "👤 Naslednja oseba za mizo",
-    orderSubtitle: "Označi, kar te zanima med brskanjem",
+    orderSubtitle: "Ni izbranih izdelkov",
     somNote: "🍷 Sommelier kartica",
     meteoLabel: "idealno vino",
     nightToggle: "Noč",
@@ -6876,24 +6725,13 @@ function _renderContent(main) {
   MENU.forEach(section => {
     if (currentCat !== 'all' && currentCat !== section.id) return;
 
-    let filtered = section.items.filter(item => {
+    const filtered = section.items.filter(item => {
       if (!q) return true;
       return (
         item.name[currentLang].toLowerCase().includes(q) ||
         item.desc[currentLang].toLowerCase().includes(q)
       );
     });
-
-    // Filtro cibo Veg/Pesce/Carne (solo categorie cicchetti)
-    const FOOD_FILTER_CATS = ['cicchetti','cicchetti-fissi','cicchetti-caldi'];
-    const isFoodSection = FOOD_FILTER_CATS.indexOf(section.id) >= 0;
-    if (isFoodSection && window._foodFilter && window._foodFilter !== 'all') {
-      filtered = filtered.filter(item => {
-        const cls = window.FOOD_CLASS && window.FOOD_CLASS[item.name['it']];
-        if (!cls) return true; // header e non classificati restano visibili
-        return cls === window._foodFilter;
-      });
-    }
 
     if (filtered.length === 0) return;
     totalVisible += filtered.length;
@@ -6938,12 +6776,6 @@ function _renderContent(main) {
         <div class="section-ornament-line"></div>
       </div>
       ${descHtml}
-      ${isFoodSection ? `<div class="food-filter-chips">
-        <button class="food-chip${window._foodFilter==='all'?' active':''}" data-ff="all">${t('filterAll')}</button>
-        <button class="food-chip${window._foodFilter==='veg'?' active':''}" data-ff="veg">🌿 ${t('filterVeg')}</button>
-        <button class="food-chip${window._foodFilter==='pesce'?' active':''}" data-ff="pesce">🐟 ${t('filterFish')}</button>
-        <button class="food-chip${window._foodFilter==='carne'?' active':''}" data-ff="carne">🥩 ${t('filterMeat')}</button>
-      </div>` : ''}
       <div class="menu-grid" id="grid-${section.id}"></div>
     `;
     main.appendChild(sec);
@@ -7154,8 +6986,6 @@ function openOrder() {
     sub.textContent = t('orderEmpty');
     total.style.display = 'none';
     actions.style.display = 'none';
-    var rn0 = document.getElementById('order-ready-note');
-    if (rn0) rn0.style.display = 'none';
   } else {
     sub.textContent = items.length === 1 ? t('orderItemsSingular') : items.length + ' ' + t('orderItemsPlural');
     list.innerHTML = items.map(item => {
@@ -7196,8 +7026,6 @@ function openOrder() {
       total.style.display = 'none';
     }
     actions.style.display = 'flex';
-    var rn1 = document.getElementById('order-ready-note');
-    if (rn1) { rn1.style.display = 'flex'; var sp = rn1.querySelector('[data-t]'); if (sp) sp.textContent = t('orderReadyNote'); }
   }
 
   document.getElementById('order-modal').classList.add('show');
@@ -9217,15 +9045,10 @@ function toggleNight() {
   try { localStorage.setItem('nightMode', isNight ? '1' : '0'); } catch(e) {}
 }
 try {
-  var _nm = localStorage.getItem('nightMode');
-  var _hour = new Date().getHours();
-  var _autoNight = (_nm === null) && (_hour >= 18 || _hour < 7);
-  if (_nm === '1' || _autoNight) {
+  if (localStorage.getItem('nightMode') === '1') {
     document.body.classList.add('night');
     const label = document.getElementById('nightLabel');
     if (label) label.textContent = 'Giorno';
-    const icon = document.querySelector('#nightToggle .toggle-icon');
-    if (icon) icon.textContent = '☀️';
   }
 } catch(e) {}
 
@@ -10630,27 +10453,17 @@ function sendOrderWhatsApp() {
 <script>
 (function() {
   window.openChiSiamo = function() {
-    // Carica qrcodejs solo al primo apertura (lazy)
+    // Genera QR code al primo apertura
     var qrContainer = document.getElementById('chisiamo-qr-canvas');
-    function _generateQR() {
-      if (qrContainer && !qrContainer._qrGenerated && typeof QRCode !== 'undefined') {
-        new QRCode(qrContainer, {
-          text: 'https://rua56.github.io/Al.bakaro.menu/',
-          width: 140, height: 140,
-          colorDark: '#2c1a0e',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.M
-        });
-        qrContainer._qrGenerated = true;
-      }
-    }
-    if (typeof QRCode === 'undefined' && qrContainer && !qrContainer._qrGenerated) {
-      var s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
-      s.onload = _generateQR;
-      document.head.appendChild(s);
-    } else {
-      _generateQR();
+    if (qrContainer && !qrContainer._qrGenerated && typeof QRCode !== 'undefined') {
+      new QRCode(qrContainer, {
+        text: 'https://rua56.github.io/Al.bakaro.menu/',
+        width: 140, height: 140,
+        colorDark: '#2c1a0e',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      qrContainer._qrGenerated = true;
     }
     document.getElementById('chisiamo-overlay').classList.add('show');
     document.body.style.overflow = 'hidden';
@@ -10887,111 +10700,6 @@ function sendOrderWhatsApp() {
   };
 
 })();
-</script>
-
-
-<script>
-/* ═══════════════════════════════════════════════════════════════
-   HINT PRIMA VISITA — pannello speciale
-═══════════════════════════════════════════════════════════════ */
-(function() {
-  var KEY = 'albakaro_hint_shown';
-  try {
-    if (localStorage.getItem(KEY)) return;
-  } catch(e) { return; }
-
-  var HINT_TEXTS = {
-    it: 'Sommelier, mappa del Collio, abbinamenti e altro ti aspettano qui',
-    en: 'Sommelier, Collio map, pairings and more await you here',
-    de: 'Sommelier, Collio-Karte, Empfehlungen und mehr warten hier',
-    sl: 'Sommelier, zemljevid Collia, kombinacije in vec te caka tukaj'
-  };
-
-  function dismiss() {
-    var coach = document.getElementById('special-hint-coach');
-    var btn   = document.getElementById('special-menu-btn');
-    if (coach) coach.classList.remove('show');
-    if (btn) btn.classList.remove('hint-pulse');
-    try { localStorage.setItem(KEY, '1'); } catch(e) {}
-    document.removeEventListener('click', dismiss);
-    document.removeEventListener('touchstart', dismiss);
-  }
-
-  // Mostra dopo lo splash (4s dal load) per non interferire
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      var coach = document.getElementById('special-hint-coach');
-      var btn   = document.getElementById('special-menu-btn');
-      var txt   = document.getElementById('special-hint-text');
-      if (!coach || !btn) return;
-      var lang = (typeof currentLang !== 'undefined') ? currentLang : 'it';
-      if (txt && HINT_TEXTS[lang]) txt.textContent = HINT_TEXTS[lang];
-      coach.classList.add('show');
-      btn.classList.add('hint-pulse');
-      if (typeof vibrate === 'function') vibrate(10);
-      // Dismiss al primo tap ovunque o dopo 7s
-      setTimeout(function() {
-        document.addEventListener('click', dismiss, { once: true });
-        document.addEventListener('touchstart', dismiss, { once: true });
-      }, 300);
-      setTimeout(dismiss, 7000);
-    }, 4000);
-  });
-})();
-</script>
-
-
-<script>
-/* ═══════════════════════════════════════════════════════════════
-   FILTRI CIBO — Veg / Pesce / Carne
-═══════════════════════════════════════════════════════════════ */
-window._foodFilter = 'all';
-window.FOOD_CLASS = {
-  // Pesce
-  "Gamberi in Savor": "pesce",
-  "Baccalà Mantecato": "pesce",
-  "Crema al Dentice": "pesce",
-  "Salmone e Burro": "pesce",
-  "Salmone, Philadelphia e Guacamole": "pesce",
-  "Pinsa Stracciatella e Acciughe del Cantabrico": "pesce",
-  "Polpette di Tonno e Olive": "pesce",
-  "Sarde Panate": "pesce",
-  "Mozzarella in Carrozza con Acciughe": "pesce",
-  // Carne
-  "Crudo San Daniele": "carne",
-  "Cotto e Kren": "carne",
-  "Mortadella, Burrata e Pistacchio": "carne",
-  "Speck e Brie": "carne",
-  "Crema Carbonara e Guanciale Nostrano": "carne",
-  "Crema Cacio e Pepe e Guanciale Nostrano": "carne",
-  "Lardo di Patanegra": "carne",
-  "Salame e Formaggio": "carne",
-  "Pinsa Crudo, Rucola e Stracciatella": "carne",
-  "Pinsa Mortadella, Burrata e Pistacchio": "carne",
-  "Polpette di Carne": "carne",
-  // Veg
-  "Formaggio e Miele": "veg",
-  "Stracciatella, Melanzane e Pomodorini": "veg",
-  "Gorgonzola, Noci e Miele": "veg",
-  "Gorgonzola e Crema di Radicchio": "veg",
-  "Burrata, Melanzane e Pomodorini": "veg",
-  "Pinsa Veggie": "veg"
-};
-
-// Event delegation chip
-document.addEventListener('click', function(e) {
-  var chip = e.target.closest('.food-chip');
-  if (!chip) return;
-  var ff = chip.dataset.ff;
-  if (!ff || ff === window._foodFilter) return;
-  window._foodFilter = ff;
-  if (typeof vibrate === 'function') vibrate(12);
-  var y = window.scrollY;
-  if (typeof render === 'function') render(false);
-  requestAnimationFrame(function() {
-    window.scrollTo(0, Math.min(y, document.body.scrollHeight - window.innerHeight));
-  });
-});
 </script>
 
 </body>
