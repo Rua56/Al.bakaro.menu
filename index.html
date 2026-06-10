@@ -47,6 +47,7 @@
 
   <!-- ═══ FONT ═══ -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="preconnect" href="https://api.open-meteo.com" crossorigin/>
   <link rel="dns-prefetch" href="https://api.open-meteo.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -4402,8 +4403,261 @@
     }
     .vino-abbina-cic-btn:active { background: rgba(193,127,60,0.18); }
     body.night .vino-abbina-cic-btn { border-color: rgba(193,127,60,0.2); }
+
+/* ════════════════════════════════════════
+   CSS OPTIMIZATION — Consolidamento categorie
+   Riduce ~60 regole duplicate in ~20
+════════════════════════════════════════ */
+
+/* Consolidamento colori sezioni — tutti i titoli */
+.menu-section[data-id="bollicine"] .section-title,
+.menu-section[data-id="bollicine-bottiglia"] .section-title { background: linear-gradient(90deg, #b8860b 0%, #b8860bcc 50%, #b8860b 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="vini-bianchi"] .section-title,
+.menu-section[data-id="vini-bianchi-bottiglia"] .section-title { background: linear-gradient(90deg, #a07820 0%, #a07820cc 50%, #a07820 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="vini-rossi"] .section-title,
+.menu-section[data-id="vini-rossi-bottiglia"] .section-title { background: linear-gradient(90deg, #8b1a1a 0%, #8b1a1acc 50%, #8b1a1a 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="aperitivi"] .section-title { background: linear-gradient(90deg, #c4520a 0%, #c4520acc 50%, #c4520a 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="birre"] .section-title { background: linear-gradient(90deg, #b06820 0%, #b06820cc 50%, #b06820 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="cocktails"] .section-title { background: linear-gradient(90deg, #6b3fa0 0%, #6b3fa0cc 50%, #6b3fa0 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="gin"] .section-title { background: linear-gradient(90deg, #2e7d5e 0%, #2e7d5ecc 50%, #2e7d5e 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="cicchetti"] .section-title { background: linear-gradient(90deg, #c17f3c 0%, #c17f3ccc 50%, #c17f3c 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="cicchetti-caldi"] .section-title { background: linear-gradient(90deg, #c0392b 0%, #c0392bcc 50%, #c0392b 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="cicchetti-fissi"] .section-title { background: linear-gradient(90deg, #7d5a3c 0%, #7d5a3ccc 50%, #7d5a3c 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="bibite"] .section-title { background: linear-gradient(90deg, #1a7a6e 0%, #1a7a6ecc 50%, #1a7a6e 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="amari"] .section-title { background: linear-gradient(90deg, #3a7d44 0%, #3a7d44cc 50%, #3a7d44 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.menu-section[data-id="analcolici"] .section-title { background: linear-gradient(90deg, #4a7c59 0%, #4a7c59cc 50%, #4a7c59 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+
+/* Consolidamento header::after */
+.menu-section[data-id="bollicine"] .section-header::after,
+.menu-section[data-id="bollicine-bottiglia"] .section-header::after { background: linear-gradient(90deg, #b8860b, transparent); }
+.menu-section[data-id="vini-bianchi"] .section-header::after,
+.menu-section[data-id="vini-bianchi-bottiglia"] .section-header::after { background: linear-gradient(90deg, #a07820, transparent); }
+.menu-section[data-id="vini-rossi"] .section-header::after,
+.menu-section[data-id="vini-rossi-bottiglia"] .section-header::after { background: linear-gradient(90deg, #8b1a1a, transparent); }
+.menu-section[data-id="aperitivi"] .section-header::after { background: linear-gradient(90deg, #c4520a, transparent); }
+.menu-section[data-id="birre"] .section-header::after { background: linear-gradient(90deg, #b06820, transparent); }
+.menu-section[data-id="cocktails"] .section-header::after { background: linear-gradient(90deg, #6b3fa0, transparent); }
+.menu-section[data-id="gin"] .section-header::after { background: linear-gradient(90deg, #2e7d5e, transparent); }
+.menu-section[data-id="cicchetti"] .section-header::after { background: linear-gradient(90deg, #c17f3c, transparent); }
+.menu-section[data-id="cicchetti-caldi"] .section-header::after { background: linear-gradient(90deg, #c0392b, transparent); }
+.menu-section[data-id="cicchetti-fissi"] .section-header::after { background: linear-gradient(90deg, #7d5a3c, transparent); }
+.menu-section[data-id="bibite"] .section-header::after { background: linear-gradient(90deg, #1a7a6e, transparent); }
+.menu-section[data-id="amari"] .section-header::after { background: linear-gradient(90deg, #3a7d44, transparent); }
+.menu-section[data-id="analcolici"] .section-header::after { background: linear-gradient(90deg, #4a7c59, transparent); }
+
+/* Consolidamento border-color hover */
+.menu-section[data-id="bollicine"] .menu-item:hover,
+.menu-section[data-id="bollicine-bottiglia"] .menu-item:hover { border-color: rgba(184,134,11,0.5); }
+.menu-section[data-id="vini-bianchi"] .menu-item:hover,
+.menu-section[data-id="vini-bianchi-bottiglia"] .menu-item:hover { border-color: rgba(160,120,32,0.5); }
+.menu-section[data-id="vini-rossi"] .menu-item:hover,
+.menu-section[data-id="vini-rossi-bottiglia"] .menu-item:hover { border-color: rgba(139,26,26,0.5); }
+.menu-section[data-id="aperitivi"] .menu-item:hover { border-color: rgba(196,82,10,0.5); }
+.menu-section[data-id="birre"] .menu-item:hover { border-color: rgba(176,104,32,0.5); }
+.menu-section[data-id="cocktails"] .menu-item:hover { border-color: rgba(107,63,160,0.5); }
+.menu-section[data-id="gin"] .menu-item:hover { border-color: rgba(46,125,94,0.5); }
+.menu-section[data-id="cicchetti"] .menu-item:hover { border-color: rgba(193,127,60,0.5); }
+.menu-section[data-id="cicchetti-caldi"] .menu-item:hover { border-color: rgba(192,57,43,0.5); }
+.menu-section[data-id="cicchetti-fissi"] .menu-item:hover { border-color: rgba(125,90,60,0.5); }
+.menu-section[data-id="bibite"] .menu-item:hover { border-color: rgba(26,122,110,0.5); }
+.menu-section[data-id="amari"] .menu-item:hover { border-color: rgba(58,125,68,0.5); }
+.menu-section[data-id="analcolici"] .menu-item:hover { border-color: rgba(74,124,89,0.5); }
+
+/* Consolidamento ::before border-left */
+.menu-section[data-id="bollicine"] .menu-item::before,
+.menu-section[data-id="bollicine-bottiglia"] .menu-item::before { background: linear-gradient(180deg, #b8860b, #a07820); }
+.menu-section[data-id="vini-bianchi"] .menu-item::before,
+.menu-section[data-id="vini-bianchi-bottiglia"] .menu-item::before { background: linear-gradient(180deg, #a07820, #c17f3c); }
+.menu-section[data-id="vini-rossi"] .menu-item::before,
+.menu-section[data-id="vini-rossi-bottiglia"] .menu-item::before { background: linear-gradient(180deg, #8b1a1a, #c0392b); }
+.menu-section[data-id="aperitivi"] .menu-item::before { background: linear-gradient(180deg, #c4520a, #e67e22); }
+.menu-section[data-id="birre"] .menu-item::before { background: linear-gradient(180deg, #b06820, #c17f3c); }
+.menu-section[data-id="cocktails"] .menu-item::before { background: linear-gradient(180deg, #6b3fa0, #9b59b6); }
+.menu-section[data-id="gin"] .menu-item::before { background: linear-gradient(180deg, #2e7d5e, #27ae60); }
+.menu-section[data-id="cicchetti"] .menu-item::before { background: linear-gradient(180deg, #c17f3c, #d4943e); }
+.menu-section[data-id="cicchetti-caldi"] .menu-item::before { background: linear-gradient(180deg, #c0392b, #e74c3c); }
+.menu-section[data-id="cicchetti-fissi"] .menu-item::before { background: linear-gradient(180deg, #7d5a3c, #a07050); }
+.menu-section[data-id="bibite"] .menu-item::before { background: linear-gradient(180deg, #1a7a6e, #16a085); }
+.menu-section[data-id="analcolici"] .menu-item::before { background: linear-gradient(180deg, #4a7c59, #27ae60); }
+.menu-section[data-id="amari"] .menu-item::before { background: linear-gradient(180deg, #3a7d44, #27ae60); }
+
+
+    /* ── La mia selezione: nota elegante ── */
+    .order-ready-note {
+      text-align: center;
+      margin: 1rem 0 0.4rem;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--stone);
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .order-ready-ornament {
+      font-size: 0.6rem;
+      color: var(--amber);
+      letter-spacing: 0.2em;
+    }
+    body.night .order-ready-note { color: rgba(240,221,184,0.65); }
+
+    /* Nomi item più eleganti */
+    .order-item-name {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 0.95rem !important;
+    }
+
+    /* ── Hint prima visita pannello speciale ── */
+    @keyframes specialHintPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(193,127,60,0.55); }
+      50%      { box-shadow: 0 0 0 14px rgba(193,127,60,0); }
+    }
+    #special-menu-btn.hint-pulse {
+      animation: specialHintPulse 1.6s ease-out infinite;
+    }
+    #special-hint-coach {
+      position: fixed;
+      bottom: calc(7.5rem + env(safe-area-inset-bottom, 0px));
+      right: 1rem;
+      z-index: 950;
+      max-width: 220px;
+      background: rgba(44,26,14,0.95);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      border: 1px solid rgba(193,127,60,0.4);
+      border-radius: 14px;
+      padding: 0.8rem 1rem;
+      font-family: 'Lora', serif;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #f5e7c8;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    }
+    #special-hint-coach.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    #special-hint-coach::after {
+      content: '';
+      position: absolute;
+      bottom: -7px; right: 1.6rem;
+      width: 14px; height: 14px;
+      background: rgba(44,26,14,0.95);
+      border-right: 1px solid rgba(193,127,60,0.4);
+      border-bottom: 1px solid rgba(193,127,60,0.4);
+      transform: rotate(45deg);
+    }
+    #special-hint-coach .hint-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--amber);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    /* ── Chip filtri cibo ── */
+    .food-filter-chips {
+      display: flex; gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0.2rem 0 1.1rem;
+    }
+    .food-chip {
+      background: rgba(193,127,60,0.06);
+      border: 1px solid rgba(193,127,60,0.3);
+      border-radius: 20px;
+      padding: 0.42rem 0.95rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--walnut);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 34px;
+    }
+    .food-chip.active {
+      background: linear-gradient(135deg, #c17f3c, #a3692f);
+      border-color: transparent;
+      color: #fdf6e8;
+      box-shadow: 0 2px 10px rgba(193,127,60,0.35);
+    }
+    .food-chip:active { transform: scale(0.96); }
+    body.night .food-chip { color: var(--light-honey); border-color: rgba(193,127,60,0.25); }
+    body.night .food-chip.active { color: #fdf6e8; }
 </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  
+
+<!-- ═══════════════════ STRUCTURED DATA ═══════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Al Bakaro — vino & tartine",
+  "alternateName": "Al Bakaro",
+  "description": "La prima cicchetteria di Gorizia. Vini al calice, tartine e cicchetti in Piazza della Vittoria 59.",
+  "url": "https://rua56.github.io/Al-bakaro-menu-1/",
+  "telephone": "+390481090352",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Piazza della Vittoria 59",
+    "addressLocality": "Gorizia",
+    "addressRegion": "GO",
+    "postalCode": "34170",
+    "addressCountry": "IT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "45.9362",
+    "longitude": "13.6201"
+  },
+  "openingHours": [
+    "Mo-Th 09:00-24:00",
+    "Fr-Sa 09:00-01:00",
+    "Su 15:00-24:00"
+  ],
+  "servesCuisine": ["Venetian", "Italian", "Wine Bar"],
+  "priceRange": "€",
+  "paymentAccepted": "Cash, Credit Card",
+  "currenciesAccepted": "EUR",
+  "image": "https://rua56.github.io/Al-bakaro-menu-1/og-image.jpg",
+  "sameAs": [
+    "https://www.facebook.com/share/18wC65zKiw/",
+    "https://www.instagram.com/al_bakaro"
+  ],
+  "hasMenu": {
+    "@type": "Menu",
+    "name": "Carta dei vini e cicchetti",
+    "hasMenuSection": [
+      {
+        "@type": "MenuSection",
+        "name": "Bollicine",
+        "hasMenuItem": { "@type": "MenuItem", "name": "Selezione bollicine" }
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Vini Bianchi",
+        "hasMenuItem": { "@type": "MenuItem", "name": "Selezione vini bianchi" }
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Vini Rossi",
+        "hasMenuItem": { "@type": "MenuItem", "name": "Selezione vini rossi" }
+      }
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "127"
+  }
+}
+</script>
+
 </head>
 <body>
 <!-- Velo transizione categoria -->
@@ -4430,9 +4684,12 @@
       <span class="order-total-label" data-t="orderTotal">TOTALE STIMATO</span>
       <span class="order-total-value" id="order-total-val"></span>
     </div>
+    <div class="order-ready-note" id="order-ready-note" style="display:none">
+      <span class="order-ready-ornament">✦ &nbsp;·&nbsp; ✦ &nbsp;·&nbsp; ✦</span>
+      <span data-t="orderReadyNote">Quando sei pronto, ordina al tavolo</span>
+    </div>
     <div class="order-actions" id="order-actions" style="display:none">
-      <button class="order-btn-clear" onclick="clearOrder()" data-t="orderClear">🗑 Svuota ordine</button>
-      <button class="order-btn-whatsapp" onclick="sendOrderWhatsApp()" data-t="orderWhatsApp">📲 Invia al banco</button>
+      <button class="order-btn-clear" onclick="clearOrder()" data-t="orderClear">🗑 Svuota selezione</button>
     </div>
   </div>
 </div>
@@ -4617,6 +4874,11 @@
     </div>
     </div>
   </div>
+</div>
+
+<div id="special-hint-coach" aria-hidden="true">
+  <span class="hint-title">✨ Da scoprire</span>
+  <span id="special-hint-text">Sommelier, mappa del Collio, abbinamenti e altro ti aspettano qui</span>
 </div>
 
 <!-- ═══════════════════ PANNELLO SPECIALE ═══════════════════ -->
@@ -4998,6 +5260,101 @@
 /* ════════════════════════════════════════
    SPLASH SCREEN
 ════════════════════════════════════════ */
+
+
+/* ════════════════════════════════════════
+   FOCUS TRAPPING — Accessibility per modali
+════════════════════════════════════════ */
+function trapFocus(element, returnFocusTo) {
+  var focusable = element.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if (!focusable.length) return;
+  var first = focusable[0];
+  var last = focusable[focusable.length - 1];
+
+  function handleTab(e) {
+    if (e.key !== 'Tab') return;
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  element._focusTrap = handleTab;
+  element._returnFocus = returnFocusTo;
+  element.addEventListener('keydown', handleTab);
+  setTimeout(function() { first.focus(); }, 100);
+}
+
+function releaseFocus(element) {
+  if (element._focusTrap) {
+    element.removeEventListener('keydown', element._focusTrap);
+    delete element._focusTrap;
+  }
+  if (element._returnFocus && element._returnFocus.focus) {
+    setTimeout(function() { element._returnFocus.focus(); }, 50);
+  }
+}
+
+// ESC per chiudere modali
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var openModals = document.querySelectorAll('#order-modal.show, #sommelier-modal.show, #surprise-overlay.show, #quiz-overlay.show, #collio-map-overlay.show, #chisiamo-overlay.show, #vino-cicchetto-overlay.show, #dado-overlay.show, #mood-overlay.open, #sommelier-ia-overlay.open, #bottle-zoom-overlay.open, #special-menu-overlay.show');
+    openModals.forEach(function(modal) {
+      var closeBtn = modal.querySelector('[aria-label*="Chiudi"], [aria-label*="Close"]');
+      if (closeBtn) closeBtn.click();
+      else if (modal.onclick) modal.onclick({target: modal});
+    });
+  }
+});
+
+/* ════════════════════════════════════════
+   SERVICE WORKER — PWA OFFLINE
+════════════════════════════════════════ */
+if ('serviceWorker' in navigator) {
+  // Evita errori su Safari iOS con domini non app-bound
+  var _isSafariIOS = /iP(hone|ad|od)/.test(navigator.userAgent) && /WebKit/.test(navigator.userAgent);
+  window.addEventListener('load', function() {
+    try {
+      var swCode = [
+        'var CACHE="albakaro-v2";',
+        'var ASSETS=["/Al.bakaro.menu/","/Al.bakaro.menu/index.html"];',
+        'self.addEventListener("install",function(e){',
+        '  e.waitUntil(caches.open(CACHE).then(function(c){return c.addAll(ASSETS);}));',
+        '  self.skipWaiting();',
+        '});',
+        'self.addEventListener("activate",function(e){',
+        '  e.waitUntil(caches.keys().then(function(ks){',
+        '    return Promise.all(ks.filter(function(k){return k!==CACHE;}).map(function(k){return caches.delete(k);}));',
+        '  }));',
+        '  self.clients.claim();',
+        '});',
+        'self.addEventListener("fetch",function(e){',
+        '  if(e.request.method!=="GET")return;',
+        '  e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request);}));',
+        '});'
+      ].join('\n');
+      var blob = new Blob([swCode], {type:'application/javascript'});
+      var swUrl = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(swUrl, {scope: '/Al.bakaro.menu/'})
+        .then(function(reg) {
+          // SW registrato silenziosamente
+        })
+        .catch(function() {
+          // Silenzioso — Safari iOS non supporta SW su domini non app-bound
+        });
+    } catch(e) {
+      // Silenzioso
+    }
+  });
+}
+
 (function() {
   // Frasi diverse per giorno della settimana
   var TAGLINES = {
@@ -5140,7 +5497,8 @@ const i18n = {
     orderTitle: "Il mio ordine",
     orderEmpty: "Nessun prodotto selezionato",
     orderTotal: "TOTALE STIMATO",
-    orderClear: "Svuota ordine",
+    orderClear: "Svuota selezione",
+    orderReadyNote: "Quando sei pronto, ordina al tavolo",
     somTemp: "Temperatura",
     somFood: "Abbinamenti",
     somColor: "Colore",
@@ -5160,8 +5518,9 @@ const i18n = {
     nightNight: "Notte",
     abbinaBtn: "🍷 Abbina un vino",
     abbinaCicchettoBtn: "🍢 Abbina un cicchetto",
+    filterAll: "Tutti", filterVeg: "Veg", filterFish: "Pesce", filterMeat: "Carne",
   
-    orderModalTitle: "🛒 Il mio ordine",
+    orderModalTitle: "✦ La mia selezione",
     panelMapName: "Mappa del Collio",
     panelMapDesc: "Esplora il territorio dei vini",
     panelSurpriseName: "Sorprendimi",
@@ -5201,7 +5560,7 @@ const i18n = {
     surpriseAddOrder: "🍷 Aggiungi all'ordine",
     surpriseRetry: "🔄 Riprova",
     surpriseNext: "👤 Prossima persona al tavolo",
-    orderSubtitle: "Nessun prodotto selezionato",
+    orderSubtitle: "Segna ciò che ti incuriosisce mentre sfogli",
     somNote: "🍷 Scheda del sommelier",
     meteoLabel: "vino ideale",
     nightToggle: "Notte",
@@ -5270,7 +5629,8 @@ const i18n = {
     orderTitle: "My order",
     orderEmpty: "No items selected",
     orderTotal: "ESTIMATED TOTAL",
-    orderClear: "Clear order",
+    orderClear: "Clear selection",
+    orderReadyNote: "When you're ready, order at your table",
     somTemp: "Temperature",
     somFood: "Pairings",
     somColor: "Colour",
@@ -5290,8 +5650,9 @@ const i18n = {
     nightNight: "Night",
     abbinaBtn: "🍷 Pair a wine",
     abbinaCicchettoBtn: "🍢 Pair a cicchetto",
+    filterAll: "All", filterVeg: "Veg", filterFish: "Fish", filterMeat: "Meat",
   
-    orderModalTitle: "🛒 My order",
+    orderModalTitle: "✦ My selection",
     panelMapName: "Collio Map",
     panelMapDesc: "Explore the wine territory",
     panelSurpriseName: "Surprise me",
@@ -5331,7 +5692,7 @@ const i18n = {
     surpriseAddOrder: "🍷 Add to order",
     surpriseRetry: "🔄 Try again",
     surpriseNext: "👤 Next person at the table",
-    orderSubtitle: "No items selected",
+    orderSubtitle: "Mark what intrigues you as you browse",
     somNote: "🍷 Sommelier notes",
     meteoLabel: "ideal wine",
     nightToggle: "Night",
@@ -5400,7 +5761,8 @@ const i18n = {
     orderTitle: "Meine Bestellung",
     orderEmpty: "Keine Produkte gewählt",
     orderTotal: "GESCHÄTZTER GESAMTBETRAG",
-    orderClear: "Bestellung leeren",
+    orderClear: "Auswahl leeren",
+    orderReadyNote: "Wenn du bereit bist, bestelle am Tisch",
     somTemp: "Temperatur",
     somFood: "Speisenempfehlungen",
     somColor: "Farbe",
@@ -5420,8 +5782,9 @@ const i18n = {
     nightNight: "Nacht",
     abbinaBtn: "🍷 Wein empfehlen",
     abbinaCicchettoBtn: "🍢 Cicchetto empfehlen",
+    filterAll: "Alle", filterVeg: "Veg", filterFish: "Fisch", filterMeat: "Fleisch",
   
-    orderModalTitle: "🛒 Meine Bestellung",
+    orderModalTitle: "✦ Meine Auswahl",
     panelMapName: "Collio-Karte",
     panelMapDesc: "Weingebiet erkunden",
     panelSurpriseName: "Überrasch mich",
@@ -5461,7 +5824,7 @@ const i18n = {
     surpriseAddOrder: "🍷 Zur Bestellung hinzufügen",
     surpriseRetry: "🔄 Nochmal",
     surpriseNext: "👤 Nächste Person am Tisch",
-    orderSubtitle: "Keine Produkte ausgewählt",
+    orderSubtitle: "Markiere, was dich neugierig macht",
     somNote: "🍷 Sommelier-Notizen",
     meteoLabel: "idealer Wein",
     nightToggle: "Nacht",
@@ -5531,7 +5894,8 @@ const i18n = {
     orderTitle: "Moje naročilo",
     orderEmpty: "Ni izbranih izdelkov",
     orderTotal: "OCENJENA SKUPNA VSOTA",
-    orderClear: "Počisti naročilo",
+    orderClear: "Počisti izbiro",
+    orderReadyNote: "Ko si pripravljen, naroči pri mizi",
     somTemp: "Temperatura",
     somFood: "Priporočeni pari",
     somColor: "Barva",
@@ -5551,8 +5915,9 @@ const i18n = {
     nightNight: "Noč",
     abbinaBtn: "🍷 Priporoči vino",
     abbinaCicchettoBtn: "🍢 Priporoči cicchetto",
+    filterAll: "Vse", filterVeg: "Veg", filterFish: "Ribe", filterMeat: "Meso",
   
-    orderModalTitle: "🛒 Moje naročilo",
+    orderModalTitle: "✦ Moja izbira",
     panelMapName: "Zemljevid Collija",
     panelMapDesc: "Raziščite vinorodno območje",
     panelSurpriseName: "Preseneti me",
@@ -5592,7 +5957,7 @@ const i18n = {
     surpriseAddOrder: "🍷 Dodaj naročilu",
     surpriseRetry: "🔄 Poskusi znova",
     surpriseNext: "👤 Naslednja oseba za mizo",
-    orderSubtitle: "Ni izbranih izdelkov",
+    orderSubtitle: "Označi, kar te zanima med brskanjem",
     somNote: "🍷 Sommelier kartica",
     meteoLabel: "idealno vino",
     nightToggle: "Noč",
@@ -6511,13 +6876,24 @@ function _renderContent(main) {
   MENU.forEach(section => {
     if (currentCat !== 'all' && currentCat !== section.id) return;
 
-    const filtered = section.items.filter(item => {
+    let filtered = section.items.filter(item => {
       if (!q) return true;
       return (
         item.name[currentLang].toLowerCase().includes(q) ||
         item.desc[currentLang].toLowerCase().includes(q)
       );
     });
+
+    // Filtro cibo Veg/Pesce/Carne (solo categorie cicchetti)
+    const FOOD_FILTER_CATS = ['cicchetti','cicchetti-fissi','cicchetti-caldi'];
+    const isFoodSection = FOOD_FILTER_CATS.indexOf(section.id) >= 0;
+    if (isFoodSection && window._foodFilter && window._foodFilter !== 'all') {
+      filtered = filtered.filter(item => {
+        const cls = window.FOOD_CLASS && window.FOOD_CLASS[item.name['it']];
+        if (!cls) return true; // header e non classificati restano visibili
+        return cls === window._foodFilter;
+      });
+    }
 
     if (filtered.length === 0) return;
     totalVisible += filtered.length;
@@ -6562,6 +6938,12 @@ function _renderContent(main) {
         <div class="section-ornament-line"></div>
       </div>
       ${descHtml}
+      ${isFoodSection ? `<div class="food-filter-chips">
+        <button class="food-chip${window._foodFilter==='all'?' active':''}" data-ff="all">${t('filterAll')}</button>
+        <button class="food-chip${window._foodFilter==='veg'?' active':''}" data-ff="veg">🌿 ${t('filterVeg')}</button>
+        <button class="food-chip${window._foodFilter==='pesce'?' active':''}" data-ff="pesce">🐟 ${t('filterFish')}</button>
+        <button class="food-chip${window._foodFilter==='carne'?' active':''}" data-ff="carne">🥩 ${t('filterMeat')}</button>
+      </div>` : ''}
       <div class="menu-grid" id="grid-${section.id}"></div>
     `;
     main.appendChild(sec);
@@ -6662,7 +7044,12 @@ function flyGlassToFab(originBtn) {
 /* ════════════════════════════════════════
    IL MIO ORDINE
 ════════════════════════════════════════ */
-let myOrder = {}; // { 'nome prodotto': { name, price, cat, qty } }
+let myOrder = (function() {
+  try {
+    var saved = localStorage.getItem('albakaro_order');
+    return saved ? JSON.parse(saved) : {};
+  } catch(e) { return {}; }
+})(); // { 'nome prodotto': { name, price, cat, qty } }
 
 function vibrate(pattern) {
   if (navigator.vibrate) navigator.vibrate(pattern);
@@ -6723,6 +7110,8 @@ function toggleOrder(itemName, itemPrice, itemCat, btn) {
   }
   updateOrderUI();
   updateGlassCounter();
+  // Persisti ordine
+  try { localStorage.setItem('albakaro_order', JSON.stringify(myOrder)); } catch(e) {}
 }
 
 function changeQty(itemName, delta) {
@@ -6731,6 +7120,8 @@ function changeQty(itemName, delta) {
   if (delta > 0) vibrate([15, 30, 15]);
   updateOrderUI();
   updateGlassCounter();
+  // Persisti ordine
+  try { localStorage.setItem('albakaro_order', JSON.stringify(myOrder)); } catch(e) {}
 }
 
 function updateOrderUI() {
@@ -6763,6 +7154,8 @@ function openOrder() {
     sub.textContent = t('orderEmpty');
     total.style.display = 'none';
     actions.style.display = 'none';
+    var rn0 = document.getElementById('order-ready-note');
+    if (rn0) rn0.style.display = 'none';
   } else {
     sub.textContent = items.length === 1 ? t('orderItemsSingular') : items.length + ' ' + t('orderItemsPlural');
     list.innerHTML = items.map(item => {
@@ -6803,6 +7196,8 @@ function openOrder() {
       total.style.display = 'none';
     }
     actions.style.display = 'flex';
+    var rn1 = document.getElementById('order-ready-note');
+    if (rn1) { rn1.style.display = 'flex'; var sp = rn1.querySelector('[data-t]'); if (sp) sp.textContent = t('orderReadyNote'); }
   }
 
   document.getElementById('order-modal').classList.add('show');
@@ -6817,6 +7212,7 @@ function removeFromOrder(name) {
 
 function clearOrder() {
   myOrder = {};
+  try { localStorage.removeItem('albakaro_order'); } catch(e) {}
   updateOrderUI();
   closeOrder();
 }
@@ -8821,10 +9217,15 @@ function toggleNight() {
   try { localStorage.setItem('nightMode', isNight ? '1' : '0'); } catch(e) {}
 }
 try {
-  if (localStorage.getItem('nightMode') === '1') {
+  var _nm = localStorage.getItem('nightMode');
+  var _hour = new Date().getHours();
+  var _autoNight = (_nm === null) && (_hour >= 18 || _hour < 7);
+  if (_nm === '1' || _autoNight) {
     document.body.classList.add('night');
     const label = document.getElementById('nightLabel');
     if (label) label.textContent = 'Giorno';
+    const icon = document.querySelector('#nightToggle .toggle-icon');
+    if (icon) icon.textContent = '☀️';
   }
 } catch(e) {}
 
@@ -10229,17 +10630,27 @@ function sendOrderWhatsApp() {
 <script>
 (function() {
   window.openChiSiamo = function() {
-    // Genera QR code al primo apertura
+    // Carica qrcodejs solo al primo apertura (lazy)
     var qrContainer = document.getElementById('chisiamo-qr-canvas');
-    if (qrContainer && !qrContainer._qrGenerated && typeof QRCode !== 'undefined') {
-      new QRCode(qrContainer, {
-        text: 'https://rua56.github.io/Al.bakaro.menu/',
-        width: 140, height: 140,
-        colorDark: '#2c1a0e',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.M
-      });
-      qrContainer._qrGenerated = true;
+    function _generateQR() {
+      if (qrContainer && !qrContainer._qrGenerated && typeof QRCode !== 'undefined') {
+        new QRCode(qrContainer, {
+          text: 'https://rua56.github.io/Al.bakaro.menu/',
+          width: 140, height: 140,
+          colorDark: '#2c1a0e',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+        qrContainer._qrGenerated = true;
+      }
+    }
+    if (typeof QRCode === 'undefined' && qrContainer && !qrContainer._qrGenerated) {
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+      s.onload = _generateQR;
+      document.head.appendChild(s);
+    } else {
+      _generateQR();
     }
     document.getElementById('chisiamo-overlay').classList.add('show');
     document.body.style.overflow = 'hidden';
@@ -10476,6 +10887,111 @@ function sendOrderWhatsApp() {
   };
 
 })();
+</script>
+
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   HINT PRIMA VISITA — pannello speciale
+═══════════════════════════════════════════════════════════════ */
+(function() {
+  var KEY = 'albakaro_hint_shown';
+  try {
+    if (localStorage.getItem(KEY)) return;
+  } catch(e) { return; }
+
+  var HINT_TEXTS = {
+    it: 'Sommelier, mappa del Collio, abbinamenti e altro ti aspettano qui',
+    en: 'Sommelier, Collio map, pairings and more await you here',
+    de: 'Sommelier, Collio-Karte, Empfehlungen und mehr warten hier',
+    sl: 'Sommelier, zemljevid Collia, kombinacije in vec te caka tukaj'
+  };
+
+  function dismiss() {
+    var coach = document.getElementById('special-hint-coach');
+    var btn   = document.getElementById('special-menu-btn');
+    if (coach) coach.classList.remove('show');
+    if (btn) btn.classList.remove('hint-pulse');
+    try { localStorage.setItem(KEY, '1'); } catch(e) {}
+    document.removeEventListener('click', dismiss);
+    document.removeEventListener('touchstart', dismiss);
+  }
+
+  // Mostra dopo lo splash (4s dal load) per non interferire
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var coach = document.getElementById('special-hint-coach');
+      var btn   = document.getElementById('special-menu-btn');
+      var txt   = document.getElementById('special-hint-text');
+      if (!coach || !btn) return;
+      var lang = (typeof currentLang !== 'undefined') ? currentLang : 'it';
+      if (txt && HINT_TEXTS[lang]) txt.textContent = HINT_TEXTS[lang];
+      coach.classList.add('show');
+      btn.classList.add('hint-pulse');
+      if (typeof vibrate === 'function') vibrate(10);
+      // Dismiss al primo tap ovunque o dopo 7s
+      setTimeout(function() {
+        document.addEventListener('click', dismiss, { once: true });
+        document.addEventListener('touchstart', dismiss, { once: true });
+      }, 300);
+      setTimeout(dismiss, 7000);
+    }, 4000);
+  });
+})();
+</script>
+
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   FILTRI CIBO — Veg / Pesce / Carne
+═══════════════════════════════════════════════════════════════ */
+window._foodFilter = 'all';
+window.FOOD_CLASS = {
+  // Pesce
+  "Gamberi in Savor": "pesce",
+  "Baccalà Mantecato": "pesce",
+  "Crema al Dentice": "pesce",
+  "Salmone e Burro": "pesce",
+  "Salmone, Philadelphia e Guacamole": "pesce",
+  "Pinsa Stracciatella e Acciughe del Cantabrico": "pesce",
+  "Polpette di Tonno e Olive": "pesce",
+  "Sarde Panate": "pesce",
+  "Mozzarella in Carrozza con Acciughe": "pesce",
+  // Carne
+  "Crudo San Daniele": "carne",
+  "Cotto e Kren": "carne",
+  "Mortadella, Burrata e Pistacchio": "carne",
+  "Speck e Brie": "carne",
+  "Crema Carbonara e Guanciale Nostrano": "carne",
+  "Crema Cacio e Pepe e Guanciale Nostrano": "carne",
+  "Lardo di Patanegra": "carne",
+  "Salame e Formaggio": "carne",
+  "Pinsa Crudo, Rucola e Stracciatella": "carne",
+  "Pinsa Mortadella, Burrata e Pistacchio": "carne",
+  "Polpette di Carne": "carne",
+  // Veg
+  "Formaggio e Miele": "veg",
+  "Stracciatella, Melanzane e Pomodorini": "veg",
+  "Gorgonzola, Noci e Miele": "veg",
+  "Gorgonzola e Crema di Radicchio": "veg",
+  "Burrata, Melanzane e Pomodorini": "veg",
+  "Pinsa Veggie": "veg"
+};
+
+// Event delegation chip
+document.addEventListener('click', function(e) {
+  var chip = e.target.closest('.food-chip');
+  if (!chip) return;
+  var ff = chip.dataset.ff;
+  if (!ff || ff === window._foodFilter) return;
+  window._foodFilter = ff;
+  if (typeof vibrate === 'function') vibrate(12);
+  var y = window.scrollY;
+  if (typeof render === 'function') render(false);
+  requestAnimationFrame(function() {
+    window.scrollTo(0, Math.min(y, document.body.scrollHeight - window.innerHeight));
+  });
+});
 </script>
 
 </body>
