@@ -659,6 +659,19 @@
     body.night .sommelier-note { background: rgba(193,127,60,0.08); color: #c8a878; }
     .sommelier-close { position: absolute; top: 1rem; right: 1rem; background: rgba(92,51,23,0.1); border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 0.8rem; cursor: pointer; color: var(--walnut); display: flex; align-items: center; justify-content: center; }
 
+    /* ── STORIA PRODUTTORE ── */
+    .som-story-wrap { margin-top: 1rem; border-radius: 10px; overflow: hidden; border: 1px solid rgba(193,127,60,0.2); }
+    body.night .som-story-wrap { border-color: rgba(193,127,60,0.25); }
+    .som-story-toggle { display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 0.9rem; background: rgba(193,127,60,0.07); cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); user-select: none; -webkit-tap-highlight-color: transparent; }
+    body.night .som-story-toggle { background: rgba(193,127,60,0.1); }
+    .som-story-toggle:active { background: rgba(193,127,60,0.14); }
+    .som-story-chevron { transition: transform 0.3s ease; font-size: 1rem; line-height: 1; }
+    .som-story-wrap.open .som-story-chevron { transform: rotate(90deg); }
+    .som-story-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .som-story-wrap.open .som-story-body { max-height: 400px; }
+    .som-story-text { padding: 0.8rem 0.9rem 0.9rem; font-family: 'Lora', serif; font-style: italic; font-size: 0.82rem; color: var(--stone); line-height: 1.65; }
+    body.night .som-story-text { color: #b89870; }
+
     /* ── Animazione calice volante ── */
     .flying-glass { position: fixed; pointer-events: none; z-index: 99999; font-size: 1.4rem; opacity: 1; will-change: transform, opacity; z-index: 52; }
     @keyframes fabPop { 0%{transform:scale(1)} 40%{transform:scale(1.35)} 70%{transform:scale(.88)} 100%{transform:scale(1)} }
@@ -4893,6 +4906,15 @@
         <div class="sommelier-block-value" id="som-style"></div>
       </div>
     </div>
+    <div id="som-story-wrap" class="som-story-wrap" style="display:none">
+      <div class="som-story-toggle" onclick="toggleSomStory(this)">
+        <span>🏡 <span data-t="somStoryLabel">Il Produttore</span></span>
+        <span class="som-story-chevron">›</span>
+      </div>
+      <div class="som-story-body">
+        <div class="som-story-text" id="som-story-text"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -5695,8 +5717,7 @@ const i18n = {
     somTerritory: "Territorio",
     somGrape: "Vitigno",
     somStyle: "Stile",
-    somIaTag: "🍷 Sommelier IA · Al Bakaro",
-    somIaLoading: "Il Sommelier sta scegliendo per te…",
+    somStoryLabel: "Il Produttore",
     somIaError: "Il Sommelier è momentaneamente impegnato. Riprova tra poco.",
     somIaAdd: "+ Aggiungi all'ordine",
     quizTitle: "Indovina il vino!",
@@ -5827,8 +5848,7 @@ const i18n = {
     somTerritory: "Territory",
     somGrape: "Grape",
     somStyle: "Style",
-    somIaTag: "🍷 Sommelier IA · Al Bakaro",
-    somIaLoading: "The Sommelier is choosing for you…",
+    somStoryLabel: "The Producer",
     somIaError: "The Sommelier is momentarily busy. Please try again shortly.",
     somIaAdd: "+ Add to order",
     quizTitle: "Guess the wine!",
@@ -5959,8 +5979,7 @@ const i18n = {
     somTerritory: "Herkunft",
     somGrape: "Rebsorte",
     somStyle: "Stil",
-    somIaTag: "🍷 Sommelier IA · Al Bakaro",
-    somIaLoading: "Der Sommelier wählt für Sie…",
+    somStoryLabel: "Der Erzeuger",
     somIaError: "Der Sommelier ist momentan beschäftigt. Bitte versuchen Sie es gleich noch einmal.",
     somIaAdd: "+ Zur Bestellung",
     quizTitle: "Rate den Wein!",
@@ -6092,8 +6111,7 @@ const i18n = {
     somTerritory: "Ozemlje",
     somGrape: "Sorta",
     somStyle: "Slog",
-    somIaTag: "🍷 Sommelier IA · Al Bakaro",
-    somIaLoading: "Sommelier izbira za vas…",
+    somStoryLabel: "Pridelovalec",
     somIaError: "Sommelier je trenutno zaseden. Poskusite znova čez hip.",
     somIaAdd: "+ Dodaj v naročilo",
     quizTitle: "Ugani vino!",
@@ -6517,8 +6535,413 @@ const SOMMELIER = (function(){
 
 
 /* ════════════════════════════════════════
-   IMMAGINI GIN
+   STORIE DEI PRODUTTORI
 ════════════════════════════════════════ */
+const PRODUCER_STORIES = {
+
+  /* ── ASTORIA ── */
+  'Prosecco — Astoria': {
+    it: "Nel 1987, Paolo e Giorgio Polegato trasformano i vigneti di famiglia a Refrontolo, nel cuore della DOCG Conegliano Valdobbiadene, in una delle cantine di spumante più dinamiche d'Italia. La Tenuta Val de Brun — 40 ettari sulle colline riconosciute Patrimonio UNESCO nel 2019 — è il cuore pulsante di Astoria: 2 milioni di bottiglie l'anno, frutto di un'alchimia tra tradizione veneta e visione contemporanea che ha portato il Prosecco di Refrontolo sulle tavole di mezzo mondo.",
+    en: "In 1987, Paolo and Giorgio Polegato transformed the family vineyards in Refrontolo, in the heart of the Conegliano Valdobbiadene DOCG, into one of Italy's most dynamic sparkling wine estates. The Tenuta Val de Brun — 40 hectares on hills awarded UNESCO World Heritage status in 2019 — is the beating heart of Astoria: 2 million bottles a year, born from an alchemy of Venetian tradition and contemporary vision that has brought Refrontolo Prosecco to tables around the world.",
+    de: "Im Jahr 1987 verwandelten Paolo und Giorgio Polegato die Familienweingärten in Refrontolo, im Herzen der DOCG Conegliano Valdobbiadene, in eines der dynamischsten Schaumweingüter Italiens. Das Weingut Val de Brun — 40 Hektar auf Hügeln, die 2019 zum UNESCO-Welterbe erklärt wurden — ist das Herzstück von Astoria: 2 Millionen Flaschen pro Jahr, das Ergebnis einer Alchemie aus venezianischer Tradition und zeitgenössischer Vision.",
+    sl: "Leta 1987 sta Paolo in Giorgio Polegato spremenila družinske vinograde v Refrontolu, v srcu DOCG Conegliano Valdobbiadene, v eno najbolj dinamičnih kleti peneče vino v Italiji. Posestvo Val de Brun — 40 hektarjev na hribih, ki so leta 2019 pridobili status UNESCO svetovne dediščine — je bilo izhodišče Astorie: 2 milijona steklenic na leto, rojenih iz alkimije med benečansko tradicijo in sodobno vizijo."
+  },
+  "Prosecco L'Infedele — Astoria": {
+    it: "L'Infedele è il Prosecco che ha fatto la storia di Astoria. Nasce da una selezione di uve Glera coltivate sulle colline tra Conegliano e Valdobbiadene, vinificate con il Metodo Charmat che preserva tutto il carattere fresco e fruttato del vitigno. Il nome evoca la leggenda locale di un amore clandestino tra le vigne: fedele solo alla terra e al vino. Oggi è il Prosecco più celebre della casa Polegato, esportato in oltre 50 paesi.",
+    en: "L'Infedele is the Prosecco that made Astoria's reputation. Born from selected Glera grapes grown on the hills between Conegliano and Valdobbiadene, vinified using the Charmat method that preserves all the fresh, fruity character of the variety. The name evokes the local legend of a clandestine love among the vines: faithful only to the land and the wine. Today it is the Polegato family's most celebrated Prosecco, exported to over 50 countries.",
+    de: "L'Infedele ist der Prosecco, der Astoria berühmt gemacht hat. Entstanden aus ausgewählten Glera-Trauben, die auf den Hügeln zwischen Conegliano und Valdobbiadene angebaut werden, vinifiziert nach der Charmat-Methode, die den frischen, fruchtigen Charakter der Sorte bewahrt. Der Name beschwört die lokale Legende einer heimlichen Liebe zwischen den Weinreben.",
+    sl: "L'Infedele je Prosecco, ki je naredil Astorio slavno. Rojen iz izbranih grozdij Glera, gojenih na hribih med Coneglianom in Valdobbiadenom, vinificiran po metodi Charmat, ki ohranja ves svež, sadni značaj sorte."
+  },
+
+  /* ── FERRARI TRENTO ── */
+  'Ferrari Maximum': {
+    it: "Nel 1902, Giulio Ferrari tornò dalla Champagne con un sogno: fare il grande spumante italiano. Formatosi a Montpellier, nel Rheingau e in Champagne, comprese che le Dolomiti trentine offrivano le stesse condizioni di freddo e calcare dei grandi territori delle bollicine. Fondò la sua cantina a Trento, fu il primo a portare lo Chardonnay in Italia e inventò il Metodo Classico italiano. Nel 1952 la famiglia Lunelli — oggi alla terza generazione — rilevò l'azienda continuandone la missione. Oggi Ferrari è il simbolo assoluto dello spumante italiano nel mondo.",
+    en: "In 1902, Giulio Ferrari returned from Champagne with a dream: to create Italy's great sparkling wine. Trained in Montpellier, the Rheingau and Champagne, he understood that the Trentino Dolomites offered the same cold and limestone conditions as the great sparkling wine territories. He founded his winery in Trento, was the first to bring Chardonnay to Italy and invented the Italian Classic Method. In 1952 the Lunelli family — now in its third generation — took over the estate, continuing its mission.",
+    de: "Im Jahr 1902 kehrte Giulio Ferrari aus der Champagne mit einem Traum zurück: den großen italienischen Schaumwein zu schaffen. Ausgebildet in Montpellier, im Rheingau und in der Champagne, erkannte er, dass das Trentino dieselben Bedingungen für Schaumwein wie die großen Champagnerregionen bietet. Er gründete seine Kellerei in Trento, brachte als Erster Chardonnay nach Italien und erfand die Italienische Klassische Methode.",
+    sl: "Leta 1902 se je Giulio Ferrari vrnil iz Champagne s sanjami: ustvariti veliki italijanski penčeče vino. Šolal se je v Montpellierju, Rheingauu in Champagni ter ugotovil, da trentinske Dolomite ponujajo enake pogoje kot veliki peneče-vinski predeli. Ustanovil je svojo klet v Trentu, prvi prinesel Chardonnay v Italijo in izumil italijansko klasično metodo."
+  },
+  'Ferrari Perlè': {
+    it: "Ferrari Perlè è il simbolo del genio di Giulio Ferrari: Chardonnay in purezza sulle pendici delle Dolomiti tra 300 e 600 metri d'altitudine, affinato con il Metodo Classico. La famiglia Lunelli, alla guida dell'azienda dal 1952, ha trasformato Ferrari nella cantina di punta dello spumante italiano. Con 54 mesi sui lieviti, il Ferrari Perlè esprime tutta la complessità e la finezza che solo il Trentodoc sa dare: bollicine finissime, longevità da grande blanc de blancs, ed eleganza che non teme confronti internazionali.",
+    en: "Ferrari Perlè is the symbol of Giulio Ferrari's genius: pure Chardonnay on the slopes of the Dolomites at 300–600m altitude, aged using the Classic Method. The Lunelli family, who have led the estate since 1952, transformed Ferrari into Italy's leading sparkling wine producer. With 54 months on the lees, Ferrari Perlè expresses the full complexity and finesse that only Trentodoc can deliver.",
+    de: "Ferrari Perlè ist das Symbol des Genies von Giulio Ferrari: reiner Chardonnay an den Hängen der Dolomiten in 300–600 m Höhe, nach der Klassischen Methode gereift. Die Familie Lunelli, die das Weingut seit 1952 leitet, machte Ferrari zum führenden Schaumweinhersteller Italiens.",
+    sl: "Ferrari Perlè je simbol genija Giulia Ferrarija: čisti Chardonnay na pobočjih Dolomitov na višini 300–600 m, zorjen po klasični metodi. Družina Lunelli, ki vodi posestvo od leta 1952, je Ferrari spremenila v vodilnega proizvajalca peneče vino v Italiji."
+  },
+
+  /* ── CASTELLO DI SPESSA ── */
+  'Pinot Bianco — Toros': {
+    it: "Le cantine medievali sotto il Castello di Spessa a Capriva del Friuli custodiscono secoli di storia del Collio. Erette su antichi insediamenti romani del III secolo, queste mura videro passare nobiltà friulana, ospitarono Giacomo Casanova — che definì i vini del castello 'di qualità eccellente' nelle sue Memorie — e Lorenzo Da Ponte, il librettista di Mozart. Nel 1987 l'imprenditore Loretto Pali acquistò il castello e i 28 ettari di vigneti sulla Ponca, riportando il Collio alla sua vocazione di eccellenza. Le cantine si sviluppano su due livelli: il medievale barricaia, e più in profondità un bunker della Seconda Guerra Mondiale scoperto durante i lavori di restauro.",
+    en: "The medieval cellars beneath Castello di Spessa in Capriva del Friuli hold centuries of Collio history. Built on ancient Roman settlements from the 3rd century, these walls witnessed Friulian nobility, hosted Giacomo Casanova — who described the castle's wines as 'of excellent quality' in his Memoirs — and Lorenzo Da Ponte, Mozart's librettist. In 1987 entrepreneur Loretto Pali acquired the castle and 28 hectares of Ponca vineyards, restoring Collio to its vocation of excellence. The cellars extend on two levels: the medieval barrel room, and deeper still, a Second World War bunker discovered during restoration.",
+    de: "Die mittelalterlichen Keller unter dem Castello di Spessa in Capriva del Friuli bewahren Jahrhunderte der Collio-Geschichte. Auf antiken römischen Siedlungen aus dem 3. Jahrhundert errichtet, sahen diese Mauern friaulischen Adel, beherbergten Giacomo Casanova — der die Weine des Schlosses in seinen Memoiren als 'von ausgezeichneter Qualität' bezeichnete — und Lorenzo Da Ponte, Mozarts Librettist.",
+    sl: "Srednji veški kleti pod gradom Castello di Spessa v Capriva del Friuli hranijo stoletja zgodovine Collia. Zgrajene na antičnih rimskih naselbinah iz 3. stoletja, so te stene bile priča friulanski plemištvini, gostile so Giacoma Casanovo — ki je v Spominih opisal vina gradu kot 'odlične kakovosti' — in Lorenza Da Ponteja, Mozartovega libretista."
+  },
+  'Pinot Grigio — Castello di Spessa': {
+    it: "Le cantine medievali sotto il Castello di Spessa a Capriva del Friuli custodiscono secoli di storia del Collio. Erette su antichi insediamenti romani del III secolo, queste mura videro passare nobiltà friulana, ospitarono Giacomo Casanova — che definì i vini del castello 'di qualità eccellente' nelle sue Memorie — e Lorenzo Da Ponte, il librettista di Mozart. Nel 1987 l'imprenditore Loretto Pali acquistò il castello e i 28 ettari di vigneti sulla Ponca, riportando il Collio alla sua vocazione di eccellenza. Un bunker della Seconda Guerra Mondiale, scoperto durante i restauri, ospita oggi le riserve più preziose.",
+    en: "The medieval cellars beneath Castello di Spessa in Capriva del Friuli hold centuries of Collio history. In 1987 entrepreneur Loretto Pali acquired the castle and 28 hectares of Ponca vineyards. Giacomo Casanova, a guest of the manor in 1773, described its wines as 'of excellent quality' in his Memoirs. A Second World War bunker discovered during restoration now holds the estate's finest reserves.",
+    de: "Die mittelalterlichen Keller unter dem Castello di Spessa in Capriva del Friuli beherbergen Jahrhunderte der Collio-Geschichte. 1987 erwarb Unternehmer Loretto Pali das Schloss und 28 Hektar Ponca-Weinberge. Casanova beschrieb die Weine des Schlosses als 'von ausgezeichneter Qualität'. Ein im Zweiten Weltkrieg angelegter Bunker, der bei der Restaurierung entdeckt wurde, beherbergt heute die wertvollsten Reserven.",
+    sl: "Srednje veške kleti pod gradom Castello di Spessa v Capriva del Friuli hranijo stoletja zgodovine Collia. Leta 1987 je podjetnik Loretto Pali kupil grad in 28 hektarjev vinogradov Ponca. Casanova je v Spominih opisal vina gradu kot 'odlične kakovosti'. Bunker iz druge svetovne vojne, odkrit med obnovo, danes hrani najdragocenejše rezerve."
+  },
+  'Cabernet Sauvignon — Castello di Spessa': {
+    it: "Le cantine medievali sotto il Castello di Spessa a Capriva del Friuli custodiscono secoli di storia del Collio. Erette su antichi insediamenti romani del III secolo, queste mura videro passare nobiltà friulana, ospitarono Giacomo Casanova — che definì i vini del castello 'di qualità eccellente' nelle sue Memorie — e Lorenzo Da Ponte, il librettista di Mozart. Nel 1987 l'imprenditore Loretto Pali acquistò il castello e i 28 ettari di vigneti sulla Ponca, riportando il Collio alla sua vocazione di eccellenza. Un bunker della Seconda Guerra Mondiale, scoperto durante i restauri, ospita oggi le riserve più preziose.",
+    en: "The medieval cellars beneath Castello di Spessa in Capriva del Friuli hold centuries of Collio history. In 1987 entrepreneur Loretto Pali acquired the castle and 28 hectares of Ponca vineyards. Giacomo Casanova, a guest of the manor in 1773, described its wines as 'of excellent quality' in his Memoirs.",
+    de: "Die mittelalterlichen Keller unter dem Castello di Spessa beherbergen Jahrhunderte der Collio-Geschichte. 1987 erwarb Loretto Pali das Schloss. Casanova beschrieb die Weine als 'von ausgezeichneter Qualität'.",
+    sl: "Kleti gradu Castello di Spessa hranijo stoletja zgodovine Collia. Leta 1987 je Loretto Pali kupil grad. Casanova je v Spominih opisal vina gradu kot 'odlične kakovosti'."
+  },
+  'Friulano — Castello di Spessa': {
+    it: "Le cantine medievali sotto il Castello di Spessa a Capriva del Friuli custodiscono secoli di storia del Collio. Erette su antichi insediamenti romani del III secolo, queste mura videro passare nobiltà friulana, ospitarono Giacomo Casanova — che definì i vini del castello 'di qualità eccellente' nelle sue Memorie — e Lorenzo Da Ponte, il librettista di Mozart. Nel 1987 l'imprenditore Loretto Pali acquistò il castello e i 28 ettari di vigneti sulla Ponca, riportando il Collio alla sua vocazione di eccellenza.",
+    en: "The medieval cellars beneath Castello di Spessa hold centuries of Collio history. Built on Roman settlements, these walls hosted Giacomo Casanova, who described its wines as 'of excellent quality', and Lorenzo Da Ponte, Mozart's librettist. In 1987 Loretto Pali acquired the castle and 28 hectares of Ponca vineyards.",
+    de: "Die mittelalterlichen Keller beherbergen Jahrhunderte der Collio-Geschichte. Casanova beschrieb die Weine als 'von ausgezeichneter Qualität'. 1987 erwarb Loretto Pali das Schloss und 28 Hektar Ponca-Weinberge.",
+    sl: "Kleti gradu Castello di Spessa hranijo stoletja zgodovine Collia. Casanova je opisal vina kot 'odlične kakovosti'. Leta 1987 je Loretto Pali kupil grad in 28 hektarjev vinogradov."
+  },
+  'Amadeus — Castello di Spessa': {
+    it: "Le cantine medievali sotto il Castello di Spessa a Capriva del Friuli custodiscono secoli di storia del Collio. Erette su antichi insediamenti romani del III secolo, queste mura ospitarono Giacomo Casanova — che definì i vini del castello 'di qualità eccellente' nelle sue Memorie — e Lorenzo Da Ponte, il librettista di Mozart. Nel 1987 l'imprenditore Loretto Pali acquistò il castello e i 28 ettari di vigneti sulla Ponca. L'Amadeus è il Metodo Classico di questa cantina millenaria: Chardonnay e Pinot Nero sulle colline del Collio, vinificate nelle cantine scavate nella storia.",
+    en: "The medieval cellars beneath Castello di Spessa hold centuries of Collio history. In 1987 entrepreneur Loretto Pali acquired the castle and 28 hectares of Ponca vineyards. Amadeus, the estate's Classic Method, honours Lorenzo Da Ponte — Mozart's librettist — who was a guest of the manor. Chardonnay and Pinot Nero from Collio's hills, aged in history's cellars.",
+    de: "Die mittelalterlichen Keller unter dem Castello di Spessa beherbergen Jahrhunderte der Collio-Geschichte. 1987 erwarb Loretto Pali das Schloss und 28 Hektar Ponca-Weinberge. Amadeus ehrt Lorenzo Da Ponte — Mozarts Librettisten — der einst Gast des Schlosses war.",
+    sl: "Kleti gradu Castello di Spessa hranijo stoletja zgodovine Collia. Leta 1987 je Loretto Pali kupil grad in 28 hektarjev vinogradov. Amadeus počasti Lorenza Da Ponteja — Mozartovega libretista — ki je bil gost gradu."
+  },
+  'Yellow Hills Ribolla Gialla — Castello di Spessa': {
+    it: "Le cantine medievali sotto il Castello di Spessa a Capriva del Friuli custodiscono secoli di storia del Collio. Nel 1987 l'imprenditore Loretto Pali acquistò il castello e i 28 ettari di vigneti sulla Ponca — le marne eocenico-oligoceniche che danno ai vini del Collio la loro mineralità unica. La Ribolla Gialla, vitigno autoctono friulano presente in questi vigneti da secoli, esprime qui la sua essenza più autentica.",
+    en: "The medieval cellars beneath Castello di Spessa hold centuries of Collio history. In 1987 Loretto Pali acquired the castle and 28 hectares of Ponca vineyards — Eocene-Oligocene marls that give Collio wines their unique minerality. Ribolla Gialla, the indigenous Friulian variety present in these vineyards for centuries, expresses its most authentic essence here.",
+    de: "Die mittelalterlichen Keller des Castello di Spessa beherbergen Jahrhunderte der Collio-Geschichte. 1987 erwarb Loretto Pali das Schloss und 28 Hektar Ponca-Weinberge — eozäne Mergel, die den Collio-Weinen ihre einzigartige Mineralität verleihen.",
+    sl: "Kleti gradu Castello di Spessa hranijo stoletja zgodovine Collia. Leta 1987 je Loretto Pali kupil grad in 28 hektarjev vinogradov Ponca — eocenski laporji, ki dajejo vinom Collia edinstveno mineralnost."
+  },
+  'Rassauer Friulano — Castello di Spessa': {
+    it: "Le cantine medievali sotto il Castello di Spessa portano il nome di una delle famiglie nobiliari che l'hanno posseduto per secoli. 'Rassauer' era il cognome di una delle casate friulane che hanno abitato il maniero, oggi immortalato in etichetta. Nel 1987 l'imprenditore Loretto Pali acquistò il castello e i 28 ettari di vigneti sulla Ponca, riportando il Collio alla sua vocazione di eccellenza. Un bunker della Seconda Guerra Mondiale, scoperto durante i restauri, ospita oggi le riserve più preziose.",
+    en: "The medieval cellars of Castello di Spessa bear the name of one of the noble families who owned it for centuries. 'Rassauer' was one of the Friulian dynasties that inhabited the manor, now immortalised on the label. In 1987 Loretto Pali acquired the castle and 28 hectares of Ponca vineyards, restoring Collio to its vocation of excellence.",
+    de: "Die mittelalterlichen Keller des Castello di Spessa tragen den Namen einer der Adelsfamilien, die es jahrhundertelang besaßen. 'Rassauer' war eine der friaulischen Dynastien, die das Herrenhaus bewohnten, heute auf dem Etikett verewigt.",
+    sl: "Srednje veške kleti gradu Castello di Spessa nosijo ime ene od plemiških družin, ki so ga lastile stoletja. 'Rassauer' je bila ena od friulanskih dinastij, ki so prebivale v dvorcu, danes ovekoveče na etiketi."
+  },
+
+  /* ── TENUTA STELLA (Ribolla Gialla Spumantizzata) ── */
+  'Ribolla Gialla Spumantizzata — Tenuta Stella': {
+    it: "Tenuta Stella sorge sulle colline del Collio Goriziano al confine con la Slovenia, dove la Ponca — le marne eocenico-oligoceniche che da millenni modellano questo paesaggio — dà ai vini una mineralità irripetibile. La Ribolla Gialla Spumantizzata è l'interpretazione più fresca del vitigno autoctono friulano per eccellenza: il vitigno più antico del Collio, presente in questi territori sin dal Medioevo, vinificato con il Metodo Classico per catturare tutta la finezza del terroir.",
+    en: "Tenuta Stella rises on the hills of the Gorizia Collio bordering Slovenia, where Ponca — the Eocene-Oligocene marls that have shaped this landscape for millennia — gives wines an irreproducible minerality. The Spumantizzata Ribolla Gialla is the freshest interpretation of the quintessential Friulian indigenous variety: the Collio's oldest grape, present in these territories since the Middle Ages, vinified with the Classic Method to capture all the finesse of the terroir.",
+    de: "Tenuta Stella liegt auf den Hügeln des Goriziano Collio an der Grenze zu Slowenien, wo Ponca — die eozänen Mergel, die diese Landschaft seit Jahrtausenden formen — den Weinen eine unwiederholbare Mineralität verleiht.",
+    sl: "Tenuta Stella leži na hribih Goriškega Collia ob meji s Slovenijo, kjer Ponca — eocenski laporji, ki so oblikovali to pokrajino tisočletja — dajejo vinom neponovljivo mineralnost."
+  },
+
+  /* ── MASUT DA RIVE ── */
+  'Pinot Nero — Masut da Rive': {
+    it: "La famiglia Gallo è radicata a Mariano del Friuli dal primo Novecento, tanto che il soprannome locale 'Masùt da Rive' — i Gallo che abitano sulla riva dell'Isonzo — è diventato il nome stesso dell'azienda. Nonno Antonio, poi Ermenegildo, poi Silvano: tre generazioni di vignaioli prima di imbottigliare la prima bottiglia nel 1979. Oggi i fratelli Fabrizio e Marco — quinta generazione — guidano la cantina sul 46° parallelo, la stessa latitudine della Borgogna, dove i terreni ghiaiosi e ricchi di ferro lungo l'Isonzo danno al Pinot Nero una raffinatezza rara in Italia.",
+    en: "The Gallo family has been rooted in Mariano del Friuli since the early 20th century — so much so that the local nickname 'Masùt da Rive' (the Gallos who live on the bank of the Isonzo) became the estate's name itself. Grandfather Antonio, then Ermenegildo, then Silvano: three generations of vignerons before bottling the first wine in 1979. Today brothers Fabrizio and Marco — fifth generation — lead the estate on the 46th parallel, the same latitude as Burgundy, where gravelly, iron-rich soils along the Isonzo give Pinot Nero a refinement rare in Italy.",
+    de: "Die Familie Gallo ist seit Anfang des 20. Jahrhunderts in Mariano del Friuli verwurzelt — so sehr, dass der lokale Spitzname 'Masùt da Rive' (die Gallos, die am Ufer des Isonzo wohnen) zum Namen des Weinguts selbst wurde. Großvater Antonio, dann Ermenegildo, dann Silvano: drei Generationen von Winzern, bevor 1979 die erste Flasche abgefüllt wurde.",
+    sl: "Družina Gallo je ukoreninjena v Mariano del Friuli od začetka 20. stoletja — toliko, da je lokalni vzdevek 'Masùt da Rive' (Gallos, ki živijo ob bregu Soče) postal ime same kleti. Dedek Antonio, nato Ermenegildo, nato Silvano: tri generacije vinarjev, preden so leta 1979 stekleničili prvo steklenico."
+  },
+  'Sassirossi — Masut da Rive': {
+    it: "La famiglia Gallo è radicata a Mariano del Friuli dal primo Novecento, tanto che il soprannome locale 'Masùt da Rive' — i Gallo che abitano sulla riva dell'Isonzo — è diventato il nome stesso dell'azienda. Il Sassirossi nasce dall'Isonzo: il nome richiama le argille rosse e i ciottoli del suolo, simili alle Graves di Bordeaux, che donano al blend di Merlot e Cabernet Sauvignon struttura e colore. Fabrizio e Marco Gallo, quinta generazione, conducono la cantina con la stessa caparbietà dei predecessori.",
+    en: "The Gallo family has been rooted in Mariano del Friuli since the early 20th century. Sassirossi takes its name from the red clay and pebbles of the soil — similar to Bordeaux's Graves — that give this Merlot and Cabernet Sauvignon blend its structure and colour. Brothers Fabrizio and Marco Gallo, fifth generation, lead the estate with the same tenacity as their predecessors.",
+    de: "Die Familie Gallo ist seit Anfang des 20. Jahrhunderts in Mariano del Friuli verwurzelt. Sassirossi nimmt seinen Namen von den roten Tonen und Kieseln des Bodens — ähnlich den Graves von Bordeaux — die diesem Merlot-Cabernet-Sauvignon-Blend seine Struktur und Farbe verleihen.",
+    sl: "Družina Gallo je ukoreninjena v Mariano del Friuli od začetka 20. stoletja. Sassirossi dobi ime po rdečih glinah in prodcu tal — podobnih Graves v Bordeauxu — ki dajejo tej mešanici Merlot in Cabernet Sauvignon strukturo in barvo."
+  },
+
+  /* ── RADIKON ── */
+  'Radikon Pop': {
+    it: "Stanko Radikon è una leggenda del vino naturale mondiale. Il suo percorso inizia a Oslavia, sul Collio goriziano, dove i vigneti furono piantati dal nonno Franz Mikulus con la Ribolla Gialla. Dalla fine degli anni '70 Stanko ha lavorato in cantina, ma è dal 1995 che ha rivoluzionato il vino bianco con lunghe macerazioni sulle bucce in tini aperti — inventando, insieme a Josko Gravner, il movimento dell'orange wine. Senza solfiti aggiunti, senza filtrazioni: vini che sfidano le categorie e che il figlio Saša continua a produrre dopo la morte del padre nel 2016, custodendo 17 ettari di Ponca a 300 metri dal confine sloveno.",
+    en: "Stanko Radikon is a legend of the natural wine world. His journey began in Oslavia, on the Gorizia Collio, where vineyards were planted by his grandfather Franz Mikulus with Ribolla Gialla. From the late 1970s Stanko worked the cellar, but it was from 1995 that he revolutionised white wine with long skin macerations in open vats — co-inventing, with Josko Gravner, the orange wine movement. No added sulphites, no filtration: wines that defy categories, which his son Saša continues to produce after Stanko's death in 2016, tending 17 hectares of Ponca 300 metres from the Slovenian border.",
+    de: "Stanko Radikon ist eine Legende der Naturweinwelt. Seine Reise begann in Oslavia, im Goriziano Collio, wo Weinberge von seinem Großvater Franz Mikulus mit Ribolla Gialla bepflanzt wurden. Ab 1995 revolutionierte er Weißwein mit langen Schalenmacerationen in offenen Bottichen — und co-erfand mit Josko Gravner die Orange-Wine-Bewegung. Sein Sohn Saša führt das Weingut nach Stankos Tod 2016 weiter.",
+    sl: "Stanko Radikon je legenda naravnega vina v svetu. Njegovo potovanje se je začelo v Oslaviji, na Goriškem Collio, kjer je vinarjeval. Od leta 1995 je revolucioniral bela vina z dolgimi macerijami na lupinah v odprtih kadeh — soustvarjal z Josko Gravnerjem gibanje orange wine. Sin Saša nadaljuje po Stankovi smrti leta 2016."
+  },
+
+  /* ── CA' DEL BOSCO ── */
+  "Franciacorta Cuvée Prestige — Ca' del Bosco": {
+    it: "Nel 1964 Annamaria Clementi Zanella acquistò una piccola casa in collina a Erbusco, in Franciacorta — la 'Ca' del Bosc', immersa in un bosco di castagni. Quattro anni dopo, il figlio quindicenne Maurizio tornò da un viaggio in Champagne con un'idea irremovibile: fare le bollicine italiane alla pari dei migliori francesi. Da 2 ettari di bosco alla cantine più avanzate d'Italia: 230 ettari, 1,7 milioni di bottiglie, la Cuvée Prestige come biglietto da visita di una storia che ha definito la Franciacorta come la portò al mondo.",
+    en: "In 1964 Annamaria Clementi Zanella bought a small hilltop house in Erbusco, Franciacorta — the 'Ca' del Bosc', surrounded by a chestnut wood. Four years later, her fifteen-year-old son Maurizio returned from a trip to Champagne with an unwavering idea: to make Italian sparkling wines equal to the finest French. From 2 hectares of woodland to Italy's most advanced winery: 230 hectares, 1.7 million bottles, the Cuvée Prestige as the calling card of a story that defined Franciacorta for the world.",
+    de: "1964 kaufte Annamaria Clementi Zanella ein kleines Haus auf einem Hügel in Erbusco, in der Franciacorta — die 'Ca' del Bosc', umgeben von einem Kastanienwald. Vier Jahre später kehrte ihr 15-jähriger Sohn Maurizio von einem Champagne-Besuch mit einer festen Idee zurück: italienische Schaumweine auf Augenhöhe mit den besten Franzosen zu machen.",
+    sl: "Leta 1964 je Annamaria Clementi Zanella kupila majhno hišo na griču v Erbuscu, Franciacorta — 'Ca' del Bosc', obdano s kostanjevim gozdom. Njen 15-letni sin Maurizio se je vrnil iz Champagne z neomajno idejo: narediti italijanska peneča vina enakovredna najboljšim francoskim."
+  },
+  "Franciacorta Dosage Zero — Ca' del Bosco": {
+    it: "Nel 1964 Annamaria Clementi Zanella acquistò una piccola casa in collina a Erbusco, in Franciacorta. Il figlio Maurizio Zanella, dopo un viaggio in Champagne a 15 anni, trasformò quel bosco di castagni nella cantina di punta dell'Italia spumantistica. Il Dosage Zero è la massima espressione del terroir di Franciacorta: zero zucchero aggiunto, 48 mesi sui lieviti, un vino puro e sincero che parla direttamente della terra. Con 230 ettari di vigneti e la Vintage Collection come collana di millesimi, Ca' del Bosco è oggi il simbolo assoluto della Franciacorta nel mondo.",
+    en: "In 1964 Annamaria Clementi Zanella bought a small house in Erbusco, Franciacorta. Her son Maurizio Zanella, after a Champagne trip at 15, transformed that chestnut wood into Italy's leading sparkling wine estate. The Dosage Zero is the ultimate expression of Franciacorta terroir: zero added sugar, 48 months on the lees, a pure and sincere wine that speaks directly of the land.",
+    de: "1964 kaufte Annamaria Clementi Zanella ein kleines Haus in Erbusco, Franciacorta. Ihr Sohn Maurizio Zanella verwandelte nach einem Champagne-Besuch mit 15 Jahren diesen Kastanienwald in Italiens führendes Schaumweinweingut. Das Dosage Zero ist der ultimative Ausdruck des Franciacorta-Terroirs.",
+    sl: "Leta 1964 je Annamaria Clementi Zanella kupila hišo v Erbuscu, Franciacorta. Njen sin Maurizio Zanella je po obisku Champagne pri 15 letih ta kostanjev gozd spremenil v vodilno šampanjsko klet Italije. Dosage Zero je vrhunski izraz terroir Franciacorte."
+  },
+
+  /* ── PERRIER-JOUET ── */
+  'Champagne Perrier-Jouet Grand Brut': {
+    it: "Nel 1811 — l'anno del passaggio della Grande Cometa — Pierre-Nicolas Perrier e Adèle Jouët si unirono in matrimonio e fondarono la loro Maison de Champagne ad Épernay, sulle rive della famosa Avenue de Champagne. Duo dei pionieri che introdussero le cuvée millesimate e il Brut come li conosciamo oggi, Perrier-Jouët è stata per secoli la bollicina dei re e delle regine: da Napoleone III alla Regina Vittoria, a Grace di Monaco. Nel 1902 Émile Gallé — maestro dell'Art Nouveau — decorò le magnum della Maison con i celebri anemoni giapponesi, diventati poi il simbolo della Belle Époque.",
+    en: "In 1811 — the year the Great Comet passed — Pierre-Nicolas Perrier and Adèle Jouët married and founded their Maison de Champagne in Épernay, on the famous Avenue de Champagne. Pioneers who introduced vintage cuvées and Brut as we know it today, Perrier-Jouët has been the sparkling wine of kings and queens for centuries: from Napoleon III to Queen Victoria and Princess Grace of Monaco. In 1902, Art Nouveau master Émile Gallé decorated the Maison's magnums with the famous Japanese anemones, which became the symbol of the Belle Époque.",
+    de: "Im Jahr 1811 — dem Jahr des Großen Kometen — heirateten Pierre-Nicolas Perrier und Adèle Jouët und gründeten ihre Maison de Champagne in Épernay. Pioniere, die Jahrgangs-Cuvées und Brut einführten, war Perrier-Jouët jahrhundertelang der Schaumwein der Könige und Königinnen. 1902 schmückte Art-Nouveau-Meister Émile Gallé die Magnumflaschen der Maison mit den berühmten japanischen Anemonen.",
+    sl: "Leta 1811 — leto prehoda Velikega kometa — sta se Pierre-Nicolas Perrier in Adèle Jouët poročila in ustanovila svojo Maison de Champagne v Épernayu. Pionirji, ki so uvedli letniška kupažiranja in Brut, kot ga poznamo danes, je bil Perrier-Jouët stoletja peneče vino kraljev in kraljic. Leta 1902 je Art Nouveau mojster Émile Gallé okrasil magnum steklenice Maison z znamenitimi japonskimi anemonami."
+  },
+
+  /* ── ANTINORI ── */
+  'Chianti Classico — Marchese Antinori': {
+    it: "Il 19 maggio 1385, Giovanni di Piero Antinori entrò a far parte dell'Arte Fiorentina dei Vinattieri. Da quel giorno, la famiglia Antinori non ha mai interrotto la produzione di vino: 26 generazioni, 640 anni di storia, sempre a gestione familiare. La Tenuta Tignanello — cuore della produzione del Chianti Classico — è anche il luogo in cui, negli anni '70, il Marchese Piero Antinori e l'enologo Giacomo Tachis inventarono il Tignanello, il primo 'Super Tuscan', rivoluzionando l'enologia italiana. Oggi le figlie Albiera, Allegra e Alessia guidano la famiglia nel mondo.",
+    en: "On 19 May 1385, Giovanni di Piero Antinori joined the Florentine Winemakers' Guild. Since that day, the Antinori family has never stopped producing wine: 26 generations, 640 years of history, always family-managed. The Tignanello Estate — heart of Chianti Classico production — is also where, in the 1970s, Marchese Piero Antinori and winemaker Giacomo Tachis invented Tignanello, the first 'Super Tuscan', revolutionising Italian winemaking. Today daughters Albiera, Allegra and Alessia lead the family worldwide.",
+    de: "Am 19. Mai 1385 trat Giovanni di Piero Antinori der Florentiner Winzerzunft bei. Seitdem hat die Familie Antinori nie aufgehört, Wein zu produzieren: 26 Generationen, 640 Jahre Geschichte, immer in Familienregie. Das Weingut Tignanello — Herz der Chianti Classico-Produktion — ist auch der Ort, an dem Marchese Piero Antinori und Kellermeister Giacomo Tachis in den 1970er Jahren Tignanello erfanden, den ersten 'Super Tuscan'.",
+    sl: "19. maja 1385 je Giovanni di Piero Antinori vstopil v Florentinsko vinogradniško ceho. Od takrat naprej družina Antinori nikoli ni prenehala z vinarjenjem: 26 generacij, 640 let zgodovine, vedno v družinski upravi. Posestvo Tignanello je tudi kraj, kjer sta v 70-ih Marchese Piero Antinori in enolog Giacomo Tachis izumila Tignanello, prvi 'Super Tuscan'."
+  },
+
+  /* ── PAOLOLEAO ── */
+  'Malvasia Nera — Paololeo': {
+    it: "Cantine Paololeo è una storia di famiglia semplice e bella, come tutte le migliori. Cinque generazioni di viticoltori a San Donaci, a sud di Brindisi, nel cuore del Parco del Negroamaro: una masseria del 1500, 70 ettari di vigneti, la passione per i vitigni autoctoni salentini. Nel 1989 Paolo Leo fondò l'azienda moderna, affiancato dalla moglie Roberta e dai quattro figli Nicola, Stefano, Francesco e Alessandro. La Malvasia Nera, vitigno dall'anima millenaria, è da sempre la compagna di vigna del Negroamaro in queste terre bruciate dal sole adriatico.",
+    en: "Cantine Paololeo is a story of family — simple and beautiful, like all the best ones. Five generations of vignerons in San Donaci, south of Brindisi, in the heart of the Negroamaro park: a 16th-century masseria, 70 hectares of vineyards, a passion for indigenous Salento varieties. In 1989 Paolo Leo founded the modern estate, supported by his wife Roberta and their four sons Nicola, Stefano, Francesco and Alessandro. Malvasia Nera, a variety with a millennial soul, has always been the vineyard companion of Negroamaro in these Adriatic-sunbaked lands.",
+    de: "Cantine Paololeo ist eine Familiengeschichte — einfach und schön, wie alle besten. Fünf Generationen von Winzern in San Donaci, südlich von Brindisi, im Herzen des Negroamaro-Parks: eine Masseria aus dem 16. Jahrhundert, 70 Hektar Weinberge, Leidenschaft für autochthone Salento-Sorten.",
+    sl: "Cantine Paololeo je družinska zgodba — preprosta in lepa, kot vse najboljše. Pet generacij vinarjev v San Donaci, južno od Brindisija: masseria iz 16. stoletja, 70 hektarjev vinogradov, strast do avtohtonih sort Salenta."
+  },
+
+  /* ── MASSERIA ALTEMURA ── */
+  'Primitivo di Manduria — Altemura': {
+    it: "Masseria Altemura sorge nel cuore del Salento, tra il Mar Ionio e l'Adriatico, in agro di Torre Santa Susanna. L'antica masseria del XVII secolo — già proprietà dei Conti Martini Carissimo — è stata restaurata nel rispetto dell'architettura originaria dalla famiglia Zonin, che ha investito in questa terra per ridare voce al Primitivo di Manduria nella sua espressione più pura. 270 ettari totali, di cui 130 a vigneto, su suoli calcarei bianchi e argilla rossa salentina: il terroir che dà al Primitivo il suo carattere caldo, morbido e avvolgente.",
+    en: "Masseria Altemura stands in the heart of Salento, between the Ionian and Adriatic seas, in the estate of Torre Santa Susanna. The ancient 17th-century masseria — formerly the property of the Counts Martini Carissimo — was restored in keeping with its original architecture by the Zonin family, who invested in this land to restore a voice to Primitivo di Manduria in its purest expression. 270 total hectares, 130 of which under vine, on white limestone and red Salento clay soils: the terroir that gives Primitivo its warm, soft and enveloping character.",
+    de: "Masseria Altemura liegt im Herzen des Salento, zwischen dem Ionischen und dem Adriatischen Meer. Die antike Masseria aus dem 17. Jahrhundert — einst Eigentum der Grafen Martini Carissimo — wurde von der Familie Zonin im Einklang mit ihrer ursprünglichen Architektur restauriert. 270 Gesamthektar, davon 130 unter Reben, auf weißen Kalkstein- und roten Salento-Lehmboden.",
+    sl: "Masseria Altemura stoji v srcu Salenta, med Jonskim in Jadranskim morjem. Antična masseria iz 17. stoletja — nekoč last grofov Martini Carissimo — je bila obnovljena v skladu z izvirno arhitekturo s strani družine Zonin. 270 hektarjev skupaj, od tega 130 pod trto, na belih apnenčastih in rdečih glinenih tleh."
+  },
+
+  /* ── MOVÍA ── */
+  'Grediĉ Friulano — Movia': {
+    it: "La famiglia Kristančič è radicata nelle colline della Goriška Brda dal 1700, e dal 1820 — quando la figlia dei Movia sposò un Kristančič — produce vino su entrambi i lati del confine italo-sloveno. Aleš Kristančič, la voce più eccentrica e carismatica del vino naturale mondiale, guida oggi 25 ettari di vigneti biodinamici a cavallo tra il Collio italiano e la Brda slovena. Il nonno Mirko, partigiano di Tito, contribuì a salvare la tenuta dalla nazionalizzazione durante la Seconda Guerra Mondiale: si dice che Tito stesso abbia fatto in modo che il confine tagliasse i loro vigneti in due, così da non doverli nazionalizzare. Dal 1990 Aleš ha abbracciato la filosofia naturale: fermentazioni spontanee, senza solfiti aggiunti, senza filtrazioni.",
+    en: "The Kristančič family has been rooted in the hills of Goriška Brda since 1700, and since 1820 — when the Movia daughter married a Kristančič — has produced wine on both sides of the Italian-Slovenian border. Aleš Kristančič, the most eccentric and charismatic voice of the natural wine world, today leads 25 hectares of biodynamic vineyards straddling Italian Collio and Slovenian Brda. From 1990 Aleš embraced natural philosophy: spontaneous fermentations, no added sulphites, no filtration.",
+    de: "Die Familie Kristančič ist seit 1700 in den Hügeln der Goriška Brda verwurzelt und produziert seit 1820 Wein auf beiden Seiten der italienisch-slowenischen Grenze. Aleš Kristančič führt heute 25 Hektar biodynamische Weinberge. Ab 1990 umarmte Aleš die Naturphilosophie: spontane Gärungen, keine zugesetzten Sulfite, keine Filtration.",
+    sl: "Družina Kristančič je ukoreninjena v gričih Goriške Brd od leta 1700, in od leta 1820 — ko se je hčer Movie poročila s Kristančičem — prideluje vino na obeh straneh meje. Aleš Kristančič danes vodi 25 hektarjev biodinamičnih vinogradov."
+  },
+  'Veliko — Movia': {
+    it: "La famiglia Kristančič è radicata nelle colline della Goriška Brda dal 1700. Aleš Kristančič, personalità vulcanica del vino naturale mondiale, guida oggi 25 ettari di vigneti biodinamici a cavallo tra il Collio italiano e la Brda slovena. 'Veliko' — 'grande' in sloveno — è il blend di punta della cantina: Ribolla Gialla, Sauvignon e Chardonnay vinificati con fermentazione spontanea, affinamento in botte, zero filtrazioni. Un vino che esprime il confine come cultura: italiano e sloveno insieme, come le vigne e come la storia di questa famiglia.",
+    en: "The Kristančič family has been rooted in the hills of Goriška Brda since 1700. Aleš Kristančič, a volcanic personality of the natural wine world, today leads 25 hectares of biodynamic vineyards. 'Veliko' — 'great' in Slovenian — is the estate's flagship blend: Ribolla Gialla, Sauvignon and Chardonnay vinified with spontaneous fermentation, aged in barrel, zero filtration. A wine that expresses the border as culture: Italian and Slovenian together.",
+    de: "Die Familie Kristančič ist seit 1700 in den Hügeln der Goriška Brda verwurzelt. 'Veliko' — 'groß' auf Slowenisch — ist der Flaggschiff-Blend des Weinguts: Ribolla Gialla, Sauvignon und Chardonnay mit spontaner Gärung, Fassreifung, keine Filtration.",
+    sl: "'Veliko' je vodilni blend kleti Movia: Ribolla Gialla, Sauvignon in Chardonnay, viniificirani s spontano fermentacijo, zorjenjem v sodu, brez filtracije. Vino, ki izraža mejo kot kulturo: italijansko in slovensko skupaj."
+  },
+  'Pinot Grigio — Movia': {
+    it: "La famiglia Kristančič è radicata nelle colline della Goriška Brda dal 1700. Aleš Kristančič guida oggi 25 ettari di vigneti biodinamici a cavallo tra il Collio italiano e la Brda slovena. Il Pinot Grigio di Movia è diverso da tutti gli altri: vinificazione biodinamica, fermentazione spontanea, affinamento in botte, senza filtrazioni. Il risultato è un bianco di grande struttura e profondità, lontano dalla versione industriale del vitigno, che sorprende per la sua complessità.",
+    en: "The Kristančič family has been rooted in the hills of Goriška Brda since 1700. Aleš Kristančič today leads 25 hectares of biodynamic vineyards. Movia's Pinot Grigio is unlike any other: biodynamic vinification, spontaneous fermentation, barrel ageing, no filtration. The result is a white of great structure and depth, far from the industrial version of the variety.",
+    de: "Die Familie Kristančič ist seit 1700 in der Goriška Brda verwurzelt. Movias Pinot Grigio ist anders als alle anderen: biodynamische Vinifikation, spontane Gärung, Fassreifung, keine Filtration. Das Ergebnis ist ein Weißwein von großer Struktur und Tiefe.",
+    sl: "Moviin Pinot Grigio je drugačen od vseh ostalih: biodinamična vinifikacija, spontana fermentacija, zorenje v sodu, brez filtracije. Rezultat je belo vino z veliko strukturo in globino."
+  },
+
+  /* ── PRIMOSIC ── */
+  'Ribolla Gialla Riserva Orange — Primosic': {
+    it: "La tradizione familiare Primosic ad Oslavia inizia nell'Ottocento, quando Karlo Primosic produceva già la Ribolla Gialla fermentata sulle bucce per rifornire i commercianti del vino dell'Impero Austro-Ungarico. Dopo le devastazioni delle due Guerre Mondiali, la famiglia ricostruì tutto: Silvan Primosic negli anni '60 avviò la cantina moderna, e la bottiglia n. 1 del Consorzio del Collio porta il nome Primosic. Oggi Boris e Marko guidano la cantina tra la Collezione Collio — bianchi eleganti e puliti — e la Collezione Skin, gli orange wine di Oslavia. Fermento spontaneo, 4 settimane sulle bucce in tini aperti, senza solfiti: la Ribolla Gialla nel suo DNA più autentico.",
+    en: "The Primosic family tradition in Oslavia dates back to the 19th century, when Karlo Primosic was already producing Ribolla Gialla fermented on the skins to supply wine merchants of the Austro-Hungarian Empire. After the devastations of two World Wars, the family rebuilt everything: Silvan Primosic in the 1960s launched the modern winery, and bottle no. 1 of the Collio Consortium bears the Primosic name. Today Boris and Marko lead the estate between the Collio Collection — elegant, clean whites — and the Skin Collection, the orange wines of Oslavia.",
+    de: "Die Primosic-Familientradition in Oslavia reicht bis ins 19. Jahrhundert zurück. Karlo Primosic produzierte bereits Ribolla Gialla, die auf den Schalen fermentiert wurde. Nach den Verwüstungen zweier Weltkriege baute die Familie alles wieder auf. Flasche Nr. 1 des Collio-Konsortiums trägt den Namen Primosic. Heute führen Boris und Marko das Weingut.",
+    sl: "Primosičeva družinska tradicija v Oslaviji sega v 19. stoletje. Boris in Marko danes vodita klet med Kolekcijo Collio — elegantna, čista bela vina — in Kolekcijo Skin, orange wine Oslavije."
+  },
+  'Pinot Grigio Riserva Orange — Primosic': {
+    it: "La tradizione familiare Primosic ad Oslavia inizia nell'Ottocento, quando Karlo Primosic produceva già vini macerati per l'Impero Austro-Ungarico. La bottiglia n. 1 del Consorzio del Collio porta il nome Primosic. Boris e Marko guidano oggi la cantina con due anime: la pulizia del Collio e la profondità degli orange wine di Oslavia. Il Pinot Grigio Orange è maceratura sulle bucce, fermentazione spontanea, affinamento in botti grandi: una versione del vitigno che sfida le categorie e racconta il territorio.",
+    en: "The Primosic family tradition in Oslavia dates back to the 19th century. Bottle no. 1 of the Collio Consortium bears the Primosic name. Boris and Marko today lead the estate with two souls: the clarity of Collio and the depth of Oslavia's orange wines. The Pinot Grigio Orange: skin maceration, spontaneous fermentation, large barrel ageing — a version of the variety that defies categories.",
+    de: "Die Primosic-Familientradition in Oslavia reicht bis ins 19. Jahrhundert zurück. Flasche Nr. 1 des Collio-Konsortiums trägt den Namen Primosic. Der Pinot Grigio Orange: Schalenmaceration, spontane Gärung, Großfassreifung — eine Sorteninterpretation, die Kategorien herausfordert.",
+    sl: "Primosičeva tradicija v Oslaviji sega v 19. stoletje. Pinot Grigio Orange: maceracija na lupinah, spontana fermentacija, zorenje v velikih sodih — interpretacija sorte, ki izziva kategorije."
+  },
+  'Friulano Riserva Orange — Primosic': {
+    it: "La tradizione familiare Primosic ad Oslavia inizia nell'Ottocento, quando Karlo Primosic produceva già vini macerati per l'Impero Austro-Ungarico. La bottiglia n. 1 del Consorzio del Collio porta il nome Primosic. Il Friulano Riserva Orange è il massimo dell'espressione macerata: skin contact prolungato, fermentazione con lieviti indigeni senza solfiti, senza filtrazioni. Un bianco dorato e tannico che sfida le categorie e racconta Oslavia in modo assoluto.",
+    en: "The Primosic family tradition in Oslavia dates back to the 19th century. Bottle no. 1 of the Collio Consortium bears the Primosic name. The Friulano Orange Reserve is the ultimate macerated expression: extended skin contact, indigenous yeast fermentation without sulphites, unfiltered. A golden, tannic white that defies categories and speaks absolutely of Oslavia.",
+    de: "Die Primosic-Familientradition in Oslavia reicht ins 19. Jahrhundert zurück. Der Friulano Orange Riserva ist der ultimative Mazierationsausdruck: verlängerter Schalenkontakt, indigene Hefen ohne Sulfite, ungefiltert.",
+    sl: "Primosičeva tradicija v Oslaviji sega v 19. stoletje. Friulano Riserva Orange je vrhunski macirani izraz: podaljšan stik z lupinami, domorodne kvasovke brez sulfitov, nefiltrirano."
+  },
+
+  /* ── IMMICH-BATTERIEBERG ── */
+  'C.A.I. Riesling — Immich Batterieberg': {
+    it: "Il Weingut Immich-Batterieberg di Enkirch è una delle cantine più antiche della Mosella. La parte centrale dell'edificio è citata in un documento del 908 d.C. — un atto del re carolingio Ludovico IV che confermava la cessione della proprietà alla Chiesa. Il basamento è probabilmente della seconda metà del IX secolo, con una colonna di basalto romano riciclata nelle cantine più profonde. La famiglia Immich possedette la tenuta per 500 anni (1425–1989). Il nome 'Batterieberg' — la Collina delle Batterie — evoca le dinamitazioni del 1841–1845 con cui Carl August Immich creò nuove terrazze per i vigneti sugli ardesia a strapiombo. Dal 2009 Gernot Kollmann ha rilanciato la cantina con una viticoltura naturale e Riesling da viti ultracentenarie a piede franco.",
+    en: "Weingut Immich-Batterieberg in Enkirch is one of the oldest wineries on the Moselle. The central part of the building is cited in a document of 908 AD — a decree of Carolingian King Louis IV confirming the estate's transfer to the Church. The base probably dates from the second half of the 9th century, with a recycled Roman basalt column in the deepest cellars. The Immich family owned the estate for 500 years (1425–1989). The name 'Batterieberg' evokes the 1841–1845 dynamite blasts with which Carl August Immich created new terraces on the sheer slate slopes. Since 2009 Gernot Kollmann has relaunched the estate with natural viticulture and Riesling from century-old ungrafted vines.",
+    de: "Das Weingut Immich-Batterieberg in Enkirch ist eines der ältesten Weingüter der Mosel. Der Mittelteil des Gebäudes ist in einem Dokument aus dem Jahr 908 n. Chr. erwähnt. Die Familie Immich besaß das Weingut 500 Jahre lang (1425–1989). Der Name 'Batterieberg' erinnert an die Sprengungen von 1841–1845, mit denen Carl August Immich neue Terrassen auf den steilen Schieferhängen anlegte. Seit 2009 leitet Gernot Kollmann das Weingut mit Naturweinbau.",
+    sl: "Weingut Immich-Batterieberg v Enkirchu je eno najstarejših vinogradništev na Moseli. Osrednji del poslopja je omenjen v listini leta 908 n. š. Ime 'Batterieberg' spominja na miniranje iz let 1841–1845, s katerim je Carl August Immich ustvaril nove terase na strmih skrilavčevih pobočjih. Od leta 2009 Gernot Kollmann vodi klet z naravnim vinarjenjem."
+  },
+
+  /* ── COTTAR ── */
+  'Čotar Gorjansko': {
+    it: "Branko Čotar è un vignaiolo indipendente sul Carso sloveno, a Gorjansko, appena oltre il confine con Trieste. La sua cantina artigianale è uno degli esempi più puri di viticoltura naturale della regione: Malvasia Istriana e Vitovska vinificate con intervento minimo, senza solfiti, senza filtrazione. Il Carso è uno dei terroir più estremi del mondo: altopiano calcareo battuto dalla Bora, suoli poveri e rocciosi, viti che faticano e per questo danno vini di grande carattere minerale e sapido. Branko Čotar è il custode di questo territorio di confine.",
+    en: "Branko Čotar is an independent winegrower on the Slovenian Karst, in Gorjansko, just beyond the border with Trieste. His artisan winery is one of the purest examples of natural viticulture in the region: Malvasia Istriana and Vitovska vinified with minimal intervention, no sulphites, no filtration. The Karst is one of the world's most extreme terroirs: a limestone plateau swept by the Bora wind, poor rocky soils, struggling vines that produce wines of great mineral and savoury character. Branko Čotar is the custodian of this border territory.",
+    de: "Branko Čotar ist ein unabhängiger Winzer auf dem slowenischen Karst, in Gorjansko, knapp jenseits der Grenze zu Triest. Seine handwerkliche Kellerei ist eines der reinsten Beispiele für Naturweinbau in der Region: Malvasia Istriana und Vitovska mit minimalem Eingriff, ohne Sulfite, ohne Filtration.",
+    sl: "Branko Čotar je neodvisen vinar na slovenskem Krasu, v Gorjanskem, tik za mejo s Trstom. Njegova rokodelska klet je eden najčistejših primerov naravnega vinarjenja v regiji: Malvazija Istriana in Vitovska z minimalnim posegom, brez sulfitov, brez filtracije."
+  },
+
+  /* ── OLTRENERO / TENUTA IL BOSCO ── */
+  'Rosé — Oltrenero': {
+    it: "Tenuta Il Bosco sorge a Zenevredo, nell'Oltrepò Pavese, dove monaci benedettini medievali iniziarono a coltivare la vite tra i ginepri selvatici — da cui il nome del borgo. La famiglia Zonin acquistò la tenuta nel 1987 con un obiettivo ambizioso: fare dell'Oltrepò il territorio italiano del grande Pinot Nero da Metodo Classico. La cantina fu inaugurata nel 1991 e oggi conta 104 ettari, di cui 84 vitati. Il Rosé Cruasé — 100% Pinot Nero vinificato in rosato, 36 mesi sui lieviti — è il cuore della produzione: una bollicina che porta la Borgogna lombarda sulla tavola.",
+    en: "Tenuta Il Bosco is in Zenevredo, Oltrepò Pavese, where medieval Benedictine monks began cultivating vines among wild junipers — giving the hamlet its name. The Zonin family bought the estate in 1987 with an ambitious goal: to make Oltrepò the Italian territory of great Pinot Nero Classic Method. The winery opened in 1991 and today covers 104 hectares, 84 under vine. The Rosé Cruasé — 100% Pinot Nero vinified as rosé, 36 months on the lees — is the heart of production.",
+    de: "Tenuta Il Bosco liegt in Zenevredo, Oltrepò Pavese, wo mittelalterliche Benediktinermönche zwischen Wildwacholder Reben anpflanzten. Die Familie Zonin kaufte das Weingut 1987 mit dem ehrgeizigen Ziel, Oltrepò zum italienischen Territorium des großen Pinot Nero Klassische Methode zu machen. Der Rosé Cruasé — 100% Pinot Nero als Rosé vinifiziert, 36 Monate auf der Hefe — ist das Herzstück der Produktion.",
+    sl: "Tenuta Il Bosco leži v Zenevredu, Oltrepò Pavese, kjer so srednji veški benediktinski menihi sadili trte med divjimi brinami. Družina Zonin je posestvo kupila leta 1987. Rosé Cruasé — 100% Pinot Nero vinificiran kot rosé, 36 mesecev na drožeh — je srce proizvodnje."
+  },
+
+  /* ── ALTEMASI / CAVIT ── */
+  'Trentodoc — Altemasi': {
+    it: "Altemasi significa 'dai masi più alti': i vigneti scelti tra i 450 e i 750 metri sul livello del mare, dove le escursioni termiche tra giorno e notte sono più marcate e le uve sviluppano freschezza e complessità uniche. La cantina dedicata fu inaugurata nel 1994, espressione di eccellenza della cooperativa Cavit — Cantina Viticoltori del Trentino — fondata nel 1950 da vignaioli trentini decisi a valorizzare il loro territorio. Oggi Cavit unisce oltre 5.000 viticoltori su 5.000 ettari, e Altemasi ne è la punta di diamante: Trentodoc Metodo Classico che sfida le grandi Champagne.",
+    en: "Altemasi means 'from the highest farmsteads': vineyards selected at 450–750 metres altitude, where day-night temperature swings give grapes unique freshness and complexity. The dedicated winery opened in 1994, as the excellence arm of Cavit — Cantina Viticoltori del Trentino — founded in 1950 by Trentino vignerons determined to showcase their territory. Today Cavit unites over 5,000 growers across 5,000 hectares, and Altemasi is its flagship: Trentodoc Classic Method that challenges the great Champagnes.",
+    de: "Altemasi bedeutet 'von den höchsten Höfen': Weinberge ausgewählt auf 450–750 m Höhe, wo Tag-Nacht-Temperaturschwankungen den Trauben einzigartige Frische und Komplexität verleihen. Die spezielle Kellerei wurde 1994 eröffnet, als Exzellenzarm von Cavit — 1950 von Trentino-Winzern gegründet. Heute vereint Cavit über 5.000 Winzer auf 5.000 Hektar.",
+    sl: "Altemasi pomeni 'z najvišjih kmetij': vinogradi izbrani na 450–750 m nadmorske višine, kjer nihanje temperatur med dnevom in nočjo daje grozdičju edinstveno svežino. Klet je bila odprta leta 1994 kot vrhunski izraz zadruge Cavit, ustanovljene leta 1950. Danes Cavit združuje več kot 5.000 vinarjev."
+  },
+
+  /* ── TOROS ── */
+  'Chardonnay — Toros': {
+    it: "La famiglia Toros è radicata a Novali di Cormons dal 1907, quando il bisnonno Edoardo capì le potenzialità straordinarie di questa terra a due passi dalla Slovenia. Quattro generazioni dopo, Franco Toros — che ha trasformato l'azienda negli anni '70 convertendola dalla policoltura alla viticoltura di qualità — guida ancora i 15 ettari sulla Ponca con le figlie Erika, enologa, Cristina ed Eva. Il loro motto è semplice: fare vino pulito, minerale, che sappia di Collio. Nessun agronomo esterno, solo l'abilità della famiglia. Il Pinot Bianco è il loro simbolo, ma tutti i sei bianchi condividono quella mineralità salina unica della Ponca di Novali.",
+    en: "The Toros family has been rooted in Novali di Cormons since 1907, when great-grandfather Edoardo understood the extraordinary potential of this land steps from Slovenia. Four generations later, Franco Toros — who transformed the estate in the 1970s, converting it from mixed farming to quality viticulture — still guides 15 hectares of Ponca with daughters Erika, an oenologist, Cristina and Eva. Their motto is simple: make clean, mineral wine that tastes of Collio. No external agronomist, just the family's skill.",
+    de: "Die Familie Toros ist seit 1907 in Novali di Cormons verwurzelt, als Urgroßvater Edoardo das außerordentliche Potenzial dieses Landes nahe Sloweniens erkannte. Vier Generationen später führt Franco Toros die 15 Hektar Ponca mit seinen Töchtern Erika, Enologin, Cristina und Eva. Ihr Motto: sauberen, mineralischen Wein machen, der nach Collio schmeckt.",
+    sl: "Družina Toros je zakoreninjena v Novalih pri Cormonsu od leta 1907. Štiri generacije pozneje Franco Toros vodi 15 hektarjev Ponca s hčerkami Eriko, enologinjo, Cristino in Evo. Njihov moto: narediti čisto, mineralno vino, ki okusi Collio."
+  },
+  'Pinot Bianco — Toros': {
+    it: "La famiglia Toros è radicata a Novali di Cormons dal 1907, quando il bisnonno Edoardo capì le potenzialità straordinarie di questa terra a due passi dalla Slovenia. Franco Toros guida i 15 ettari sulla Ponca con le figlie Erika, enologa, Cristina ed Eva. Il Pinot Bianco è il loro simbolo: nasce dai filari più vicini alla cantina, protetti da una Madonnina che da secoli vigila sulle vigne. Un vino minerale, asciutto e longevo, considerato tra i migliori Pinot Bianchi del Collio.",
+    en: "The Toros family has been rooted in Novali di Cormons since 1907. Franco Toros guides 15 hectares of Ponca with daughters Erika, Cristina and Eva. Pinot Bianco is their symbol: born from the rows closest to the cellar, guarded by a Madonna shrine that has watched over the vines for centuries. A mineral, dry and long-lived wine, considered among the finest Pinot Biancos of Collio.",
+    de: "Die Familie Toros ist seit 1907 in Novali di Cormons verwurzelt. Franco Toros führt 15 Hektar Ponca mit seinen Töchtern. Pinot Bianco ist ihr Symbol: aus den Reihen nächst dem Keller, bewacht von einer Madonnenskulptur, die seit Jahrhunderten über die Weinberge wacht.",
+    sl: "Družina Toros je zakoreninjena v Novalih pri Cormonsu od leta 1907. Pinot Bianco je njihov simbol: rojen iz vrst najbližje kleti, varovanih s kipo Madonne, ki že stoletja bdi nad vinogradi."
+  },
+
+  /* ── STURM ── */
+  'Ribolla Gialla — Sturm': {
+    it: "Padre Oscar e figli Patrick e Denis Sturm sono un punto di riferimento del Collio goriziano. La loro sinergia familiare ha costruito un'azienda che coltiva biologicamente i vigneti sul territorio di confine tra Italia e Slovenia, riuscendo a produrre bianchi eleganti e raffinati e rossi potenti che esprimono secoli di tradizione vinicola carsica. La Ribolla Gialla di Sturm — vitigno autoctono più antico del Collio, presente in queste terre sin dal Medioevo — è la loro dichiarazione d'identità più autentica: nessun passaggio in legno, solo acciaio e Ponca.",
+    en: "Father Oscar and sons Patrick and Denis Sturm are a reference point of the Gorizia Collio. Their family synergy has built an estate that farms organically on the border territory between Italy and Slovenia, producing elegant, refined whites and powerful reds expressing centuries of Carsic wine tradition. Sturm's Ribolla Gialla — the oldest indigenous variety of Collio, present in these lands since the Middle Ages — is their most authentic statement of identity: no wood passage, only steel and Ponca.",
+    de: "Vater Oscar und Söhne Patrick und Denis Sturm sind ein Referenzpunkt des Goriziano Collio. Ihre Familiensinergie hat ein biologisch wirtschaftendes Weingut am Grenzgebiet zwischen Italien und Slowenien aufgebaut. Sturms Ribolla Gialla — die älteste autochthone Sorte des Collio, seit dem Mittelalter in diesem Land — ist ihre authentischste Identitätserklärung.",
+    sl: "Oče Oscar in sinova Patrick in Denis Sturm sta referenčna točka Goriškega Collia. Njihova družinska sinergija je zgradila ekološko kmetijstvo na mejnem območju med Italijo in Slovenijo. Sturmova Ribolla Gialla — najstarejša avtohtona sorta Collia, prisotna v teh deželah od Srednjega veka — je njihova najautentičnejša izjava identitete."
+  },
+  'Malvasia — Sturm': {
+    it: "Padre Oscar e figli Patrick e Denis Sturm sono un punto di riferimento del Collio goriziano. La loro sinergia familiare ha costruito un'azienda che coltiva biologicamente i vigneti sul territorio di confine tra Italia e Slovenia, riuscendo a produrre bianchi eleganti e raffinati. La Malvasia Istriana di Sturm — vitigno aromatico da sempre coltivato in queste terre adriatiche — esprime in questo terroir di Ponca una complessità floreale e una mineralità che solo il Collio goriziano sa dare.",
+    en: "Father Oscar and sons Patrick and Denis Sturm are a reference point of the Gorizia Collio. Their family synergy has built an estate that farms organically on the Italian-Slovenian border. Sturm's Malvasia Istriana — an aromatic variety long cultivated in these Adriatic lands — expresses in the Ponca terroir a floral complexity and minerality that only the Gorizia Collio can deliver.",
+    de: "Vater Oscar und Söhne Patrick und Denis Sturm sind ein Referenzpunkt des Goriziano Collio. Sturms Malvasia Istriana — eine aromatische Sorte, die seit jeher in diesen adriatischen Landen kultiviert wird — drückt im Ponca-Terroir eine Blumenkomplexität und Mineralität aus, die nur der Goriziano Collio liefern kann.",
+    sl: "Oče Oscar in sinova Patrick in Denis Sturm sta referenčna točka Goriškega Collia. Sturmova Malvazija Istriana — aromatična sorta, gojená v teh jadranskih deželah od nekdaj — izraža v terroirju Ponca cvetlično kompleksnost in mineralnost, ki jo zna dati le Goriško Collio."
+  },
+
+  /* ── STRASSERHOFF ── */
+  'Kerner — Strasserhoff': {
+    it: "Lo Strasserhof è uno dei masi vinicoli più antichi della Valle Isarco: la prima menzione scritta risale al 1100 d.C. La tenuta si trova a Novacella (Varna), sopra l'abbazia agostiniana di Novacella, a 680 metri di quota, in una delle zone vinicole più settentrionali d'Italia. Dal 2003 il giovane viticoltore Hannes Baumgartner vinifica e stocca personalmente in cantina, sui 5,5 ettari di vigneti esposti a sud-ovest tra 680 e 750 metri. Il Kerner — vitigno aromatico alpino per eccellenza — raggiunge qui la sua massima espressione: freschezza montana, profumi di pesca e fiori di campo, mineralità del granito.",
+    en: "Strasserhof is one of the oldest wine farmsteads in the Isarco Valley: first documented in writing in 1100 AD. The estate is in Novacella (Varna), above the Augustinian Abbey of Novacella, at 680 metres altitude, in one of Italy's most northerly wine zones. Since 2003 young winegrower Hannes Baumgartner personally vinifies and cellars wines from 5.5 hectares of south-west facing vineyards at 680–750 metres. The Kerner — the quintessential alpine aromatic variety — reaches its finest expression here: mountain freshness, peach and wildflower aromas, granite minerality.",
+    de: "Der Strasserhof ist einer der ältesten Weinhöfe des Eisacktals: erste urkundliche Erwähnung aus dem Jahr 1100 n. Chr. Das Gut liegt in Neustift (Vahrn) über dem Augustiner Chorherrenstift Neustift, auf 680 m Höhe. Seit 2003 keltert Jungwinzer Hannes Baumgartner auf 5,5 Hektar Weinbergen südwest-exponiert auf 680–750 m.",
+    sl: "Strasserhof je eden najstarejših vinogradniških kmetij v Dolini Isarco: prvič omenjen pisno leta 1100 n. š. Posestvo leži v Novačah (Varna), nad avguštinskim samostanom Novacella, na 680 m nadmorske višine. Od leta 2003 mladi vinar Hannes Baumgartner osebno vinarizira na 5,5 hektarjih vinogradov."
+  },
+
+  /* ── BAJTA ── */
+  'Vitovska — Bajta': {
+    it: "Bajta Fattoria Carsica è un mondo a sé sull'altipiano del Carso a Sgonico, in provincia di Trieste. Fondata nel 1988 da Magda e Slavko, è un'azienda familiare che produce solo vitigni autoctoni — Vitovska, Malvasia e Terrano — allevati biologicamente su suoli calcarei rossi con l'aria frizzante della Bora. La cantina è letteralmente scavata nella roccia carsica: le cantine naturali garantiscono temperatura e umidità perfette senza alcuna tecnologia. I maiali, allevati allo stato brado tra querce e ginepri selvatici, producono salumi artigianali stagionati nelle stesse cantine. Una fattoria dove il Carso si respira in ogni sorso.",
+    en: "Bajta Fattoria Carsica is a world unto itself on the Karst plateau in Sgonico, province of Trieste. Founded in 1988 by Magda and Slavko, it is a family farm producing only indigenous varieties — Vitovska, Malvasia and Terrano — grown organically on red limestone soils swept by the Bora wind. The cellar is literally carved into the Karst rock: natural caves ensure perfect temperature and humidity with no technology. Pigs raised free-range among oaks and wild junipers produce artisan cured meats aged in those same caves. A farm where the Karst breathes in every sip.",
+    de: "Bajta Fattoria Carsica ist eine Welt für sich auf dem Karstplateau in Sgonico, Provinz Triest. 1988 von Magda und Slavko gegründet, produziert der Familienbetrieb nur autochthone Sorten — Vitovska, Malvasia und Terrano — auf roten Kalksteinböden. Der Keller ist buchstäblich in den Karstfelsen gehauen.",
+    sl: "Bajta Fattoria Carsica je svet zase na Krasu v Zgoniku, provincia Trieste. Ustanovili so ga leta 1988 Magda in Slavko. Klet je dobesedno vklesana v kraško skalo: naravne jame zagotavljajo popolno temperaturo in vlažnost brez tehnologije."
+  },
+
+  /* ── DORO PRINCIC ── */
+  'Sauvignon — Doro Princic': {
+    it: "Isidoro Princic — per tutti Doro — imbottigliò i primi vini nel 1952 a Pradis, tra i dolci colli di Cormons. Autodidatta visionario, fu uno dei primi vignaioli a credere nel Collio quando nessuno ne aveva ancora sentito parlare, e per anni fu figura centrale del Consorzio del Collio stesso. Oggi il figlio Sandro — affiancato dalla moglie Grazia e dal figlio Carlo, terza generazione — porta avanti gli insegnamenti di Doro sui 12 ettari di Ponca tra Capriva e Cormons. Vinificazione in acciaio, senza compromessi: il terroir deve parlare da solo. Il Sauvignon è uno dei loro vini più espressivi, un ritratto in bottiglia del microterroir di Pradis.",
+    en: "Isidoro Princic — known to all as Doro — bottled his first wines in 1952 in Pradis, among the gentle hills of Cormons. A visionary self-taught winemaker, he was one of the first vignerons to believe in Collio before anyone had heard of it, and for years was a central figure of the Collio Consortium itself. Today his son Sandro — flanked by wife Grazia and son Carlo, third generation — carries on Doro's teachings across 12 hectares of Ponca between Capriva and Cormons. Steel vinification, no compromises: the terroir must speak for itself.",
+    de: "Isidoro Princic — für alle Doro — kellerte 1952 seine ersten Weine in Pradis, zwischen den sanften Hügeln von Cormons. Ein visionärer Autodidakt, war er einer der ersten Winzer, die an Collio glaubten, und jahrelang eine zentrale Figur des Collio-Konsortiums. Heute führt Sohn Sandro mit Ehefrau Grazia und Sohn Carlo auf 12 Hektar Ponca die Lehren Doros weiter.",
+    sl: "Isidoro Princic — za vse Doro — je leta 1952 stekleničil prve vino v Pradisu, med blagimi griči Cormonsa. Vizionarski samouk, bil je eden prvih vinarjev, ki so verjeli v Collio. Danes sin Sandro z ženo Grazio in sinom Carlom nadaljuje Dorova učenja na 12 hektarjih Ponca."
+  },
+
+  /* ── TERRE DEL FAET ── */
+  'Collio — Terre del Faet': {
+    it: "Terre del Faet è la piccola realtà di Andrea Drius a Cormons, ai piedi del Monte Quarin — la collina sacra del Collio, già insediamento preistorico e sede della dea Cora secondo la leggenda locale. Due ettari soltanto, metodi tradizionali a basso impatto, vigne vecchie oltre i 50 anni che esprimono tutta la mineralità della Ponca. Il Collio bianco di Terre del Faet è un blend di Friulano, Ribolla e Malvasia: l'essenza del Collio in un unico vino, prodotto in poche migliaia di bottiglie.",
+    en: "Terre del Faet is the small estate of Andrea Drius in Cormons, at the foot of Monte Quarin — the sacred hill of Collio, a prehistoric settlement and according to local legend the seat of the goddess Cora. Just two hectares, traditional low-impact methods, vines over 50 years old that express all the minerality of Ponca. Terre del Faet's Collio Bianco is a blend of Friulano, Ribolla and Malvasia: the essence of Collio in a single wine, produced in a few thousand bottles.",
+    de: "Terre del Faet ist das kleine Weingut von Andrea Drius in Cormons, am Fuß des Monte Quarin. Nur zwei Hektar, traditionelle schonende Methoden, über 50 Jahre alte Reben. Der Collio Bianco von Terre del Faet ist ein Blend aus Friulano, Ribolla und Malvasia: die Essenz des Collio in einem einzigen Wein.",
+    sl: "Terre del Faet je majhno posestvo Andrea Driusa v Cormonsu, ob vznožju Monte Quarina. Le dva hektarja, tradicionalne nizkointenzivne metode, trte starejše od 50 let. Collio Bianco Terre del Faet je mešanica Friulana, Ribolle in Malvazije: esenca Collia v enem vinu."
+  },
+  'Malvasia — Terre del Faet': {
+    it: "Terre del Faet è la piccola realtà di Andrea Drius a Cormons, ai piedi del Monte Quarin — la collina sacra del Collio, già insediamento preistorico. Due ettari soltanto, metodi tradizionali a basso impatto, vigne vecchie oltre i 50 anni che esprimono tutta la mineralità della Ponca. La Malvasia di Terre del Faet nasce da vigne mature che donano concentrazione e profumi insoliti per il vitigno: non la semplice aromaticità, ma la complessità stratificata che solo la vecchia vite sa dare.",
+    en: "Terre del Faet is the small estate of Andrea Drius in Cormons, at the foot of Monte Quarin. Just two hectares, traditional low-impact methods, vines over 50 years old expressing all the minerality of Ponca. Terre del Faet's Malvasia comes from mature vines that give concentration and unusual complexity for the variety: not simple aromatics, but layered depth that only old vine can deliver.",
+    de: "Terre del Faet ist das kleine Weingut von Andrea Drius in Cormons, am Fuß des Monte Quarin. Nur zwei Hektar, traditionelle Methoden, über 50 Jahre alte Reben. Terre del Faets Malvasia kommt von alten Reben, die eine ungewöhnliche Komplexität liefern.",
+    sl: "Terre del Faet je majhno posestvo Andrea Driusa v Cormonsu, ob vznožju Monte Quarina. Le dva hektarja, tradicionalne metode, trte starejše od 50 let. Malvazija Terre del Faet prihaja iz zrelih trt, ki dajejo koncentracijo in nenavadno kompleksnost."
+  },
+
+  /* ── RONCO DEI TASSI ── */
+  'Malvasia — Ronco dei Tassi': {
+    it: "Nel 1989 Fabio Coser e sua moglie Daniela acquistarono nove ettari di vigneti sul Monte Quarin di Cormons, ai margini di una riserva naturale chiamata Plessiva. Il nome 'Ronco dei Tassi' viene dai tassi — i mammiferi ghiottoni — che ogni autunno vengono a mangiare i grappoli più maturi, e dai 'ronchi', le terrazze vitate caratteristiche del Collio. Oggi il figlio Enrico guida i 25 ettari con la passione del padre. La Malvasia è il vino simbolo dell'azienda: nel 2021 la Malvasia Collezione di Famiglia 2019 è stata eletta Vino dell'Anno ai Food & Travel Italia Awards. Nel 2025 il Fosarin è stato nominato miglior vino bianco d'Italia dalla Guida L'Espresso.",
+    en: "In 1989 Fabio Coser and wife Daniela bought nine hectares of vineyards on Monte Quarin in Cormons, on the edge of a nature reserve called Plessiva. The name 'Ronco dei Tassi' comes from the badgers — greedy mammals — who each autumn come to eat the ripest bunches, and from 'ronchi', the characteristic vine terraces of Collio. Today son Enrico leads the 25 hectares with his father's passion. Malvasia is the estate's signature wine: in 2021 the Malvasia Collezione di Famiglia 2019 was named Wine of the Year at the Food & Travel Italia Awards.",
+    de: "1989 kauften Fabio Coser und seine Frau Daniela neun Hektar Weinberge auf dem Monte Quarin in Cormons. Der Name 'Ronco dei Tassi' kommt von den Dachsen, die jeden Herbst kommen, um die reifsten Trauben zu fressen. 2021 wurde die Malvasia Collezione di Famiglia 2019 zum Wein des Jahres bei den Food & Travel Italia Awards gekürt.",
+    sl: "Leta 1989 sta Fabio Coser in soproga Daniela kupila devet hektarjev vinogradov na Monte Quarinu v Cormonsu. Ime 'Ronco dei Tassi' prihaja od jazbečev, ki vsako jesen pridejo jest najzrelejše grozde. Malvazija je prestižno vino kleti: leta 2021 je bila Malvasia Collezione di Famiglia 2019 izbrana za Vino leta pri Food & Travel Italia Awards."
+  },
+
+  /* ── CASTELLO DI BUTTRIO ── */
+  'Monblanc — Castello di Buttrio': {
+    it: "Il Castello di Buttrio domina le colline dei Colli Orientali del Friuli dall'XI secolo. Disputato da numerose famiglie nobiliari friulane nei secoli, fu ricostruito nel 1600 e nel 1994 entrò nelle proprietà di Marco Felluga — quinta generazione di una delle grandi famiglie del vino friulano. Dal 2007 la figlia Alessandra guida l'azienda con 26 ettari di vigneti storici sulla Ponca, recuperando viti che risalgono al 1933. Il Monblanc è il blend bianco simbolo: Ribolla Gialla, Friulano e Malvasia — i tre grandi autoctoni del Friuli in un unico vino che sa di territorio e di storia.",
+    en: "Castello di Buttrio has dominated the hills of Friuli's Colli Orientali since the 11th century. Contested by many noble families over the centuries, it was rebuilt in 1600 and in 1994 became the property of Marco Felluga — fifth generation of one of Friuli's great wine families. Since 2007 daughter Alessandra leads the estate with 26 hectares of historic vineyards on Ponca, restoring vines dating to 1933. Monblanc is the symbolic white blend: Ribolla Gialla, Friulano and Malvasia — the three great Friulian indigenous varieties in a single wine that speaks of territory and history.",
+    de: "Das Castello di Buttrio beherrscht die Hügel der Colli Orientali des Friulis seit dem 11. Jahrhundert. 1994 ging es in den Besitz von Marco Felluga über — fünfte Generation einer der großen Weinfamilien Friauls. Seit 2007 leitet Tochter Alessandra das Weingut mit 26 Hektar historischen Ponca-Weinbergen. Monblanc ist der symbolische weiße Blend: Ribolla Gialla, Friulano und Malvasia.",
+    sl: "Grad Castello di Buttrio prevladuje nad griči Colli Orientali Friulija od 11. stoletja. Leta 1994 je postal last Marca Felluge — pete generacije ene od velikih vinogradniških družin Friulija. Od leta 2007 hčerka Alessandra vodi posestvo. Monblanc je simbolna bela mešanica: Ribolla Gialla, Friulano in Malvazija."
+  },
+
+  /* ── GENERICI: Vermentino-Viognier e Viognier ── */
+  'La Tournée Vermentino-Viognier': {
+    it: "Un blend che racconta il Mediterraneo: il Vermentino sardo-ligure, con la sua sapidità marina, incontra il Viognier del Rodano settentrionale, con i suoi profumi intensi di albicocca e peonia. La Tournée è un vino pensato per viaggiare leggero — come un artista in tournée — portando con sé i profumi di due mari e due culture del vino europeo. Vinificazione in acciaio per preservare la freschezza e l'aromaticità naturale dei due vitigni.",
+    en: "A blend that tells the Mediterranean story: Vermentino from Sardinia and Liguria, with its saline freshness, meets Viognier from the northern Rhône, with its intense aromas of apricot and peony. La Tournée is a wine designed to travel light — like an artist on tour — carrying the aromas of two seas and two European wine cultures. Steel vinification preserves the natural freshness and aromatics of both varieties.",
+    de: "Ein Blend, der das Mittelmeer erzählt: Vermentino aus Sardinien und Ligurien, mit seiner Salzmineralität, trifft auf Viognier aus der nördlichen Rhône, mit seinen intensiven Aprikosen- und Pfingstrosen-Aromen. Stahl-Vinifikation bewahrt die natürliche Frische und Aromatik beider Sorten.",
+    sl: "Mešanica, ki pripoveduje o Sredozemlju: Vermentino iz Sardinije in Ligurije, s svojo slano svežino, sreča Viognier iz severne Rone, z intenzivnimi aromami marelice in peonij. Jeklena vinifikacija ohranja naravno svežino obeh sort."
+  },
+  'Viognier in purezza': {
+    it: "Il Viognier è il grande vitigno aromatico del Rodano settentrionale, patria dei mitici Condrieu e Château-Grillet. Fino agli anni '80 era quasi estinto — meno di 30 ettari nel mondo — prima che la sua riscoperta lo portasse in tutto il Mediterraneo. Un vitigno difficile, esigente, che ama i terreni poveri e le esposizioni soleggiate: coltivato male dà vini piatti, coltivato bene regala albicocca, pesca bianca, violetta e una struttura vellutata irripetibile. Il Viognier in purezza è la versione più diretta di questo vitigno solare: solo acciaio, solo frutto.",
+    en: "Viognier is the great aromatic variety of the northern Rhône, homeland of the legendary Condrieu and Château-Grillet. Until the 1980s it was almost extinct — fewer than 30 hectares worldwide — before its rediscovery brought it across the Mediterranean. A difficult, demanding variety that loves poor soils and sun: grown badly it gives flat wines, grown well it delivers apricot, white peach, violet and an unrepeatable velvety structure. Viognier in purezza is the most direct version: only steel, only fruit.",
+    de: "Viognier ist die große aromatische Sorte der nördlichen Rhône, Heimat der legendären Condrieu und Château-Grillet. Bis in die 1980er Jahre fast ausgestorben — weniger als 30 Hektar weltweit — bevor seine Wiederentdeckung ihn ins gesamte Mittelmeer brachte. Schlecht angebaut gibt er flache Weine, gut angebaut liefert er Aprikose, weißen Pfirsich, Veilchen.",
+    sl: "Viognier je veliki aromatični vitigno severne Rone, domovine legendarnih Condrieu in Château-Grillet. Do 80-ih let skoraj izumrl — manj kot 30 hektarjev po svetu — preden ga je njegova ponovna odkritje prinesla po vsem Sredozemlju."
+  },
+
+  /* ── LA MONETTE ── */
+  'Chardonnay 2024 — La Monette': {
+    it: "La Monette è una piccola tenuta della Côte de Beaune in Borgogna, cuore della produzione mondiale di Chardonnay. La Borgogna è il luogo dove il Chardonnay ha trovato la sua espressione più alta da secoli: i suoli di calcare del Giurassico, il clima continentale fresco, le mani umane che selezionano parcella per parcella. Lo Chardonnay La Monette combina il rigore della Borgogna — fermentazione parziale in barrique usate, malolattica controllata — con la freschezza dell'annata 2024, che ha prodotto vini di grande eleganza e acidità vivace.",
+    en: "La Monette is a small estate in the Côte de Beaune of Burgundy, heart of the world's finest Chardonnay production. Burgundy is where Chardonnay has found its highest expression for centuries: Jurassic limestone soils, cool continental climate, human hands selecting parcel by parcel. La Monette Chardonnay combines Burgundian rigour — partial fermentation in used barriques, controlled malolactic — with the freshness of the 2024 vintage, which produced wines of great elegance and lively acidity.",
+    de: "La Monette ist ein kleines Weingut in der Côte de Beaune des Burgunds, Herz der weltbesten Chardonnay-Produktion. Das La Monette Chardonnay kombiniert burgundische Strenge — partielle Gärung in gebrauchten Barriques — mit der Frische des Jahrgangs 2024.",
+    sl: "La Monette je majhno posestvo v Côte de Beaune v Burgundiji, srcu svetovne produkcije Chardonnay. La Monette Chardonnay združuje burgundijsko strogost — delna fermentacija v rabljenih barrique sodih — s svežino letnika 2024."
+  },
+
+  /* ── VILLA VASI ── */
+  'Pinot Grigio Ramato — Villa Vasi': {
+    it: "Villa Vasi è una cantina familiare del Friuli Venezia Giulia che ha scelto di valorizzare i vitigni autoctoni locali con un'identità forte e territoriale. Il Pinot Grigio Ramato — nome che viene dal 'rame', il colore dei riflessi del vino — nasce da una macerazione sulle bucce che estrae colore, struttura e complessità insolita per il vitigno. Non il Pinot Grigio industriale internazionale, ma la versione friulana tradizionale: ricca, speziata, con quel colore ramato che racconta la storia di questa vinificazione.",
+    en: "Villa Vasi is a family winery in Friuli Venezia Giulia that has chosen to enhance local indigenous varieties with a strong territorial identity. The Pinot Grigio Ramato — named for 'rame' (copper), the colour of the wine's reflections — is born from skin maceration that extracts colour, structure and unusual complexity for the variety. Not the international industrial Pinot Grigio, but the traditional Friulian version: rich, spicy, with that copper colour that tells the story of this vinification.",
+    de: "Villa Vasi ist ein Familienweingut in Friaul-Julisch Venetien, das autochthone lokale Sorten mit starker territorialer Identität aufwertet. Der Pinot Grigio Ramato — benannt nach 'rame' (Kupfer), der Farbe der Weinreflexionen — entsteht durch Schalenmaceration.",
+    sl: "Villa Vasi je družinska klet Furlanije-Julijske krajine, ki si je izbrala krepitev lokalnih avtohtonih sort. Pinot Grigio Ramato — ime prihaja od 'rame' (baker), barve refleksov vina — nastane z maceracijo na lupinah."
+  },
+  'Somnja Malvasia — Villa Vasi': {
+    it: "Villa Vasi è una cantina familiare del Friuli Venezia Giulia che ha scelto di valorizzare i vitigni autoctoni locali con un'identità forte e territoriale. La Malvasia Istriana — vitigno aromatico autoctono delle terre adriatiche — è qui interpretata con una forte identità friulana: fiori di tiglio, frutta tropicale, una sapidità che ricorda il mare Adriatico. 'Somnja' è un nome evocativo che richiama le radici di questo angolo di Friuli.",
+    en: "Villa Vasi is a family winery in Friuli Venezia Giulia dedicated to local indigenous varieties. The Malvasia Istriana — indigenous aromatic variety of Adriatic lands — is here interpreted with strong Friulian identity: linden blossom, tropical fruit, a salinity that recalls the Adriatic. 'Somnja' is an evocative name rooted in this corner of Friuli.",
+    de: "Villa Vasi ist ein Familienweingut in Friaul, das einheimische autochthone Sorten aufwertet. Die Malvasia Istriana wird hier mit starker friaulischer Identität interpretiert: Lindenblüte, Tropenfrucht, Adria-Salinität.",
+    sl: "Villa Vasi je družinska klet Furlanije, ki valorazira lokalne avtohtone sorte. Malvazija Istriana je tu interpretirana z močno furlanski identiteto: lipov cvet, tropsko sadje, jadransko slanost."
+  },
+  'Friulano — Villa Vasi': {
+    it: "Villa Vasi è una cantina familiare del Friuli Venezia Giulia che ha scelto di valorizzare i vitigni autoctoni locali con forte identità territoriale. Il Friulano — già Tocai Friulano, ribattezzato per motivi legali dopo la disputa con l'Ungheria — è il vitigno dell'anima friulana per eccellenza: mela, pera, note ammandorlate in finale, un corpo pieno e armonico. Coltivato sulle colline di Ponca friulane, esprime quella mineralità e freschezza che distingue il Friuli dal resto del mondo del vino bianco.",
+    en: "Villa Vasi is a family winery in Friuli Venezia Giulia dedicated to local indigenous varieties with strong territorial identity. Friulano — formerly Tocai Friulano, renamed for legal reasons after the dispute with Hungary — is the quintessential Friulian soul variety: apple, pear, almond notes in the finish, a full harmonious body. Grown on Friulian Ponca hills, it expresses the minerality and freshness that sets Friuli apart in the white wine world.",
+    de: "Villa Vasi ist ein Familienweingut in Friaul, das lokale autochthone Sorten mit starker territorialer Identität aufwertet. Friulano — früher Tocai Friulano — ist die quintessenzielle friaulische Seelensorte: Apfel, Birne, Mandelnoten, voller harmonischer Körper.",
+    sl: "Villa Vasi je družinska klet Furlanije, namenjena lokalnim avtohtonim sortam. Friulano — nekoč Tocai Friulano — je quintessentially furlanska sorta duše: jabolko, hruška, mandljeve note, polno harmonično telo."
+  },
+
+  /* ── CASTELVECCHIO ── */
+  'Cabernet Franc — Castelvecchio': {
+    it: "Castelvecchio è un'azienda del Carso goriziano a Sagrado, dove il terreno calcareo compatto e i venti della Bora forgiano vini rossi di grande carattere. Il Carso è un terroir estremo: altopiano calcareo, suoli poveri e drenanti, clima ventoso con estati calde e inverni rigidi. Il Cabernet Franc su Carso esprime una versione unica del vitigno: erbaceo ma non invadente, con una mineralità ferrosa e una struttura che ricorda i vini da argilla del Medoc. Le cantine carsiche scavate nella roccia completano una vinificazione rispettosa del territorio.",
+    en: "Castelvecchio is an estate of the Gorizia Karst in Sagrado, where compact limestone soil and Bora winds forge red wines of great character. The Karst is an extreme terroir: limestone plateau, poor draining soils, windy climate with hot summers and harsh winters. Cabernet Franc on the Karst expresses a unique version of the variety: herbal but not overwhelming, with ferrous minerality and a structure reminiscent of clay-based Médoc wines. Karst cellars carved into the rock complete a vinification respectful of the territory.",
+    de: "Castelvecchio ist ein Weingut des Goriziano Karstes in Sagrado, wo kompakter Kalksteinboden und Bora-Winde Rotweine von großem Charakter formen. Der Karst ist ein extremes Terroir. Cabernet Franc auf dem Karst drückt eine einzigartige Version der Sorte aus: kräuterig, mit eisenhaltiger Mineralität.",
+    sl: "Castelvecchio je posestvo Goriškega Krasa v Sagradu, kjer kompaktna apnenčasta tla in vetri Bore oblikujejo rdeča vina z velikim značajem. Cabernet Franc na Krasu izraža edinstveno različico sorte: zeliščno, z železno mineralnostjo."
+  },
+
+  /* ── TIEFENBRUNNER ── */
+  'Schiava — Tiefenbrunner': {
+    it: "Tiefenbrunner è una delle cantine storiche dell'Alto Adige, con sede a Cortaccia (Kurtatsch) sulle terrazze vitate della Val d'Adige a 300–700 metri di altitudine. La famiglia Tiefenbrunner coltiva la vite in questa zona da generazioni, producendo una gamma completa di vini altoatesini Doc. La Schiava — o Vernatsch in tedesco — è il vitigno rosso autoctono dell'Alto Adige per eccellenza: leggero, beverino, con frutti rossi croccanti e un tannino morbido che lo rende ideale per la tavola quotidiana. Una varietà secolare che racconta la storia vitivinicola delle Alpi.",
+    en: "Tiefenbrunner is one of South Tyrol's historic wineries, based in Cortaccia on vineyard terraces of the Adige Valley at 300–700 metres altitude. The Tiefenbrunner family has grown vines in this area for generations. Schiava — or Vernatsch in German — is South Tyrol's quintessential indigenous red variety: light, easy-drinking, with crunchy red fruits and soft tannins ideal for everyday meals. A centuries-old variety that tells the story of Alpine viticulture.",
+    de: "Tiefenbrunner ist eines der historischen Weingüter Südtirols, mit Sitz in Kurtatsch auf Weinbergs-Terrassen des Etschtals auf 300–700 m. Die Familie Tiefenbrunner bebaut seit Generationen Weinberge in dieser Zone. Schiava — Vernatsch — ist Südtirols quintessenzielle autochthone Rotsorte: leicht, trinkfreudig, mit knackigen roten Früchten.",
+    sl: "Tiefenbrunner je ena od zgodovinskih kleti Južne Tirolske, s sedežem v Curtaciusu na terasah Adiške doline na 300–700 m. Schiava — Vernatsch — je quintessentially južnotirolska avtohtona rdeča sorta: lahka, pitka, s hrustljajočim rdečim sadjem."
+  },
+
+  /* ── CARUSI E MINNINI ── */
+  'Zibibbo — Carusi': {
+    it: "Caruso & Minini è una cantina di Marsala fondata nel 2004 dalla collaborazione di Stefano Caruso — vignaiolo di terza generazione — e Mario Minini, esperto di marketing del nord Italia. I due vigneti di proprietà, Giumarella e Cuttaia, si estendono per 120 ettari nella zona interna della provincia di Trapani, tra Salemi e Mazara del Vallo, dove il clima mediterraneo esasperato e i suoli calcarei danno ai vini siciliani il loro carattere solare. Lo Zibibbo — Moscato d'Alessandria — è il vitigno della tradizione araba in Sicilia: importato secoli fa, ha trovato nella luce e nel calore dell'isola la sua casa definitiva.",
+    en: "Caruso & Minini is a Marsala winery founded in 2004 from the collaboration of Stefano Caruso — third-generation winegrower — and Mario Minini, a marketing expert from northern Italy. Their two vineyards, Giumarella and Cuttaia, cover 120 hectares in the inland Trapani province, between Salemi and Mazara del Vallo, where the extreme Mediterranean climate and limestone soils give Sicilian wines their solar character. Zibibbo — Moscato d'Alessandria — is the Arab tradition variety of Sicily: imported centuries ago, it found its ultimate home in the island's light and heat.",
+    de: "Caruso & Minini ist eine Marsala-Kellerei, die 2004 aus der Zusammenarbeit von Stefano Caruso — Winzer in dritter Generation — und Mario Minini gegründet wurde. Zibibbo — Moscato d'Alessandria — ist die arabische Traditionsorte Siziliens.",
+    sl: "Caruso & Minini je klet v Marsali, ustanovljena leta 2004 iz sodelovanja Stefana Carusa — vinogradnika tretje generacije — in Maria Mininija. Zibibbo — Moscato d'Alessandria — je arabska tradicijska sorta Sicilije."
+  },
+  'Lillo Grillo — Carusi e Minnini': {
+    it: "Caruso & Minini è una cantina di Marsala fondata nel 2004 dalla collaborazione di Stefano Caruso — vignaiolo di terza generazione — e Mario Minini. I 120 ettari tra Salemi e Mazara del Vallo danno vita a vini autenticamente siciliani. Il Grillo è il vitigno bianco più identitario della Sicilia occidentale: nato nell'800 da un incrocio naturale tra Catarratto e Zibibbo, è stato la spina dorsale del Marsala DOC per decenni prima di essere riscoperto come vino da tavola secco di grande freschezza. Lillo è la versione più immediata e beverina: agrumi, mandorle, salsedine mediterranea.",
+    en: "Caruso & Minini is a Marsala winery founded in 2004 from the collaboration of Stefano Caruso — third-generation winegrower — and Mario Minini. The 120 hectares between Salemi and Mazara del Vallo produce authentically Sicilian wines. Grillo is western Sicily's most identity-rich white variety: born in the 1800s from a natural cross between Catarratto and Zibibbo, it was the backbone of Marsala DOC for decades before being rediscovered as a fresh dry table wine. Lillo is the most immediate, easy-drinking version: citrus, almonds, Mediterranean saltiness.",
+    de: "Caruso & Minini ist eine Marsala-Kellerei, 2004 gegründet. Grillo ist die identitätsreichste Weißsorte Westsiziliens: im 19. Jahrhundert aus einer natürlichen Kreuzung zwischen Catarratto und Zibibbo entstanden. Lillo ist die unmittelbarste, trinkfreudigste Version.",
+    sl: "Caruso & Minini je klet v Marsali, ustanovljena leta 2004. Grillo je identitetno najbogatejša bela sorta zahodne Sicilije: nastala v 19. stol. iz naravnega križanja med Catarrattom in Zibibbom. Lillo je najbolj neposredna, pitka različica."
+  },
+  'Bibbo Zibibbo — Carusi e Minnini': {
+    it: "Caruso & Minini è una cantina di Marsala fondata nel 2004 dalla collaborazione di Stefano Caruso — vignaiolo di terza generazione — e Mario Minini. Lo Zibibbo — Moscato d'Alessandria — è il vitigno della tradizione araba in Sicilia: importato secoli fa, coltivato oggi soprattutto sull'isola di Pantelleria dove produce il celebre Passito. Bibbo è lo Zibibbo vinificato secco: aromatico, con albicocca, fico e fiori esotici, una dolcezza naturale del vitigno che si trasforma in freschezza al palato.",
+    en: "Caruso & Minini is a Marsala winery founded in 2004. Zibibbo — Moscato d'Alessandria — is Sicily's Arab tradition variety: imported centuries ago, today grown especially on Pantelleria where it produces the famous Passito. Bibbo is Zibibbo vinified dry: aromatic, with apricot, fig and exotic flowers, the variety's natural sweetness transforming into freshness on the palate.",
+    de: "Caruso & Minini ist eine Marsala-Kellerei, 2004 gegründet. Zibibbo — Moscato d'Alessandria — ist Siziliens arabische Traditionsorte. Bibbo ist der trocken vinifizierte Zibibbo: aromatisch, mit Aprikose, Feige und exotischen Blüten.",
+    sl: "Caruso & Minini je klet v Marsali, ustanovljena leta 2004. Zibibbo — Moscato d'Alessandria — je arabska tradicijska sorta Sicilije. Bibbo je Zibibbo vinificiran suho: aromatičen, z marelico, figami in eksotičnimi cvetovi."
+  },
+  'Tagòs Grillo Dolce — Carusi e Minnini': {
+    it: "Caruso & Minini è una cantina di Marsala fondata nel 2004 dalla collaborazione di Stefano Caruso — vignaiolo di terza generazione — e Mario Minini. Il Tagòs è il Grillo in versione passito: uve appassite naturalmente sotto il sole siciliano, che concentrano zuccheri, aromi e colore fino a trasformarsi in un dolce naturale di grande personalità. Il Grillo appassito richiama la tradizione degli antichi vini dolci siciliani, patrimonio di secoli di civiltà vitivinicola mediterranea.",
+    en: "Caruso & Minini is a Marsala winery founded in 2004. Tagòs is Grillo as a natural sweet wine: grapes dried naturally under the Sicilian sun, concentrating sugars, aromas and colour until they become a natural sweet of great personality. Dried Grillo recalls the tradition of ancient Sicilian sweet wines, a heritage of centuries of Mediterranean wine civilisation.",
+    de: "Caruso & Minini ist eine Marsala-Kellerei, 2004 gegründet. Tagòs ist Grillo als natürlicher Süßwein: Trauben unter der sizilianischen Sonne natürlich getrocknet, die Zucker, Aromen und Farbe konzentrieren.",
+    sl: "Caruso & Minini je klet v Marsali, ustanovljena leta 2004. Tagòs je Grillo kot naravno sladko vino: grozdje, naravno posušeno pod sicilijanskim soncem, ki koncentrira sladkorje, arome in barvo."
+  },
+
+  /* ── BELLUTTI ── */
+  'Gewurztraminer — Bellutti': {
+    it: "La Cantina Bellutti è una piccola realtà artigianale di Lavis, in Trentino, nel cuore della Valle dell'Adige. Il Gewurztraminer — letteralmente 'traminer speziato' — è il vitigno più aromatico delle Alpi: il villaggio di Tramin (Termeno), a pochi chilometri, ne rivendica la paternità storica. In Trentino il Gewurztraminer esprime la sua essenza alpina più pura: petalo di rosa, litchi, spezie dolci, una struttura piena ma elegante che contrasta con il suo profumo quasi eccessivo. Una cantina artigianale che interpreta con attenzione la tradizione trentina degli aromatici alpini.",
+    en: "Cantina Bellutti is a small artisan winery in Lavis, Trentino, in the heart of the Adige Valley. Gewurztraminer — literally 'spiced Traminer' — is the Alps' most aromatic variety: the village of Tramin (Termeno), just kilometres away, claims historical parentage. In Trentino, Gewurztraminer expresses its purest alpine essence: rose petal, lychee, sweet spices, a full yet elegant structure contrasting its almost excessive perfume. An artisan cellar that carefully interprets the Trentino tradition of alpine aromatics.",
+    de: "Cantina Bellutti ist eine kleine handwerkliche Kellerei in Lavis, Trentino, im Herzen des Etschtals. Gewurztraminer — buchstäblich 'gewürzter Traminer' — ist die aromatischste Sorte der Alpen: das Dorf Tramin beansprucht die historische Vaterschaft. In Trentino drückt Gewurztraminer sein reinstes alpines Wesen aus: Rosenblatt, Litschi, süße Gewürze.",
+    sl: "Cantina Bellutti je majhna rokodelska klet v Lavisu, Trentino, v srcu doline Adige. Gewurztraminer — dobesedno 'začinjen Traminer' — je najbolj aromatična sorta Alp: vas Tramin si lasti zgodovinsko starševstvo. V Trentinu Gewurztraminer izraža svojo najčistejšo alpinsko essenco: cvetni listi vrtnice, liči, sladke začimbe."
+  },
+
+  /* ── GREDIC chiave corretta nel menu ── */
+  'Gredič Friulano — Movia': {
+    it: "La famiglia Kristančič è radicata nelle colline della Goriška Brda dal 1700, e dal 1820 — quando la figlia dei Movia sposò un Kristančič — produce vino su entrambi i lati del confine italo-sloveno. Aleš Kristančič, la voce più eccentrica e carismatica del vino naturale mondiale, guida oggi 25 ettari di vigneti biodinamici a cavallo tra il Collio italiano e la Brda slovena. Il nonno Mirko, partigiano di Tito, contribuì a salvare la tenuta durante la Seconda Guerra Mondiale: si dice che Tito stesso abbia fatto in modo che il confine tagliasse i loro vigneti in due, così da non doverli nazionalizzare. Dal 1990 Aleš ha abbracciato la filosofia naturale: fermentazioni spontanee, senza solfiti aggiunti, senza filtrazioni.",
+    en: "The Kristančič family has been rooted in the hills of Goriška Brda since 1700, and since 1820 — when the Movia daughter married a Kristančič — has produced wine on both sides of the Italian-Slovenian border. Aleš Kristančič, the most eccentric and charismatic voice of the natural wine world, today leads 25 hectares of biodynamic vineyards straddling Italian Collio and Slovenian Brda. From 1990 Aleš embraced natural philosophy: spontaneous fermentations, no added sulphites, no filtration.",
+    de: "Die Familie Kristančič ist seit 1700 in den Hügeln der Goriška Brda verwurzelt und produziert seit 1820 Wein auf beiden Seiten der Grenze. Aleš Kristančič führt heute 25 Hektar biodynamische Weinberge. Ab 1990 umarmte er die Naturphilosophie.",
+    sl: "Družina Kristančič je ukoreninjena v gričih Goriške Brd od leta 1700, in od leta 1820 prideluje vino na obeh straneh meje. Aleš Kristančič danes vodi 25 hektarjev biodinamičnih vinogradov."
+  }
+};
+
 // Mappa nome vino → territorio
 // Mappa nome vino → territorio
 const WINE_TERRITORY = {
@@ -7465,6 +7888,24 @@ function openSommelier(name) {
     narrativeEl.textContent = parts.join('. ');
   }
 
+  // ── STORIA PRODUTTORE ──
+  var storyWrap = document.getElementById('som-story-wrap');
+  var storyText = document.getElementById('som-story-text');
+  if (storyWrap && storyText) {
+    var storyObj = (typeof PRODUCER_STORIES !== 'undefined') ? PRODUCER_STORIES[name] : null;
+    var storyContent = storyObj ? (storyObj[lang] || storyObj['it'] || '') : '';
+    if (storyContent) {
+      storyText.textContent = storyContent;
+      storyWrap.style.display = 'block';
+      storyWrap.classList.remove('open'); // sempre chiuso all'apertura
+      // Aggiorna label lingua
+      var labelEl = storyWrap.querySelector('[data-t="somStoryLabel"]');
+      if (labelEl) labelEl.textContent = t('somStoryLabel');
+    } else {
+      storyWrap.style.display = 'none';
+    }
+  }
+
   document.getElementById('sommelier-modal').classList.add('show');
   document.body.style.overflow = 'hidden';
   vibrate(15);
@@ -7477,7 +7918,16 @@ function closeSommelier(e) {
 function closeSommelierBtn() {
   document.getElementById('sommelier-modal').classList.remove('show');
   var w = document.getElementById('som-collio-btn-wrap'); if (w) w.innerHTML = '';
+  // Reset story section
+  var sw = document.getElementById('som-story-wrap'); if (sw) { sw.style.display = 'none'; sw.classList.remove('open'); }
   document.body.style.overflow = '';
+}
+
+function toggleSomStory(toggleEl) {
+  var wrap = document.getElementById('som-story-wrap');
+  if (!wrap) return;
+  wrap.classList.toggle('open');
+  if (typeof vibrate === 'function') vibrate(8);
 }
 
 /* ════════════════════════════════════════
