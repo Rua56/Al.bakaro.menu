@@ -668,9 +668,97 @@
     .som-story-chevron { transition: transform 0.3s ease; font-size: 1rem; line-height: 1; }
     .som-story-wrap.open .som-story-chevron { transform: rotate(90deg); }
     .som-story-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); }
-    .som-story-wrap.open .som-story-body { max-height: 400px; }
-    .som-story-text { padding: 0.8rem 0.9rem 0.9rem; font-family: 'Lora', serif; font-style: italic; font-size: 0.82rem; color: var(--stone); line-height: 1.65; }
+    .som-story-wrap.open .som-story-body { max-height: 500px; }
+    .som-story-text { padding: 0.8rem 0.9rem 0.5rem; font-family: 'Lora', serif; font-style: italic; font-size: 0.82rem; color: var(--stone); line-height: 1.65; }
     body.night .som-story-text { color: #b89870; }
+
+    /* ── PORTAMI LÌ BUTTON ── */
+    .som-portami-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin: 0.5rem 0.9rem 0.85rem;
+      padding: 0.55rem 0.9rem;
+      background: linear-gradient(135deg, rgba(193,127,60,0.12), rgba(193,127,60,0.06));
+      border: 1px solid rgba(193,127,60,0.3);
+      border-radius: 8px;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+      font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.09em;
+      color: var(--amber); text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .som-portami-btn:active { background: rgba(193,127,60,0.2); border-color: rgba(193,127,60,0.5); }
+    body.night .som-portami-btn { background: rgba(193,127,60,0.1); border-color: rgba(193,127,60,0.25); }
+    .som-portami-btn span.pm-icon { font-size: 1rem; line-height: 1; }
+    .som-portami-btn-text { display: flex; flex-direction: column; gap: 0.1rem; }
+    .som-portami-btn-label { font-size: 0.58rem; opacity: 0.65; letter-spacing: 0.12em; }
+    .som-portami-btn-name { font-size: 0.65rem; }
+    .som-portami-btn-dist { margin-left: auto; font-size: 0.62rem; opacity: 0.8; white-space: nowrap; }
+
+    /* ── SCAN ETICHETTA OVERLAY ── */
+    #scan-overlay {
+      position: fixed; inset: 0; z-index: 9998;
+      background: #000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #scan-overlay.show { opacity: 1; pointer-events: all; }
+    #scan-video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.7;
+    }
+    #scan-canvas { display: none; }
+    .scan-ui {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+      padding: 2rem 1.5rem; width: 100%;
+    }
+    .scan-title {
+      font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.18em;
+      color: rgba(245,215,142,0.9); text-transform: uppercase;
+    }
+    .scan-subtitle {
+      font-family: 'Lora', serif; font-style: italic; font-size: 0.85rem;
+      color: rgba(255,255,255,0.7); text-align: center;
+    }
+    .scan-frame {
+      width: 220px; height: 300px; position: relative;
+    }
+    .scan-frame::before, .scan-frame::after,
+    .scan-frame .sf-b::before, .scan-frame .sf-b::after {
+      content: ''; position: absolute; width: 28px; height: 28px;
+      border-color: var(--amber); border-style: solid; border-width: 0;
+    }
+    .scan-frame::before  { top: 0;    left: 0;  border-top-width: 2.5px; border-left-width: 2.5px;  border-radius: 2px 0 0 0; }
+    .scan-frame::after   { top: 0;    right: 0; border-top-width: 2.5px; border-right-width: 2.5px; border-radius: 0 2px 0 0; }
+    .scan-frame .sf-b::before { bottom: 0; left: 0;  border-bottom-width: 2.5px; border-left-width: 2.5px;  border-radius: 0 0 0 2px; }
+    .scan-frame .sf-b::after  { bottom: 0; right: 0; border-bottom-width: 2.5px; border-right-width: 2.5px; border-radius: 0 0 2px 0; }
+    .scan-line {
+      position: absolute; left: 8px; right: 8px; height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      top: 10%; animation: scan-move 2s ease-in-out infinite;
+    }
+    @keyframes scan-move { 0%,100%{top:10%;opacity:0.4} 50%{top:85%;opacity:1} }
+    .scan-status {
+      font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.12em;
+      color: var(--amber); text-transform: uppercase; min-height: 1.2em; text-align: center;
+    }
+    .scan-close-btn {
+      background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.9);
+      border-radius: 50%; width: 44px; height: 44px; font-size: 1.1rem;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .scan-close-btn:active { background: rgba(255,255,255,0.2); }
+    .scan-no-camera {
+      display: none; flex-direction: column; align-items: center; gap: 0.8rem;
+      color: rgba(255,255,255,0.7); text-align: center; padding: 2rem 2rem 4rem;
+      position: relative; z-index: 1;
+    }
+    #scan-overlay.no-camera .scan-no-camera { display: flex; }
+    #scan-overlay.no-camera #scan-ui-main { display: none; }
+    .scan-no-camera-icon { font-size: 2.5rem; }
+    .scan-no-camera-title { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.12em; color: var(--amber); text-transform: uppercase; }
+    .scan-no-camera-desc { font-family: 'Lora', serif; font-style: italic; font-size: 0.82rem; }
 
     /* ── Animazione calice volante ── */
     .flying-glass { position: fixed; pointer-events: none; z-index: 99999; font-size: 1.4rem; opacity: 1; will-change: transform, opacity; z-index: 52; }
@@ -2423,7 +2511,7 @@
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
       display: flex;
       flex-direction: column;
-      padding: 2rem 0 2rem;
+      padding: 0;
       overflow: hidden;
     }
     #special-menu-panel::before {
@@ -2531,8 +2619,8 @@
 
     /* Footer pannello */
     .special-panel-footer {
-      margin-top: auto;
-      padding: 1rem 1.4rem 0;
+      flex-shrink: 0;
+      padding: 1rem 1.4rem 2rem;
       border-top: 1px solid rgba(193,127,60,0.1);
     }
     .special-panel-footer-text {
@@ -2543,6 +2631,14 @@
       opacity: 0.7;
       text-align: center;
     }
+    /* Scroll wrapper for panel items */
+    .special-panel-scroll {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.5rem 0 0.5rem;
+    }
+    .special-panel-scroll::-webkit-scrollbar { display: none; }
 
 
     /* ══ MAPPA INTERATTIVA COLLIO ══ */
@@ -4913,6 +5009,14 @@
       </div>
       <div class="som-story-body">
         <div class="som-story-text" id="som-story-text"></div>
+        <a id="som-portami-btn" class="som-portami-btn" href="#" target="_blank" rel="noopener" style="display:none" onclick="return false">
+          <span class="pm-icon">🗺️</span>
+          <span class="som-portami-btn-text">
+            <span class="som-portami-btn-label" data-t="portamiLiLabel">CANTINA</span>
+            <span class="som-portami-btn-name" id="som-portami-name"></span>
+          </span>
+          <span class="som-portami-dist" id="som-portami-dist"></span>
+        </a>
       </div>
     </div>
   </div>
@@ -4956,6 +5060,28 @@
 
 
 
+
+<!-- ═══════════════════ SCAN ETICHETTA ═══════════════════ -->
+<div id="scan-overlay">
+  <video id="scan-video" autoplay playsinline muted></video>
+  <canvas id="scan-canvas"></canvas>
+  <!-- Close tap area top-right always visible -->
+  <button class="scan-close-btn" id="scan-close-top" onclick="closeScanOverlay()" aria-label="Chiudi" style="position:absolute;top:max(1.5rem,env(safe-area-inset-top,1.5rem));right:1.2rem;z-index:2">✕</button>
+  <div class="scan-ui" id="scan-ui-main">
+    <div class="scan-title" data-t="scanTitle">INQUADRA L'ETICHETTA</div>
+    <div class="scan-frame">
+      <div class="sf-b"></div>
+      <div class="scan-line"></div>
+    </div>
+    <div class="scan-subtitle" data-t="scanSubtitle">Avvicina la camera all'etichetta della bottiglia</div>
+    <div class="scan-status" id="scan-status"></div>
+  </div>
+  <div class="scan-no-camera" id="scan-no-camera">
+    <div class="scan-no-camera-icon">📷</div>
+    <div class="scan-no-camera-title" data-t="scanNoCamera">Camera non disponibile</div>
+    <div class="scan-no-camera-desc" data-t="scanNoCameraDesc">Il tuo dispositivo non supporta l'accesso alla camera.</div>
+  </div>
+</div>
 
 <!-- ═══════════════════ GRATTA E SCOPRI ═══════════════════ -->
 <div id="gratta-overlay" onclick="if(event.target===this)closeGratta()">
@@ -5100,12 +5226,13 @@
 
 <div id="special-menu-overlay" onclick="closeSpecialMenu()">
   <div id="special-menu-panel" onclick="event.stopPropagation()">
-    <div class="special-panel-header">
+    <div class="special-panel-header" style="flex-shrink:0;padding-top:2rem">
       <span class="special-panel-title" data-t="panelTitle">✦ Esperienze</span>
       <span class="special-panel-subtitle" data-t="panelSubtitle">Scopri qualcosa di speciale</span>
       <button class="special-panel-close" onclick="closeSpecialMenu()" aria-label="Chiudi pannello">✕</button>
     </div>
 
+    <div class="special-panel-scroll">
     <div class="special-panel-item" onclick="closeSpecialMenu(); setTimeout(openCollioMap, 300)">
       <div class="special-panel-icon" style="background:linear-gradient(135deg,#1a3a1a,#2e5a2e);border:1px solid rgba(80,160,80,0.3)">🗺️</div>
       <div class="special-panel-info">
@@ -5168,6 +5295,16 @@
       </div>
       <span class="special-panel-arrow">›</span>
     </div>
+
+    <div class="special-panel-item" onclick="closeSpecialMenu(); setTimeout(openScanOverlay, 300)">
+      <div class="special-panel-icon" style="background:linear-gradient(135deg,#0a2a3a,#0e4a6b);border:1px solid rgba(76,168,201,0.4)">📷</div>
+      <div class="special-panel-info">
+        <span class="special-panel-name" data-t="scanPanelName">Scan Etichetta</span>
+        <span class="special-panel-desc" data-t="scanPanelDesc">Inquadra la bottiglia per aprire la scheda</span>
+      </div>
+      <span class="special-panel-arrow">›</span>
+    </div>
+    </div><!-- fine special-panel-scroll -->
 
     <div class="special-panel-footer">
       <p class="special-panel-footer-text" data-t="panelFooter">Al Bakaro · vino & tartine · Gorizia</p>
@@ -5799,6 +5936,19 @@ const i18n = {
     moodPanelName: "Mood → Vino",
     moodPanelDesc: "Due tap al vino perfetto per te",
     collioJourneyBtn: "Scopri la cantina sul Collio",
+
+    portamiLiBtn: "🗺️ Portami lì",
+    portamiLiKm: "km da Al Bakaro",
+    portamiLiLabel: "CANTINA",
+    scanPanelName: "Scan Etichetta",
+    scanPanelDesc: "Inquadra la bottiglia per aprire la scheda",
+    scanTitle: "INQUADRA L'ETICHETTA",
+    scanSubtitle: "Avvicina la camera all'etichetta della bottiglia",
+    scanNoCamera: "Camera non disponibile",
+    scanNoCameraDesc: "Il tuo dispositivo non supporta l'accesso alla camera.",
+    scanSearching: "Cerco il vino…",
+    scanNotFound: "Etichetta non riconosciuta",
+    scanNotFoundDesc: "Prova ad avvicinarti o a migliorare l'illuminazione",
   },
   en: {
     claim: "The first cicchetteria in Gorizia",
@@ -5930,6 +6080,19 @@ const i18n = {
     moodPanelName: "Mood → Wine",
     moodPanelDesc: "Two taps to your perfect wine",
     collioJourneyBtn: "Find the winery on the Collio map",
+
+    portamiLiBtn: "🗺️ Take me there",
+    portamiLiKm: "km from Al Bakaro",
+    portamiLiLabel: "WINERY",
+    scanPanelName: "Scan Label",
+    scanPanelDesc: "Point at the bottle to open the card",
+    scanTitle: "POINT AT THE LABEL",
+    scanSubtitle: "Bring the camera close to the bottle label",
+    scanNoCamera: "Camera not available",
+    scanNoCameraDesc: "Your device does not support camera access.",
+    scanSearching: "Looking for the wine…",
+    scanNotFound: "Label not recognised",
+    scanNotFoundDesc: "Try getting closer or improving the lighting",
   },
   de: {
     claim: "Die erste Cicchetteria in Görz",
@@ -6061,6 +6224,18 @@ const i18n = {
     moodPanelName: "Stimmung → Wein",
     moodPanelDesc: "Zwei Taps zum perfekten Wein",
     collioJourneyBtn: "Weingut auf der Collio-Karte",
+    portamiLiBtn: "🗺️ Bring mich hin",
+    portamiLiKm: "km von Al Bakaro",
+    portamiLiLabel: "WEINGUT",
+    scanPanelName: "Etikett Scannen",
+    scanPanelDesc: "Flasche einrahmen für die Karte",
+    scanTitle: "ETIKETT EINRAHMEN",
+    scanSubtitle: "Kamera an das Flaschenetikett heranführen",
+    scanNoCamera: "Kamera nicht verfügbar",
+    scanNoCameraDesc: "Ihr Gerät unterstützt keinen Kamerazugriff.",
+    scanSearching: "Suche den Wein…",
+    scanNotFound: "Etikett nicht erkannt",
+    scanNotFoundDesc: "Näher herangehen oder Beleuchtung verbessern",
   },
 
   sl: {
@@ -6193,6 +6368,19 @@ const i18n = {
     moodPanelName: "Razpoloženje → Vino",
     moodPanelDesc: "Dva dotika do popolnega vina",
     collioJourneyBtn: "Poišči klet na karti Collia",
+
+    portamiLiBtn: "🗺️ Pelji me tja",
+    portamiLiKm: "km od Al Bakaro",
+    portamiLiLabel: "KLET",
+    scanPanelName: "Skeniraj Etiketo",
+    scanPanelDesc: "Usmeri kamero na steklenico",
+    scanTitle: "USMERI NA ETIKETO",
+    scanSubtitle: "Kamero približaj etiketi steklenice",
+    scanNoCamera: "Kamera ni na voljo",
+    scanNoCameraDesc: "Vaša naprava ne podpira dostopa do kamere.",
+    scanSearching: "Iščem vino…",
+    scanNotFound: "Etiketa ni prepoznana",
+    scanNotFoundDesc: "Poskusite se približati ali izboljšati osvetlitev",
   },
 };
 
@@ -7906,6 +8094,9 @@ function openSommelier(name) {
     }
   }
 
+  // ── PORTAMI LÌ ──
+  if (typeof window.updatePortamiLi === 'function') window.updatePortamiLi(name);
+
   document.getElementById('sommelier-modal').classList.add('show');
   document.body.style.overflow = 'hidden';
   vibrate(15);
@@ -7920,6 +8111,8 @@ function closeSommelierBtn() {
   var w = document.getElementById('som-collio-btn-wrap'); if (w) w.innerHTML = '';
   // Reset story section
   var sw = document.getElementById('som-story-wrap'); if (sw) { sw.style.display = 'none'; sw.classList.remove('open'); }
+  // Reset portami lì
+  var pb = document.getElementById('som-portami-btn'); if (pb) pb.style.display = 'none';
   document.body.style.overflow = '';
 }
 
@@ -10308,34 +10501,34 @@ setTimeout(function() { (function() {
   // [cicchetto, emoji, vino, perché]
   const ABBINAMENTI = [
     // ── Cicchetti della settimana ──
-    ['Crudo San Daniele',                   '🍖', 'Friulano — Castello di Spessa',      "Il Friulano è l'abbinamento identitario del Friuli: prosciutto e vino dello stesso territorio."],
-    ['Cotto e Kren',                        '🥩', 'Ribolla Gialla — Sturm',             'La sapidità del cotto e la pungenza del kren chiedono la freschezza minerale della Ribolla.'],
-    ['Mortadella, Burrata e Pistacchio',    '🧀', 'Prosecco — Astoria',                 'Le bollicine sgrassano la burrata e amplificano i pistacchi, esaltando la mortadella.'],
-    ['Lardo di Patanegra',                  '🥓', 'Malvasia — Sturm',                   'Il profumo aromatico della Malvasia bilancia la grassezza vellutata del lardo iberico.'],
-    ['Burrata, Melanzane e Pomodorini',     '🍅', 'Pinot Bianco — Toros',               'La freschezza e mineralità del Pinot Bianco pulisce il palato dopo la cremosità della burrata.'],
-    ['Crema al Dentice',                    '🐟', 'Vitovska — Bajta',                   'La mineralità calcarea della Vitovska del Carso si sposa con il pesce del Golfo di Trieste.'],
-    ['Salmone, Philadelphia e Guacamole',   '🥑', 'Sauvignon — Doro Princic',           "L'intensità erbacea del Sauvignon taglia il grasso del philadelphia e del salmone affumicato."],
+    ['Crudo San Daniele',                      '🍖', 'Friulano — Castello di Spessa',           "Il Friulano è l'abbinamento identitario del Friuli per eccellenza: prosciutto e vino della stessa terra, entrambi sapidi e ammandorlati, si completano in modo irripetibile."],
+    ['Cotto e Kren',                           '🥩', 'Ribolla Gialla — Sturm',                  "La pungenza fresca del kren (rafano) chiede un bianco con spina dorsale acida e mineralità. La Ribolla del Collio, con la sua energia citrina e sapidità, riequilibra il palato."],
+    ['Mortadella, Burrata e Pistacchio',       '🧀', "Prosecco L'Infedele — Astoria",           "Le bollicine di Glera sgrassano in modo chirurgico la burrata cremosa e amplificano i pistacchi tostati. L'Infedele, con il suo carattere vivace e fruttato, è il partner ideale."],
+    ['Lardo di Patanegra',                     '🥓', 'Malvasia — Sturm',                        "Il lardo iberico si scioglie sul palato con una grassezza vellutata e quasi dolce. La Malvasia aromatica del Collio, con i suoi fiori di tiglio e agrumi, crea un contrasto che esalta entrambi."],
+    ['Burrata, Melanzane e Pomodorini',        '🍅', 'Pinot Bianco — Toros',                    "La cremosità della burrata e la dolcezza acidula dei pomodorini confit cercano un bianco elegante e pulito. Il Pinot Bianco di Toros, con la sua mineralità di Ponca, è preciso e armonico."],
+    ['Crema al Dentice',                       '🐟', 'Vitovska — Bajta',                        "Il dentice fresco del Golfo di Trieste con la Vitovska del Carso: stesso mare, stessa salinità, stesso territorio. Un abbinamento che ha la forza di una cartolina geografica."],
+    ['Salmone, Philadelphia e Guacamole',      '🥑', 'Sauvignon — Doro Princic',                "L'intensità erbacea e tropicale del Sauvignon di Pradis taglia con precisione il grasso del Philadelphia e del guacamole, mentre il salmone affumicato trova nel vino il suo speculare di complessità."],
     // ── Cicchetti fissi ──
-    ['Speck e Brie',                        '🧀', 'Kerner — Strasserhoff',              'I profumi alpini del Kerner esaltano lo speck altoatesino, e la mineralità sgrasssa il brie.'],
-    ['Crema Carbonara e Guanciale Nostrano','🥚', 'Chardonnay — Toros',                 'La struttura fruttata dello Chardonnay del Collio bilancia la ricchezza della carbonara.'],
-    ['Crema Cacio e Pepe e Guanciale Nostrano','🌶️','Ribolla Gialla Spumantizzata — Tenuta Stella','Le bollicine e la mineralità della Ribolla sgrassano e rinfrescano il pepe e il guanciale.'],
-    ['Salame e Formaggio',                  '🧀', 'Collio — Terre del Faet',            'Il blend di autoctoni friulani con la sua sapidità accompagna perfettamente salumi e formaggi.'],
-    ['Formaggio e Miele',                   '🍯', 'Gewurztraminer — Bellutti',          'La dolcezza aromatica del Gewurztraminer esalta il miele e contrasta il carattere del formaggio.'],
-    ['Stracciatella, Melanzane e Pomodorini','🍆','Malvasia — Terre del Faet',          'La freschezza e mineralità della Malvasia del Collio esalta la dolcezza dei pomodorini estivi.'],
-    ['Gorgonzola, Noci e Miele',            '🫙', 'Zibibbo — Carusi',                  'Il dolce aromatico dello Zibibbo siciliano è il contrasto perfetto per il gorgonzola piccante.'],
-    ['Gorgonzola e Crema di Radicchio',     '🥗', 'Cabernet Franc — Castelvecchio',    'Il Cabernet Franc del Carso con le sue note speziate regge il carattere deciso del gorgonzola.'],
-    ['Gamberi in Savor',                    '🦐', 'Pinot Grigio — Castello di Spessa', "L'agrodolce del saor trova equilibrio nella pulizia fruttata del Pinot Grigio del Collio."],
-    ['Baccalà Mantecato',                   '🐟', 'Friulano — Villa Vasi',             'Il baccalà mantecato con la sua sapidità intensa chiede la nota ammandorlata e sapida del Friulano.'],
-    ['Salmone e Burro',                     '🧈', 'Monblanc — Castello di Buttrio',    'Il blend friulano fresco e armonico del Monblanc si abbina alla delicatezza del salmone e burro.'],
+    ['Speck e Brie',                           '🧀', 'Kerner — Strasserhoff',                   "Lo speck alto atesino e il brie cremoso abitano lo stesso mondo alpino del Kerner di Novacella. I profumi di pesca e fiori di campo del vino esaltano le erbe delle speziature dello speck."],
+    ['Crema Carbonara e Guanciale Nostrano',   '🥚', 'Chardonnay — Toros',                      "La carbonara — tuorlo, pecorino, guanciale croccante — è uno dei piatti più grassi e intensi. Lo Chardonnay del Collio di Franco Toros, con la sua frutta gialla e struttura, regge senza cedere."],
+    ['Crema Cacio e Pepe e Guanciale Nostrano','🌶️', 'Ribolla Gialla Spumantizzata — Tenuta Stella', "Il pepe nero e il pecorino piccante del cacio e pepe hanno bisogno di bollicine fresche e acide. La Ribolla spumantizzata del Collio pulisce e reimposta il palato a ogni sorso."],
+    ['Salame e Formaggio',                     '🧀', 'Collio — Terre del Faet',                 "Il blend di Friulano, Ribolla e Malvasia di Andrea Drius è un vino di territorio autentico: la sua sapidità e struttura reggono la complessità di un piatto di salumi e formaggi stagionati."],
+    ['Formaggio e Miele',                      '🍯', 'Gewurztraminer — Bellutti',               "Il Gewurztraminer — rosa, litchi, spezie dolci — è il vino dei contrasti: esalta il miele di acacia con la sua dolcezza aromatica e regge i formaggi stagionati con la sua struttura alcolica."],
+    ['Stracciatella, Melanzane e Pomodorini',  '🍆', 'Malvasia — Terre del Faet',               "I pomodorini confit hanno una dolcezza intensa e una leggera acidità. La Malvasia del Collio, da vigne cinquantenni su Ponca, porta la stessa nota floreale e sapida che trasforma questo cicchetto."],
+    ['Gorgonzola, Noci e Miele',               '🫙', 'Zibibbo — Carusi',                        "Il gorgonzola piccante e le noci tostate chiedono un vino che abbia la dolcezza e la potenza aromatica per reggere il colpo. Lo Zibibbo siciliano, con albicocca e mandorla, è il contrappunto perfetto."],
+    ['Gorgonzola e Crema di Radicchio',        '🥗', 'Cabernet Franc — Castelvecchio',          "Il gorgonzola piccante e l'amaro del radicchio trevigiano cercano un rosso con carattere e tannino presente. Il Cabernet Franc del Carso, con le sue note erbacee e speziate, li incontra senza sovrastarli."],
+    ['Gamberi in Savor',                       '🦐', 'Pinot Grigio — Castello di Spessa',       "Il saor veneziano — agrodolce con cipolle, aceto e uvetta — è un piatto di grande complessità aromatica. Il Pinot Grigio del Collio, fruttato e strutturato, trova nell'agrodolce il suo equilibrio naturale."],
+    ['Baccalà Mantecato',                      '🐟', 'Friulano — Villa Vasi',                   "Il baccalà mantecato su polenta abbrustolita ha una sapidità intensa e una texture cremosa. Il Friulano, con la sua nota ammandorlata e la struttura sapida, è il compagno storico di questo piatto veneziano."],
+    ['Salmone e Burro',                        '🧈', 'Monblanc — Castello di Buttrio',          "Il salmone affumicato con burro alle erbe è un cicchetto delicato ma ricco. Il Monblanc — blend di Ribolla, Friulano e Malvasia dei Colli Orientali — ha la freschezza giusta per non coprirlo."],
     // ── Cicchetti caldi ──
-    ['Pinsa Crudo, Rucola e Stracciatella', '🍕', 'Amadeus — Castello di Spessa',      'Lo spumante del Collio con la sua mineralità fresca è il compagno ideale della pinsa croccante.'],
-    ['Pinsa Mortadella, Burrata e Pistacchio','🍕','Ferrari Maximum',                   'La complessità del Ferrari Trentodoc regge la ricchezza della mortadella e della burrata.'],
-    ['Pinsa Stracciatella e Acciughe del Cantabrico','🐟','Ribolla Gialla — Sturm',    'La salinità delle acciughe del Cantabrico chiama la freschezza sapida e minerale della Ribolla.'],
-    ['Pinsa Veggie',                        '🌿', 'Malvasia — Ronco dei Tassi',        "La Malvasia del Collio, vino dell'anno Food&Travel, esalta le verdure con la sua sapidità floreale."],
-    ['Polpette di Carne',                   '🍖', 'Sassirossi — Masut da Rive',        "Il blend Merlot-Cabernet dell'Isonzo con tannini morbidi è perfetto con la rotondità delle polpette."],
-    ['Polpette di Tonno e Olive',           '🐟', 'Vitovska — Bajta',                  'La mineralità del Carso e il pesce del Golfo: abbinamento territoriale autentico.'],
-    ['Sarde Panate',                        '🐟', 'Pinot Grigio Ramato — Villa Vasi',  'Il Ramato con la sua struttura e colore rame è abbastanza robusto da tenere testa alle sarde.'],
-    ['Mozzarella in Carrozza con Acciughe', '🧀', 'Rosé — Oltrenero',                 'Il rosé spumante lombardo con la sua eleganza bilancia la mozzarella fritta e il sale delle acciughe.'],
+    ['Pinsa Crudo, Rucola e Stracciatella',    '🍕', 'Amadeus — Castello di Spessa',            "La pinsa croccante con il crudo, la rucola amara e la stracciatella cremosa chiede bollicine eleganti con corpo. L'Amadeus Metodo Classico del Collio, con la sua mineralità fresca, è il compagno ideale."],
+    ['Pinsa Mortadella, Burrata e Pistacchio', '🍕', 'Ferrari Maximum',                         "La mortadella emiliana con burrata e pistacchi è un cicchetto di grande ricchezza. Il Ferrari Trentodoc — Chardonnay 100%, 36 mesi sui lieviti — ha la struttura e la complessità per accompagnarlo."],
+    ['Pinsa Stracciatella e Acciughe del Cantabrico', '🐟', 'Ribolla Gialla — Sturm',          "Le acciughe del Cantabrico sono sapide e intense, la stracciatella cremosa e dolce: due opposti sulla stessa pinsa. La Ribolla di Sturm, fresca e minerale, mette ordine in questo contrasto."],
+    ['Pinsa Veggie',                           '🌿', 'Malvasia — Ronco dei Tassi',              "La Malvasia di Fabio Coser sul Monte Quarin — Vino dell'Anno Food&Travel Italia 2021 — ha una sapidità floreale che esalta qualsiasi combinazione di verdure fresche, senza sovrastare."],
+    ['Polpette di Carne',                      '🍖', 'Sassirossi — Masut da Rive',              "Le polpette di manzo al forno hanno una rotondità e una succosità che chiamano un rosso morbido con tannini gentili. Il Sassirossi — Merlot e Cabernet dell'Isonzo — è la risposta giusta."],
+    ['Polpette di Tonno e Olive',              '🐟', 'Vitovska — Bajta',                        "Il tonno e le olive impanati portano con sé il Mediterraneo. La Vitovska del Carso, con la sua mineralità calcarea e salina, è il bianco che racconta lo stesso mare da un'altra prospettiva."],
+    ['Sarde Panate',                           '🐟', 'Pinot Grigio Ramato — Villa Vasi',        "Le sarde fritte in panatura croccante hanno sapidità marina e una nota di frittura intensa. Il Pinot Grigio Ramato — vinificato sulle bucce, colore rame, struttura insolita — regge il pesce azzurro senza cedere."],
+    ['Mozzarella in Carrozza con Acciughe',    '🧀', 'Rosé — Oltrenero',                        "La mozzarella fritta con le acciughe del Cantabrico è un cicchetto di contrasti forti: cremoso e salato, caldo e croccante. Il rosé spumante lombardo da Pinot Nero, con la sua eleganza fruttata, bilancia tutto."],
   ];
 
   window.ABBINAMENTI = ABBINAMENTI; // esponi globalmente per openSommelierIA
@@ -11474,42 +11667,215 @@ function sendOrderWhatsApp() {
 
   // Mappa vino (nome o categoria) → cicchetto consigliato
   var VINO_CICCHETTO = {
-    // Bollicine
-    'Prosecco — Astoria':                       { nome: 'Mortadella, Burrata e Pistacchio', desc: 'Le bollicine sgrassano la burrata e amplificano i pistacchi.' },
-    "Prosecco L'Infedele — Astoria":            { nome: 'Mortadella, Burrata e Pistacchio', desc: 'Prosecco vivace e cremosita della burrata: abbinamento da aperitivo.' },
-    'Ferrari Maximum':                           { nome: 'Crema al Dentice', desc: 'Il Trentodoc elegante si sposa con la spuma di pesce del Golfo.' },
-    'Ferrari Perlè':                             { nome: 'Salmone, Philadelphia e Guacamole', desc: 'Un grande metodo classico merita un cicchetto altrettanto raffinato.' },
-    'Ribolla Gialla Spumantizzata — Tenuta Stella': { nome: 'Crudo San Daniele', desc: 'Ribolla del Collio con il prosciutto del territorio: abbinamento identitario.' },
-    'Rosé — Oltrenero':                          { nome: 'Salmone, Philadelphia e Guacamole', desc: 'Il rosé fruttato bilancia salmone, Philadelphia e il verde del guacamole.' },
-    // Bianchi calice
-    'Pinot Bianco — Toros':                      { nome: 'Burrata, Melanzane e Pomodorini', desc: 'La freschezza del Pinot Bianco pulisce il palato dopo la cremosita della burrata.' },
-    'Chardonnay — Toros':                        { nome: 'Crema Carbonara e Guanciale Nostrano', desc: 'Lo Chardonnay strutturato regge la crema intensa e il guanciale croccante.' },
-    'Ribolla Gialla — Sturm':                    { nome: 'Cotto e Kren', desc: 'La sapidita del cotto e la pungenza del kren chiedono la freschezza minerale della Ribolla.' },
-    'Malvasia — Sturm':                          { nome: 'Lardo di Patanegra', desc: 'Il profumo aromatico della Malvasia bilancia la grassezza vellutata del lardo iberico.' },
-    'Friulano — Castello di Spessa':             { nome: 'Crudo San Daniele', desc: 'Il Friulano e abbinamento identitario del Friuli: prosciutto e vino dello stesso territorio.' },
-    'Sauvignon — Doro Princic':                  { nome: 'Crema al Dentice', desc: 'La mineralita e la freschezza del Sauvignon esaltano la spuma di pesce.' },
-    'Vitovska — Bajta':                          { nome: 'Gamberi in Savor', desc: 'La mineralita calcarea della Vitovska del Carso si sposa con i gamberi agrodolci.' },
-    'Kerner — Strasserhoff':                     { nome: 'Speck e Brie', desc: 'Il Kerner alpino e fresco e compagno ideale dello speck alto atesino.' },
-    'Zibibbo — Carusi':                          { nome: 'Gorgonzola, Noci e Miele', desc: 'La dolcezza aromatica dello Zibibbo dialoga con gorgonzola e miele.' },
-    'Pinot Grigio — Castello di Spessa':         { nome: 'Salmone e Burro', desc: 'Il Pinot Grigio strutturato del Collio accompagna il salmone con burro alle erbe.' },
-    // Rossi calice
-    'Cabernet Franc — Castelvecchio':            { nome: 'Crema Carbonara e Guanciale Nostrano', desc: 'Le note speziate del Cabernet Franc esaltano il guanciale croccante.' },
-    'Cabernet Sauvignon — Castello di Spessa':   { nome: 'Gorgonzola e Crema di Radicchio', desc: 'Il Cabernet tannico e elegante regge l intensita del gorgonzola piccante.' },
-    'Pinot Nero — Masut da Rive':                { nome: 'Speck e Brie', desc: 'La finezza del Pinot Nero si incontra con la delicatezza dello speck e del brie.' },
-    'Schiava — Tiefenbrunner':                   { nome: 'Mortadella, Burrata e Pistacchio', desc: 'La leggerezza della Schiava accompagna senza coprire la mortadella e la burrata.' },
-    'Primitivo di Manduria — Altemura':          { nome: 'Lardo di Patanegra', desc: 'Il calore e la morbidezza del Primitivo bilanciano la grassezza del lardo iberico.' },
-    'Malvasia Nera — Paololeo':                  { nome: 'Gorgonzola, Noci e Miele', desc: 'I frutti neri e le spezie dolci della Malvasia Nera dialogano con gorgonzola e miele.' },
-    'Sassirossi — Masut da Rive':                { nome: 'Crema Cacio e Pepe e Guanciale Nostrano', desc: 'La struttura del blend Merlot-Cabernet regge la cremosita intensa del cacio e pepe.' },
+    // ── Bollicine calice ──
+    'Prosecco — Astoria':
+      { nome: 'Mortadella, Burrata e Pistacchio',
+        desc: 'Le bollicine vivaci sgrassano la burrata e amplificano la dolcezza dei pistacchi: aperitivo da manuale.' },
+    "Prosecco L'Infedele — Astoria":
+      { nome: 'Cotto e Kren',
+        desc: 'Le bollicine fresche di Glera ammorbidiscono la pungenza del kren e sgrassano il cotto: aperitivo territoriale friulano.' },
+    'Ferrari Maximum':
+      { nome: 'Pinsa Mortadella, Burrata e Pistacchio',
+        desc: 'Un Trentodoc di struttura merita la ricchezza della mortadella emiliana con burrata: bollicine e cremosità che si esaltano.' },
+    'Ferrari Perlè':
+      { nome: 'Salmone, Philadelphia e Guacamole',
+        desc: 'Un grande Millesimato merita un cicchetto all\'altezza. La freschezza del salmone e la cremosità del Philadelphia trovano nel Perlè il partner ideale.' },
+    'Ribolla Gialla Spumantizzata — Tenuta Stella':
+      { nome: 'Crema Cacio e Pepe e Guanciale Nostrano',
+        desc: 'Le bollicine di Ribolla con la loro acidità spiccata sgrassano la crema di cacio e pepe e rinfrescano il guanciale croccante.' },
+    'Rosé — Oltrenero':
+      { nome: 'Mozzarella in Carrozza con Acciughe',
+        desc: 'Il rosé spumante lombardo da Pinot Nero ha l\'eleganza fruttata per bilanciare la mozzarella fritta e la sapidità delle acciughe.' },
+    'Trentodoc — Altemasi':
+      { nome: 'Crudo San Daniele',
+        desc: 'Un metodo classico trentino dai vigneti in quota accompagna il crudo San Daniele DOP: territorio alpino e pianura friulana a tavola.' },
+
+    // ── Bollicine bottiglia ──
+    'Amadeus — Castello di Spessa':
+      { nome: 'Pinsa Crudo, Rucola e Stracciatella',
+        desc: 'Il Metodo Classico del Collio con la sua mineralità fresca è il compagno naturale della pinsa croccante con crudo e stracciatella.' },
+    "Franciacorta Cuvée Prestige — Ca' del Bosco":
+      { nome: 'Salmone, Philadelphia e Guacamole',
+        desc: 'La Cuvée Prestige — 28 mesi sui lieviti, Chardonnay Franciacorta — ha la struttura per reggere salmone, Philadelphia e guacamole senza cedere.' },
+    "Franciacorta Dosage Zero — Ca' del Bosco":
+      { nome: 'Gamberi in Savor',
+        desc: 'Il Dosage Zero, zero zuccheri, 48 mesi sui lieviti, trova nell\'agrodolce del saor veneziano il suo perfetto contrappunto sapido.' },
+    'Champagne Perrier-Jouet Grand Brut':
+      { nome: 'Baccalà Mantecato',
+        desc: 'Un Grande Brut del 1811 merita il cicchetto veneziano per eccellenza: baccalà mantecato su polenta, sapidità che si incontra con le bollicine dello Champagne.' },
+
+    // ── Bianchi calice ──
+    'Pinot Bianco — Toros':
+      { nome: 'Burrata, Melanzane e Pomodorini',
+        desc: 'La cremosità della burrata e la dolcezza dei pomodorini confit cercano la mineralità e la pulizia del Pinot Bianco di Novali: abbinamento elegante e preciso.' },
+    'Chardonnay — Toros':
+      { nome: 'Crema Carbonara e Guanciale Nostrano',
+        desc: 'Lo Chardonnay del Collio di Franco Toros regge la ricchezza della carbonara — tuorlo, pecorino, guanciale — con la sua frutta gialla e struttura decisa.' },
+    'Ribolla Gialla — Sturm':
+      { nome: 'Cotto e Kren',
+        desc: 'La pungenza del kren e la sapidità del cotto chiedono una Ribolla fresca e minerale come quella di Oscar Sturm: abbinamento di territorio puro.' },
+    'Malvasia — Sturm':
+      { nome: 'Lardo di Patanegra',
+        desc: 'I profumi di tiglio e albicocca della Malvasia di Sturm bilanciano la grassezza vellutata del lardo iberico: il cicchetto più aromatico del menu.' },
+    'Kerner — Strasserhoff':
+      { nome: 'Speck e Brie',
+        desc: 'Il Kerner alpino di Hannes Baumgartner — pesca, fiori di campo, mineralità di granito — esalta lo speck altoatesino e sgrasssa il brie cremoso.' },
+    'Vitovska — Bajta':
+      { nome: 'Crema al Dentice',
+        desc: 'Stesso mare, stesso territorio: la Vitovska del Carso di Bajta e il dentice del Golfo di Trieste si incontrano nel bicchiere con naturalezza assoluta.' },
+    'Sauvignon — Doro Princic':
+      { nome: 'Salmone, Philadelphia e Guacamole',
+        desc: 'Il Sauvignon di Pradis — erbaceo, tropicale, intenso — taglia il grasso del Philadelphia e dell\'avocado, esaltando il salmone affumicato.' },
+    'Friulano — Castello di Spessa':
+      { nome: 'Crudo San Daniele',
+        desc: 'L\'abbinamento identitario del Friuli: Friulano e prosciutto San Daniele DOP, entrambi ammandorlati e sapidi, nati dalla stessa terra.' },
+    'Pinot Grigio — Castello di Spessa':
+      { nome: 'Gamberi in Savor',
+        desc: 'Il Pinot Grigio strutturato del Collio trova nel saor agrodolce — cipolle, aceto, uvetta — il suo equilibrio naturale: frutto contro dolceamaro.' },
+    'Zibibbo — Carusi':
+      { nome: 'Gorgonzola, Noci e Miele',
+        desc: 'La dolcezza aromatica dello Zibibbo siciliano — albicocca, mandorla, fico — è il contrappunto perfetto per il gorgonzola piccante e il miele.' },
+    'Malvasia — Terre del Faet':
+      { nome: 'Stracciatella, Melanzane e Pomodorini',
+        desc: 'La Malvasia da vigne cinquantenni di Andrea Drius porta una mineralità e una nota floreale che esaltano la dolcezza dei pomodorini confit.' },
+    'Malvasia — Ronco dei Tassi':
+      { nome: 'Pinsa Veggie',
+        desc: 'La Malvasia di Fabio Coser — Vino dell\'Anno 2021 — ha una sapidità e una complessità floreale che esalta qualsiasi combinazione di verdure di stagione.' },
+    'Collio — Terre del Faet':
+      { nome: 'Salame e Formaggio',
+        desc: 'Il blend di Friulano, Ribolla e Malvasia di Andrea Drius, con la sua sapidità territoriale, è il vino nato per accompagnare salumi e formaggi del Friuli.' },
+    'Friulano — Villa Vasi':
+      { nome: 'Baccalà Mantecato',
+        desc: 'Il baccalà mantecato su polenta abbrustolita ha una sapidità storica. Il Friulano di Villa Vasi, con la sua nota ammandorlata, è il compagno veneziano per eccellenza.' },
+    'Pinot Grigio Ramato — Villa Vasi':
+      { nome: 'Sarde Panate',
+        desc: 'Le sarde fritte in panatura croccante portano sapidità marina intensa. Il Ramato — macerato sulle bucce, colore rame, struttura insolita — regge il pesce azzurro senza cedere.' },
+    'Somnja Malvasia — Villa Vasi':
+      { nome: 'Lardo di Patanegra',
+        desc: 'La Malvasia di Villa Vasi, aromatica e sapida, bilancia la grassezza setosa del lardo iberico con i suoi profumi floreali adriatici.' },
+
+    // ── Bianchi bottiglia ──
+    'Chardonnay — Toros':
+      { nome: 'Pinsa Mortadella, Burrata e Pistacchio',
+        desc: 'Lo Chardonnay in bottiglia di Toros regge la ricchezza della pinsa con mortadella emiliana, burrata e pistacchi tostati: struttura contro cremosità.' },
+    'Chardonnay 2024 — La Monette':
+      { nome: 'Salmone e Burro',
+        desc: 'Uno Chardonnay borgognone — parziale barrique, malolattica controllata — con il salmone affumicato e il burro alle erbe: classico abbinamento d\'autore.' },
+    'Rassauer Friulano — Castello di Spessa':
+      { nome: 'Crudo San Daniele',
+        desc: 'Il Friulano Rassauer prende il nome dall\'antica nobiltà del castello. Con il crudo San Daniele DOP, l\'abbinamento identitario friulano raggiunge la sua massima espressione.' },
+    'Yellow Hills Ribolla Gialla — Castello di Spessa':
+      { nome: 'Pinsa Stracciatella e Acciughe del Cantabrico',
+        desc: 'La Ribolla Gialla — fresca, minerale, sapida — trova nelle acciughe del Cantabrico la sua sfida e la supera: sapidità su sapidità in equilibrio.' },
+    'Monblanc — Castello di Buttrio':
+      { nome: 'Salmone e Burro',
+        desc: 'Il blend Ribolla-Friulano-Malvasia dei Colli Orientali ha la freschezza e l\'armonia per non coprire la delicatezza del salmone affumicato con burro alle erbe.' },
+    'Sauvignon — Doro Princic':
+      { nome: 'Crema al Dentice',
+        desc: 'La mineralità e la freschezza del Sauvignon di Isidoro Princic — erbaceo e intenso — esaltano la spuma di dentice fresco con i crostini all\'olio.' },
+    'Collio — Terre del Faet':
+      { nome: 'Speck e Brie',
+        desc: 'Il blend friulano di Terre del Faet, con la sua sapidità complessa, accompagna lo speck alto atesino e sgrasssa il brie con eleganza.' },
+    'Malvasia — Ronco dei Tassi':
+      { nome: 'Gamberi in Savor',
+        desc: 'La Malvasia da Monte Quarin ha una sapidità floreale che bilancia l\'agrodolce del saor veneziano con i suoi gamberi marinati.' },
+    'La Tournée Vermentino-Viognier':
+      { nome: 'Crema al Dentice',
+        desc: 'Il blend mediterraneo Vermentino-Viognier, fresco e aromatico, è il compagno naturale di una spuma di pesce del Golfo di Trieste.' },
+    'Viognier in purezza':
+      { nome: 'Salmone, Philadelphia e Guacamole',
+        desc: 'Il Viognier con i suoi profumi di albicocca e peonia si abbina con naturalezza al salmone affumicato e alla cremosità del Philadelphia.' },
+    'Kerner — Strasserhoff':
+      { nome: 'Crema Carbonara e Guanciale Nostrano',
+        desc: 'Il Kerner di Strasserhoff — alta quota, pesca alpina, mineralità di granito — regge la carbonara con la sua freschezza montana.' },
+    'Gewurztraminer — Bellutti':
+      { nome: 'Formaggio e Miele',
+        desc: 'Il Gewurztraminer altoatesino — rosa, litchi, spezie dolci — è il vino nato per il formaggio con miele: un abbinamento che sembra pensato a tavolino ma funziona sempre.' },
+
+    // ── Orange / macerati ──
+    'Ribolla Gialla Riserva Orange — Primosic':
+      { nome: 'Gorgonzola, Noci e Miele',
+        desc: 'L\'orange wine di Oslavia — tannico, ambrato, complesso — ha la struttura per reggere il gorgonzola piccante e trovare nell\'armonia con miele e noci.' },
+    'Pinot Grigio Riserva Orange — Primosic':
+      { nome: 'Gorgonzola e Crema di Radicchio',
+        desc: 'Il Pinot Grigio Orange — macerato, strutturato, tannini presenti — affronta l\'amaro del radicchio e il piccante del gorgonzola con la sua complessità.' },
+    'Friulano Riserva Orange — Primosic':
+      { nome: 'Speck e Brie',
+        desc: 'Il Friulano Orange di Oslavia — dorato, intenso, tannico — ha abbastanza corpo per accompagnare lo speck alto atesino senza essere sovrastato.' },
+    'Radikon Pop':
+      { nome: 'Sarde Panate',
+        desc: 'Il Radikon Pop — naturale, ambrato, sapido — è il vino che trasforma le sarde panate in qualcosa di inaspettatamente profondo: mineralità contro sapidità marina.' },
+    'Gredič Friulano — Movia':
+      { nome: 'Baccalà Mantecato',
+        desc: 'Il Friulano biodinamico di Aleš Kristančič — fermento spontaneo, senza filtrazioni — trova nel baccalà mantecato su polenta il suo cicchetto di riferimento.' },
+    'Grediĉ Friulano — Movia':
+      { nome: 'Baccalà Mantecato',
+        desc: 'Il Friulano biodinamico di Aleš Kristančič — fermento spontaneo, senza filtrazioni — trova nel baccalà mantecato su polenta il suo cicchetto di riferimento.' },
+    'Veliko — Movia':
+      { nome: 'Salame e Formaggio',
+        desc: 'Il blend Ribolla-Sauvignon-Chardonnay di Movia — complesso, minerale, biodinamico — si abbina ai salumi e formaggi friulani con la naturalezza di chi viene dalla stessa terra.' },
+    'Pinot Grigio — Movia':
+      { nome: 'Speck e Brie',
+        desc: 'Il Pinot Grigio biodinamico di Aleš Kristančič — affinato in botte, senza filtrazioni — regge lo speck e il brie con una struttura insolita per il vitigno.' },
+    'Čotar Gorjansko':
+      { nome: 'Crema al Dentice',
+        desc: 'Il vino artigianale del Carso sloveno di Branko Čotar — Malvasia e Vitovska naturali — e il dentice del Golfo di Trieste: stesso territorio, stesso sapore minerale.' },
+
+    // ── Rossi calice ──
+    'Cabernet Franc — Castelvecchio':
+      { nome: 'Gorgonzola e Crema di Radicchio',
+        desc: 'Il Cabernet Franc del Carso — speziato, erbaceo, con tannino presente — affronta il gorgonzola piccante e l\'amaro del radicchio senza cedere.' },
+    'Cabernet Sauvignon — Castello di Spessa':
+      { nome: 'Crema Cacio e Pepe e Guanciale Nostrano',
+        desc: 'Il Cabernet Sauvignon del Collio — tannico ed elegante — regge la cremosità intensa del cacio e pepe con il guanciale croccante.' },
+    'Pinot Nero — Masut da Rive':
+      { nome: 'Speck e Brie',
+        desc: 'La finezza del Pinot Nero dell\'Isonzo di Masut da Rive — frutti rossi di bosco, viola, tannino elegante — incontra la delicatezza dello speck e il brie cremoso.' },
+    'Sassirossi — Masut da Rive':
+      { nome: 'Polpette di Carne',
+        desc: 'Il Sassirossi — Merlot e Cabernet sulle argille rosse dell\'Isonzo — ha la morbidezza e la struttura giuste per le polpette di manzo al forno.' },
+    'Schiava — Tiefenbrunner':
+      { nome: 'Mortadella, Burrata e Pistacchio',
+        desc: 'La Schiava alto atesina è leggera, scorrevole, con ciliegia e viola. Non copre la mortadella e non sente il peso della burrata: vino da aperitivo quotidiano.' },
+    'Primitivo di Manduria — Altemura':
+      { nome: 'Lardo di Patanegra',
+        desc: 'Il Primitivo caldo e vellutato della Masseria Altemura — frutti neri, morbidezza pugliese — incontra la grassezza del lardo iberico con naturalezza mediterranea.' },
+    'Malvasia Nera — Paololeo':
+      { nome: 'Gorgonzola, Noci e Miele',
+        desc: 'I frutti neri maturi e le spezie dolci della Malvasia Nera del Salento dialogano con il gorgonzola e le noci con quel miele che lega tutto.' },
+
+    // ── Rossi bottiglia ──
+    'Chianti Classico — Marchese Antinori':
+      { nome: 'Polpette di Carne',
+        desc: 'Il Sangiovese della Tenuta Tignanello — frutti rossi, spezie, tannini morbidi — è il vino toscano che accompagna le polpette di manzo con 26 generazioni di storia.' },
+    'Pinot Nero — Masut da Rive':
+      { nome: 'Pinsa Crudo, Rucola e Stracciatella',
+        desc: 'Il Pinot Nero elegante dell\'Isonzo regge la complessità della pinsa con crudo, rucola amara e stracciatella: struttura leggera ma precisa.' },
+    'Sassirossi — Masut da Rive':
+      { nome: 'Crema Cacio e Pepe e Guanciale Nostrano',
+        desc: 'Il blend Merlot-Cabernet sulle argille rosse dell\'Isonzo ha la morbidezza per reggere il cacio e pepe cremoso con il guanciale croccante.' },
+    'C.A.I. Riesling — Immich Batterieberg':
+      { nome: 'Speck e Brie',
+        desc: 'Il Riesling della Mosella — ardesia ripida, lime, mineralità salina — trova nello speck altoatesino un abbinamento alpino di grande precisione.' },
+    'Lillo Grillo — Carusi e Minnini':
+      { nome: 'Sarde Panate',
+        desc: 'Il Grillo fresco e sapido della Sicilia occidentale — agrumi, mandorle, sale del Mediterraneo — è il compagno naturale delle sarde fritte in panatura.' },
+    'Bibbo Zibibbo — Carusi e Minnini':
+      { nome: 'Gorgonzola, Noci e Miele',
+        desc: 'Lo Zibibbo aromatico con albicocca, fico e fiori esotici è il contrappunto mediterraneo al gorgonzola piccante con miele e noci.' },
+    'Tagòs Grillo Dolce — Carusi e Minnini':
+      { nome: 'Formaggio e Miele',
+        desc: 'Il Grillo appassito dolce naturale — frutta candita, miele d\'Agrigento — è il dessert wine siciliano perfetto per il formaggio stagionato con miele di acacia.' },
   };
 
-  // Fallback per categoria quando il vino non e in mappa
+  // Fallback per categoria quando il vino non è in mappa
   var CAT_FALLBACK = {
-    'bollicine':              { nome: 'Mortadella, Burrata e Pistacchio', desc: 'Le bollicine sgrassano la burrata e amplificano i pistacchi.' },
-    'bollicine-bottiglia':    { nome: 'Salmone, Philadelphia e Guacamole', desc: 'Le bollicine perlanti bilanciano la cremosita del Philadelphia.' },
-    'vini-bianchi':           { nome: 'Cotto e Kren', desc: 'La freschezza minerale dei bianchi del Collio e perfetta con il kren pungente.' },
-    'vini-bianchi-bottiglia': { nome: 'Crudo San Daniele', desc: 'Un grande bianco del Collio merita il prosciutto del territorio.' },
-    'vini-rossi':             { nome: 'Speck e Brie', desc: 'I rossi di carattere trovano il loro compagno nello speck e nel brie cremoso.' },
-    'vini-rossi-bottiglia':   { nome: 'Gorgonzola e Crema di Radicchio', desc: 'I rossi strutturati reggono l intensita del gorgonzola piccante.' },
+    'bollicine':              { nome: 'Mortadella, Burrata e Pistacchio', desc: 'Le bollicine sgrassano la burrata e amplificano i pistacchi tostati: l\'aperitivo ideale.' },
+    'bollicine-bottiglia':    { nome: 'Salmone, Philadelphia e Guacamole', desc: 'Un grande metodo classico merita un cicchetto raffinato: salmone, Philadelphia e guacamole.' },
+    'vini-bianchi':           { nome: 'Cotto e Kren', desc: 'La freschezza minerale dei bianchi del Collio è perfetta con la pungenza del kren e la sapidità del cotto.' },
+    'vini-bianchi-bottiglia': { nome: 'Crudo San Daniele', desc: 'Un grande bianco del Collio merita il cicchetto identitario del Friuli: prosciutto San Daniele DOP.' },
+    'vini-rossi':             { nome: 'Speck e Brie', desc: 'I rossi friulani di carattere trovano il loro compagno nello speck altoatesino e nel brie cremoso.' },
+    'vini-rossi-bottiglia':   { nome: 'Gorgonzola e Crema di Radicchio', desc: 'I rossi strutturati in bottiglia reggono l\'intensità del gorgonzola piccante e l\'amaro del radicchio.' },
   };
 
   window.findCicchettoForWine = function(wineName, winecat) {
@@ -11957,6 +12323,388 @@ document.addEventListener('click', function(e) {
     overlay.classList.remove('show');
     document.body.style.overflow = '';
   };
+})();
+</script>
+
+<script>
+/* ════════════════════════════════════════
+   🗺️ PORTAMI LÌ — cantina GPS
+════════════════════════════════════════ */
+(function() {
+  // Coordinate Al Bakaro (punto di partenza)
+  var AL_BAKARO = { lat: 45.9362, lng: 13.6201 };
+
+  // Database coordinate cantine (Place ID Google Maps per link diretto)
+  var CANTINA_GPS = {
+    'Radikon':                { lat: 45.982666, lng: 13.602546, place: 'ChIJ58ckLp2qe0cR0uzvQncjPsQ' },
+    'Primosic':               { lat: 45.979771, lng: 13.610922, place: 'ChIJRcotAHoAe0cRskssbRKOPhA' },
+    'Castello di Spessa':     { lat: 45.948429, lng: 13.503908, place: 'ChIJxSlVKuKre0cRRXxMvDX-4rI' },
+    'Masùt da Rive':          { lat: 45.914691, lng: 13.458962, place: 'ChIJ9Yq6Cdeue0cRtArtEcxYfVM' },
+    'MOVIA':                  { lat: 45.977562, lng: 13.520133, place: 'ChIJyfpxsp6re0cRRo0kTb7wRew' },
+    'Movia':                  { lat: 45.977562, lng: 13.520133, place: 'ChIJyfpxsp6re0cRRo0kTb7wRew' },
+    'Doro Princic':           { lat: 45.950320, lng: 13.488598, place: 'ChIJU17gdf-re0cR7izfXQirBb0' },
+    'Ronco dei Tassi':        { lat: 45.967467, lng: 13.485943, place: 'ChIJjYBznQyse0cRtJ4QSK7_Xeg' },
+    'Ferrari Trento':         { lat: 46.044066, lng: 11.113612, place: 'ChIJTbEaso5zgkcRKW29myjJWaI' },
+    "Ca' del Bosco":          { lat: 45.594843, lng: 9.990720,  place: 'ChIJT77cSzdvgUcRFpwEiHNrVAE' },
+    'Immich-Batterieberg':    { lat: 49.983794, lng: 7.123723,  place: 'ChIJhXxfuiE7vkcRi81oepeFif8' },
+    'Astoria':                { lat: 45.874773, lng: 12.240320,  place: 'ChIJC9rTGOEVeUcR6FuVMbZ1nvI' },
+    'Toros Franco':           { lat: 45.974104, lng: 13.498475,  place: 'ChIJA5rPEXGse0cRxTcDINxGKFo' },
+    'Sturm':                  { lat: 45.973683, lng: 13.503652,  place: 'ChIJQZjAY5qre0cR9PGRziva5Mw' },
+    'Strasserhoff':           { lat: 46.745084, lng: 11.654852,  place: 'ChIJz_dgE_oEeEcRGjktQxyccMQ' },
+    'Bajta':                  { lat: 45.745678, lng: 13.721803,  place: 'ChIJuSCZ77MTe0cRMOkW-xDwegQ' },
+    'Antinori':               { lat: 43.612389, lng: 11.191616,  place: 'ChIJ78nL_M5IKhMRShNYlBdmZOE' },
+    'Altemura':               { lat: 40.484167, lng: 17.766667,  place: 'ChIJ3UyFRpf0RhMRIUCIcM9AsG8' },
+    'Paololeo':               { lat: 40.457005, lng: 17.925329,  place: 'ChIJSSJVsAN8RhMRgE3MIRCjHtU' },
+    'Tenuta Il Bosco':        { lat: 45.059330, lng: 9.335488,   place: 'ChIJk9nQq0zNgEcRr3uyq2J2K2c' },
+    'Altemasi':               { lat: 46.040614, lng: 11.115930,  place: 'ChIJwWb_awh0gkcRgjC1y12Vc-c' },
+    'Perrier-Jouët':          { lat: 49.042687, lng: 3.960968,   place: 'ChIJNT6amkRr6UcRJ5xyRt19v7Y' },
+    'Tiefenbrunner':          { lat: 46.300739, lng: 11.213001,  place: 'ChIJQ6kfPTOHgkcREJmEh7PMaD0' },
+    'Čotar':                  { lat: 45.804422, lng: 13.715754,  place: 'ChIJQaij0ywOe0cR_JfOjyz99zo' },
+    'Caruso e Minini':        { lat: 37.792181, lng: 12.451316,  place: 'ChIJx5Q9jJHCGxMRxJd_95NK3ow' },
+    'Carusi e Minnini':       { lat: 37.792181, lng: 12.451316,  place: 'ChIJx5Q9jJHCGxMRxJd_95NK3ow' },
+    'Castello di Buttrio':    { lat: 46.016357, lng: 13.341962,  place: 'ChIJ8Vg9XROze0cRQJPbl26BvqQ' },
+    'Tenuta Stella':          { lat: 46.030042, lng: 13.501901,  place: 'ChIJE-mrqElTekcRn2dX2HbMTUs' },
+    'Castelvecchio':          { lat: 45.872716, lng: 13.498786,  place: 'ChIJFTSyXJyoe0cRNJfaNkKiYy8' },
+    'Terre del Faet':         { lat: 45.967467, lng: 13.485943,  place: 'ChIJjYBznQyse0cRtJ4QSK7_Xeg' },
+    'Villa Vasi':             { lat: 45.950320, lng: 13.488598,  place: 'ChIJU17gdf-re0cR7izfXQirBb0' },
+  };
+
+  // Mappa vino → cantina
+  var WINE_CANTINA = {
+    'Radikon Pop':                     'Radikon',
+    'Ribolla Gialla Riserva Orange — Primosic': 'Primosic',
+    'Pinot Grigio Riserva Orange — Primosic':   'Primosic',
+    'Friulano Riserva Orange — Primosic':       'Primosic',
+    'Amadeus — Castello di Spessa':    'Castello di Spessa',
+    'Friulano — Castello di Spessa':   'Castello di Spessa',
+    'Pinot Grigio — Castello di Spessa':        'Castello di Spessa',
+    'Rassauer Friulano — Castello di Spessa':   'Castello di Spessa',
+    'Yellow Hills Ribolla Gialla — Castello di Spessa': 'Castello di Spessa',
+    'Cabernet Sauvignon — Castello di Spessa':  'Castello di Spessa',
+    'Sassirossi — Masut da Rive':      'Masùt da Rive',
+    'Pinot Nero — Masut da Rive':      'Masùt da Rive',
+    'Gredič Friulano — Movia':         'Movia',
+    'Grediĉ Friulano — Movia':         'Movia',
+    'Veliko — Movia':                  'Movia',
+    'Pinot Grigio — Movia':            'Movia',
+    'Sauvignon — Doro Princic':        'Doro Princic',
+    'Malvasia — Ronco dei Tassi':      'Ronco dei Tassi',
+    'Ferrari Maximum':                 'Ferrari Trento',
+    'Ferrari Perlè':                   'Ferrari Trento',
+    "Franciacorta Cuvée Prestige — Ca' del Bosco":  "Ca' del Bosco",
+    "Franciacorta Dosage Zero — Ca' del Bosco":     "Ca' del Bosco",
+    'C.A.I. Riesling — Immich Batterieberg':        'Immich-Batterieberg',
+    'Prosecco — Astoria':              'Astoria',
+    "Prosecco L'Infedele — Astoria":   'Astoria',
+    'Pinot Bianco — Toros':            'Toros Franco',
+    'Chardonnay — Toros':              'Toros Franco',
+    'Ribolla Gialla — Sturm':          'Sturm',
+    'Malvasia — Sturm':                'Sturm',
+    'Kerner — Strasserhoff':           'Strasserhoff',
+    'Vitovska — Bajta':                'Bajta',
+    'Čotar Gorjansko':                 'Čotar',
+    'Lillo Grillo — Carusi e Minnini': 'Carusi e Minini',
+    'Bibbo Zibibbo — Carusi e Minnini':'Carusi e Minini',
+    'Tagòs Grillo Dolce — Carusi e Minnini': 'Carusi e Minini',
+    'Zibibbo — Carusi':                'Carusi e Minini',
+    'Chianti Classico — Marchese Antinori': 'Antinori',
+    'Primitivo di Manduria — Altemura': 'Altemura',
+    'Malvasia Nera — Paololeo':        'Paololeo',
+    'Rosé — Oltrenero':                'Tenuta Il Bosco',
+    'Trentodoc — Altemasi':            'Altemasi',
+    'Champagne Perrier-Jouet Grand Brut': 'Perrier-Jouët',
+    'Schiava — Tiefenbrunner':         'Tiefenbrunner',
+    'Collio — Terre del Faet':         'Terre del Faet',
+    'Malvasia — Terre del Faet':       'Terre del Faet',
+    'Friulano — Villa Vasi':           'Villa Vasi',
+    'Pinot Grigio Ramato — Villa Vasi':'Villa Vasi',
+    'Somnja Malvasia — Villa Vasi':    'Villa Vasi',
+    'Monblanc — Castello di Buttrio':  'Castello di Buttrio',
+    'Ribolla Gialla Spumantizzata — Tenuta Stella': 'Tenuta Stella',
+    'Cabernet Franc — Castelvecchio':  'Castelvecchio',
+  };
+
+  function haversineKm(lat1, lng1, lat2, lng2) {
+    var R = 6371;
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLng = (lng2 - lng1) * Math.PI / 180;
+    var a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+            Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*
+            Math.sin(dLng/2)*Math.sin(dLng/2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+
+  function getCantina(wineName) {
+    if (!wineName) return null;
+    // Match diretto
+    if (WINE_CANTINA[wineName]) return CANTINA_GPS[WINE_CANTINA[wineName]] ? { nome: WINE_CANTINA[wineName], gps: CANTINA_GPS[WINE_CANTINA[wineName]] } : null;
+    // Match parziale sul nome cantina
+    var lower = wineName.toLowerCase();
+    for (var k in CANTINA_GPS) {
+      if (lower.indexOf(k.toLowerCase()) !== -1) return { nome: k, gps: CANTINA_GPS[k] };
+    }
+    // Match parziale invertito
+    for (var k in CANTINA_GPS) {
+      var kl = k.toLowerCase();
+      if (kl.split(' ').some(function(w){ return w.length > 4 && lower.indexOf(w) !== -1; })) {
+        return { nome: k, gps: CANTINA_GPS[k] };
+      }
+    }
+    return null;
+  }
+
+  window.updatePortamiLi = function(wineName) {
+    var btn = document.getElementById('som-portami-btn');
+    var nameEl = document.getElementById('som-portami-name');
+    var distEl = document.getElementById('som-portami-dist');
+    if (!btn) return;
+
+    var cantina = getCantina(wineName);
+    if (!cantina) { btn.style.display = 'none'; return; }
+
+    var km = haversineKm(AL_BAKARO.lat, AL_BAKARO.lng, cantina.gps.lat, cantina.gps.lng);
+    var kmStr = km < 1 ? (km * 1000).toFixed(0) + ' m' : (km < 10 ? km.toFixed(1) : Math.round(km)) + ' km';
+    var label = (typeof t === 'function') ? t('portamiLiLabel') : 'CANTINA';
+    var kmLabel = (typeof t === 'function') ? t('portamiLiKm') : 'km da Al Bakaro';
+    var url = cantina.gps.place
+      ? 'https://maps.google.com/?q=' + cantina.gps.lat + ',' + cantina.gps.lng + '&query_place_id=' + cantina.gps.place
+      : 'https://maps.google.com/?q=' + cantina.gps.lat + ',' + cantina.gps.lng;
+
+    if (nameEl) nameEl.textContent = cantina.nome;
+    if (distEl) distEl.textContent = kmStr;
+    var labelEl = btn.querySelector('[data-t="portamiLiLabel"]');
+    if (labelEl) labelEl.textContent = label;
+    btn.href = url;
+    btn.onclick = function(e) { e.preventDefault(); window.open(url, '_blank'); };
+    btn.style.display = 'flex';
+  };
+
+})();
+
+
+/* ════════════════════════════════════════
+   📷 SCAN ETICHETTA — camera label match
+════════════════════════════════════════ */
+(function() {
+  var scanActive = false;
+  var videoEl, canvasEl, ctxEl;
+  var scanInterval = null;
+  var scanFrameCount = 0;
+
+  // Lista vini riconoscibili con parole chiave nell'etichetta
+  // Abbinamento: keyword (lowercase) → nome vino nel SOMMELIER
+  var LABEL_KEYWORDS = [
+    ['radikon', 'pop'],                               ['Radikon Pop'],
+    ['ferrari', 'maximum'],                           ['Ferrari Maximum'],
+    ['ferrari', 'perlè'],                             ['Ferrari Perlè'],
+    ['ferrari', 'perle'],                             ['Ferrari Perlè'],
+    ['prosecco', "l'infedele"],                       ["Prosecco L'Infedele — Astoria"],
+    ['prosecco', 'astoria'],                          ['Prosecco — Astoria'],
+    ['ca', 'bosco', 'dosage'],                        ["Franciacorta Dosage Zero — Ca' del Bosco"],
+    ['ca', 'bosco', 'prestige'],                      ["Franciacorta Cuvée Prestige — Ca' del Bosco"],
+    ['perrier', 'jouet'],                             ['Champagne Perrier-Jouet Grand Brut'],
+    ['movia', 'veliko'],                              ['Veliko — Movia'],
+    ['movia', 'pinot'],                               ['Pinot Grigio — Movia'],
+    ['movia', 'gredič'],                              ['Gredič Friulano — Movia'],
+    ['movia'],                                        ['Gredič Friulano — Movia'],
+    ['radikon'],                                      ['Radikon Pop'],
+    ['primosic', 'ribolla'],                          ['Ribolla Gialla Riserva Orange — Primosic'],
+    ['primosic', 'pinot'],                            ['Pinot Grigio Riserva Orange — Primosic'],
+    ['primosic'],                                     ['Friulano Riserva Orange — Primosic'],
+    ['sturm', 'ribolla'],                             ['Ribolla Gialla — Sturm'],
+    ['sturm', 'malvasia'],                            ['Malvasia — Sturm'],
+    ['sturm'],                                        ['Ribolla Gialla — Sturm'],
+    ['toros', 'chardonnay'],                          ['Chardonnay — Toros'],
+    ['toros', 'pinot'],                               ['Pinot Bianco — Toros'],
+    ['toros'],                                        ['Pinot Bianco — Toros'],
+    ['ronco', 'tassi', 'malvasia'],                   ['Malvasia — Ronco dei Tassi'],
+    ['ronco', 'tassi'],                               ['Malvasia — Ronco dei Tassi'],
+    ['bajta', 'vitovska'],                            ['Vitovska — Bajta'],
+    ['bajta'],                                        ['Vitovska — Bajta'],
+    ['princic', 'sauvignon'],                         ['Sauvignon — Doro Princic'],
+    ['princic'],                                      ['Sauvignon — Doro Princic'],
+    ['strasserhof', 'kerner'],                        ['Kerner — Strasserhoff'],
+    ['strasserhof'],                                  ['Kerner — Strasserhoff'],
+    ['tiefenbrunner', 'schiava'],                     ['Schiava — Tiefenbrunner'],
+    ['tiefenbrunner'],                                ['Schiava — Tiefenbrunner'],
+    ['masut', 'sassirossi'],                          ['Sassirossi — Masut da Rive'],
+    ['masut', 'pinot'],                               ['Pinot Nero — Masut da Rive'],
+    ['masut'],                                        ['Sassirossi — Masut da Rive'],
+    ['castelvecchio', 'cabernet'],                    ['Cabernet Franc — Castelvecchio'],
+    ['castelvecchio'],                                ['Cabernet Franc — Castelvecchio'],
+    ['spessa', 'amadeus'],                            ['Amadeus — Castello di Spessa'],
+    ['spessa', 'friulano'],                           ['Friulano — Castello di Spessa'],
+    ['spessa', 'pinot'],                              ['Pinot Grigio — Castello di Spessa'],
+    ['spessa'],                                       ['Friulano — Castello di Spessa'],
+    ['cotar', 'gorjansko'],                           ['Čotar Gorjansko'],
+    ['čotar'],                                        ['Čotar Gorjansko'],
+    ['antinori', 'chianti'],                          ['Chianti Classico — Marchese Antinori'],
+    ['antinori'],                                     ['Chianti Classico — Marchese Antinori'],
+    ['altemura', 'primitivo'],                        ['Primitivo di Manduria — Altemura'],
+    ['paololeo', 'malvasia'],                         ['Malvasia Nera — Paololeo'],
+    ['paololeo'],                                     ['Malvasia Nera — Paololeo'],
+    ['altemasi'],                                     ['Trentodoc — Altemasi'],
+    ['villa vasi', 'ramato'],                         ['Pinot Grigio Ramato — Villa Vasi'],
+    ['villa vasi', 'friulano'],                       ['Friulano — Villa Vasi'],
+    ['villa vasi'],                                   ['Somnja Malvasia — Villa Vasi'],
+    ['tenuta stella', 'ribolla'],                     ['Ribolla Gialla Spumantizzata — Tenuta Stella'],
+    ['oltrenero', 'rosé'],                            ['Rosé — Oltrenero'],
+    ['oltrenero'],                                    ['Rosé — Oltrenero'],
+    ['buttrio', 'monblanc'],                          ['Monblanc — Castello di Buttrio'],
+    ['buttrio'],                                      ['Monblanc — Castello di Buttrio'],
+    ['carusi', 'grillo'],                             ['Lillo Grillo — Carusi e Minnini'],
+    ['carusi', 'zibibbo'],                            ['Bibbo Zibibbo — Carusi e Minnini'],
+    ['carusi', 'tagòs'],                              ['Tagòs Grillo Dolce — Carusi e Minnini'],
+    ['carusi'],                                       ['Lillo Grillo — Carusi e Minnini'],
+    ['immich', 'riesling'],                           ['C.A.I. Riesling — Immich Batterieberg'],
+    ['immich'],                                       ['C.A.I. Riesling — Immich Batterieberg'],
+    ['terre del faet', 'malvasia'],                   ['Malvasia — Terre del Faet'],
+    ['terre del faet', 'collio'],                     ['Collio — Terre del Faet'],
+    ['terre del faet'],                               ['Collio — Terre del Faet'],
+  ];
+
+  // OCR leggero: usa un endpoint AI per riconoscimento testo → poi matcha con keywords
+  // Per ora: analisi colore dominante + shape detection semplice per pre-filtrare
+  // e poi invia frame all'API Claude Vision per riconoscimento etichetta
+
+  function matchLabel(text) {
+    if (!text) return null;
+    var lower = text.toLowerCase();
+    // Scansiona LABEL_KEYWORDS che sono coppie [keywords[], [wineName]]
+    for (var i = 0; i < LABEL_KEYWORDS.length; i += 2) {
+      var kws = LABEL_KEYWORDS[i];
+      var wine = LABEL_KEYWORDS[i+1][0];
+      if (kws.every(function(k){ return lower.indexOf(k) !== -1; })) {
+        return wine;
+      }
+    }
+    return null;
+  }
+
+  function setStatus(msg) {
+    var el = document.getElementById('scan-status');
+    if (el) el.textContent = msg;
+  }
+
+  function captureAndRecognize() {
+    if (!scanActive || !videoEl || !canvasEl) return;
+    if (videoEl.readyState < 2) return;
+    scanFrameCount++;
+    if (scanFrameCount % 15 !== 0) return; // ogni ~15 frame
+
+    var w = videoEl.videoWidth  || 640;
+    var h = videoEl.videoHeight || 480;
+    canvasEl.width  = w;
+    canvasEl.height = h;
+    ctxEl.drawImage(videoEl, 0, 0, w, h);
+
+    // Converti a base64 e manda all'API Claude
+    var dataUrl = canvasEl.toDataURL('image/jpeg', 0.6);
+    var base64  = dataUrl.split(',')[1];
+    setStatus(t('scanSearching') || 'Cerco il vino…');
+
+    fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 200,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: base64 } },
+            { type: 'text', text: 'Leggi il testo scritto su questa etichetta di vino. Rispondi SOLO con il testo che riesci a leggere, in una sola riga, senza punteggiatura. Se non è un\'etichetta di vino o il testo non è leggibile, rispondi SOLO: NO_LABEL.' }
+          ]
+        }]
+      })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      if (!scanActive) return;
+      var text = '';
+      if (data.content && data.content[0] && data.content[0].text) text = data.content[0].text.trim();
+      if (text === 'NO_LABEL' || !text) {
+        setStatus('');
+        return;
+      }
+      var wine = matchLabel(text);
+      if (wine) {
+        stopScan();
+        if (typeof vibrate === 'function') vibrate([30,50,30]);
+        closeScanOverlay();
+        setTimeout(function() {
+          if (typeof openSommelier === 'function') openSommelier(wine);
+        }, 350);
+      } else {
+        setStatus((t('scanNotFound') || 'Etichetta non riconosciuta') + ' · ' + text.slice(0,30));
+        setTimeout(function(){ if(scanActive) setStatus(''); }, 2000);
+      }
+    })
+    .catch(function() {
+      if (scanActive) setStatus('');
+    });
+  }
+
+  function startScan() {
+    videoEl   = document.getElementById('scan-video');
+    canvasEl  = document.getElementById('scan-canvas');
+    if (!canvasEl) return;
+    ctxEl     = canvasEl.getContext('2d');
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      document.getElementById('scan-overlay').classList.add('no-camera');
+      return;
+    }
+
+    navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+    })
+    .then(function(stream) {
+      videoEl.srcObject = stream;
+      videoEl.play();
+      scanActive = true;
+      scanFrameCount = 0;
+      scanInterval = setInterval(captureAndRecognize, 100);
+    })
+    .catch(function() {
+      document.getElementById('scan-overlay').classList.add('no-camera');
+    });
+  }
+
+  function stopScan() {
+    scanActive = false;
+    if (scanInterval) { clearInterval(scanInterval); scanInterval = null; }
+    if (videoEl && videoEl.srcObject) {
+      videoEl.srcObject.getTracks().forEach(function(t){ t.stop(); });
+      videoEl.srcObject = null;
+    }
+  }
+
+  window.openScanOverlay = function() {
+    var overlay = document.getElementById('scan-overlay');
+    if (!overlay) return;
+    // Reset stato
+    overlay.classList.remove('no-camera');
+    document.getElementById('scan-ui-main').style.display = 'flex';
+    setStatus('');
+    // Traduci testi
+    overlay.querySelectorAll('[data-t]').forEach(function(el) {
+      var k = el.getAttribute('data-t');
+      if (typeof t === 'function' && t(k)) el.textContent = t(k);
+    });
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    if (typeof vibrate === 'function') vibrate(12);
+    setTimeout(startScan, 200);
+  };
+
+  window.closeScanOverlay = function() {
+    stopScan();
+    var overlay = document.getElementById('scan-overlay');
+    if (overlay) overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  };
+
 })();
 </script>
 
