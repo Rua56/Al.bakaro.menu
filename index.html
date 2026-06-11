@@ -701,6 +701,14 @@
     .sommelier-block-label { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.12em; color: var(--amber); text-transform: uppercase; margin-bottom: 0.3rem; }
     .sommelier-block-value { font-family: 'Lora', serif; font-size: 0.82rem; color: var(--espresso); line-height: 1.4; }
     body.night .sommelier-block-value { color: var(--parchment); }
+    /* Termometro */
+    .sommelier-block-temp { display: flex; flex-direction: column; }
+    .som-thermo-wrap { display: flex; align-items: center; gap: 0.7rem; margin-top: 0.35rem; }
+    .som-thermo { width: 28px; flex-shrink: 0; overflow: visible; }
+    .som-thermo-text { display: flex; flex-direction: column; gap: 0.1rem; }
+    .som-thermo-value { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--walnut); letter-spacing: -0.02em; }
+    .som-thermo-hint { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 0.1em; color: var(--amber); text-transform: uppercase; opacity: 0.7; }
+    body.night .som-thermo-value { color: var(--parchment); }
     .sommelier-note { font-family: 'Lora', serif; font-style: italic; font-size: 0.82rem; color: var(--stone); line-height: 1.6; margin-bottom: 0.8rem; padding: 0.7rem; background: rgba(92,51,23,0.04); border-radius: 6px; border-left: 2px solid var(--amber); }
     body.night .sommelier-note { background: rgba(193,127,60,0.08); color: #c8a878; }
     .sommelier-close { position: absolute; top: 1rem; right: 1rem; background: rgba(92,51,23,0.1); border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 0.8rem; cursor: pointer; color: var(--walnut); display: flex; align-items: center; justify-content: center; }
@@ -943,61 +951,105 @@
     #splash {
       position: fixed;
       inset: 0;
-      background: linear-gradient(160deg, var(--bark) 0%, var(--espresso) 60%, var(--walnut) 100%);
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(92,51,23,0.6) 0%, transparent 65%),
+        linear-gradient(160deg, #1a0d06 0%, #2c1a0e 45%, #1f1208 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 1.1s cubic-bezier(0.4,0,0.2,1), transform 1.1s cubic-bezier(0.4,0,0.2,1);
+      overflow: hidden;
     }
-    #splash.hide { opacity: 0; transform: scale(1.04); pointer-events: none; }
-    .splash-logo {
-      width: 280px;
+    /* Texture noise sovrapposta */
+    #splash::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    /* Linee orizzontali dorate che si aprono */
+    #splash-line-top, #splash-line-bot {
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%, rgba(193,127,60,0.6) 20%,
+        rgba(245,215,142,0.9) 50%,
+        rgba(193,127,60,0.6) 80%, transparent 100%);
       opacity: 0;
-      transform: translateY(24px) scale(0.96);
-      animation: splashLogoIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s both;
+      animation: splashLineIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+    }
+    #splash-line-top { top: calc(50% - 130px); }
+    #splash-line-bot { bottom: calc(50% - 130px); animation-delay: 0.75s; }
+    @keyframes splashLineIn {
+      from { opacity: 0; transform: scaleX(0); }
+      to   { opacity: 1; transform: scaleX(1); }
+    }
+    .splash-logo {
+      width: 270px;
+      opacity: 0;
+      transform: translateY(20px) scale(0.97);
+      animation: splashLogoIn 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s both;
       filter: drop-shadow(0 0 0px rgba(193,127,60,0));
+      position: relative; z-index: 1;
     }
     .splash-logo.glow {
-      animation: splashLogoIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s both,
-                 splashLogoGlow 2s ease 1.7s both;
+      animation: splashLogoIn 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s both,
+                 splashLogoGlow 2.2s ease 1.9s both;
     }
     .splash-claim {
       font-family: 'Lora', serif;
       font-style: italic;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       color: var(--honey);
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       opacity: 0;
-      animation: splashLogoIn 0.8s cubic-bezier(0.16,1,0.3,1) 1.3s both;
-      margin-top: 1rem;
+      animation: splashLogoIn 1s cubic-bezier(0.16,1,0.3,1) 1.1s both;
+      margin-top: 1.1rem;
+      position: relative; z-index: 1;
     }
     .splash-tagline {
       font-family: 'Cinzel', serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.35em;
-      color: rgba(193,127,60,0.6);
+      font-size: 0.52rem;
+      letter-spacing: 0.4em;
+      color: rgba(193,127,60,0.55);
       text-transform: uppercase;
       opacity: 0;
-      animation: splashLogoIn 0.6s ease 1.8s both;
+      animation: splashLogoIn 0.7s ease 1.7s both;
       margin-top: 0.5rem;
+      position: relative; z-index: 1;
     }
+    /* Tre punti diventano una linea dorata */
     .splash-dots {
       display: flex;
-      gap: 0.5rem;
-      margin-top: 2.5rem;
+      gap: 0;
+      margin-top: 2.8rem;
       opacity: 0;
-      animation: splashLogoIn 0.5s ease 1.6s both;
+      animation: splashLogoIn 0.6s ease 1.5s both;
+      position: relative; z-index: 1;
+      overflow: hidden;
+      width: 40px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      border-radius: 1px;
     }
-    .splash-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--amber);
-      animation: dotPulse 1.4s ease infinite;
+    .splash-dot { display: none; }
+    /* Shine che scorre sulla linea */
+    .splash-dots::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(245,215,142,0.9) 50%, transparent 100%);
+      animation: splashShine 1.8s ease 2s infinite;
     }
-    .splash-dot:nth-child(2) { animation-delay: 0.25s; }
-    .splash-dot:nth-child(3) { animation-delay: 0.5s; }
+    @keyframes splashShine {
+      from { transform: translateX(-100%); }
+      to   { transform: translateX(200%); }
+    }
+    #splash.hide { opacity: 0; transform: scale(1.03); pointer-events: none; }
     /* Particelle dorate splash */
     .splash-particle {
       position: absolute;
@@ -1009,7 +1061,7 @@
     @keyframes splashParticleRise {
       0%   { opacity: 0; transform: translateY(0) scale(0); }
       15%  { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-180px) scale(1) translateX(var(--dx,0px)); }
+      100% { opacity: 0; transform: translateY(-200px) scale(1) translateX(var(--dx,0px)); }
     }
     @keyframes splashLogoIn {
       from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -3465,6 +3517,31 @@
       letter-spacing: 0.1em; padding: 0.5rem 1.1rem;
       border-radius: 20px; cursor: pointer;
     }
+    /* Dado teatrale — stati animazione */
+    #dado-card.dado-rolling .dado-cicchetto,
+    #dado-card.dado-rolling .dado-plus,
+    #dado-card.dado-rolling .dado-vino,
+    #dado-card.dado-rolling .dado-perche,
+    #dado-card.dado-rolling .dado-actions { opacity: 0; transition: opacity 0.2s ease; }
+    #dado-card.dado-revealing .dado-cicchetto { animation: dadoReveal 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+    #dado-card.dado-revealing .dado-plus       { animation: dadoReveal 0.35s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+    #dado-card.dado-revealing .dado-vino       { animation: dadoReveal 0.4s cubic-bezier(0.16,1,0.3,1) 0.55s both; }
+    #dado-card.dado-revealing .dado-perche     { animation: dadoReveal 0.35s ease 0.9s both; }
+    #dado-card.dado-revealing .dado-actions    { animation: dadoReveal 0.3s ease 1.15s both; }
+    @keyframes dadoReveal {
+      from { opacity: 0; transform: translateY(10px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    #dado-emoji.dado-spinning {
+      animation: dadoSpin 0.08s linear infinite;
+      display: inline-block;
+    }
+    @keyframes dadoSpin {
+      0%   { transform: scale(1)   rotate(0deg); }
+      25%  { transform: scale(1.1) rotate(5deg); }
+      75%  { transform: scale(0.9) rotate(-5deg); }
+      100% { transform: scale(1)   rotate(0deg); }
+    }
 
     /* ══════════════════════════════════════
        🌡️ TERMOMETRO / VINO METEO
@@ -5033,10 +5110,29 @@
     <div id="som-bars"></div>
     <div class="sommelier-note" id="som-note"></div>
     <div class="sommelier-grid">
-      <div class="sommelier-block">
-        <div class="sommelier-block-label" data-t="somTemp">🌡️ Temperatura</div>
-        <div class="sommelier-block-value" id="som-temp"></div>
-      </div>
+        <div class="sommelier-block sommelier-block-temp">
+          <div class="sommelier-block-label" data-t="somTemp">🌡️ Temperatura</div>
+          <div class="som-thermo-wrap">
+            <svg class="som-thermo" viewBox="0 0 28 90" xmlns="http://www.w3.org/2000/svg">
+              <!-- Bulbo -->
+              <circle cx="14" cy="78" r="8" fill="rgba(193,127,60,0.15)" stroke="rgba(193,127,60,0.4)" stroke-width="1.5"/>
+              <circle class="som-thermo-bulb" cx="14" cy="78" r="5.5" fill="rgba(193,127,60,0.3)"/>
+              <!-- Tubo -->
+              <rect x="11" y="14" width="6" height="64" rx="3" fill="rgba(193,127,60,0.12)" stroke="rgba(193,127,60,0.35)" stroke-width="1.2"/>
+              <!-- Riempimento animato -->
+              <rect class="som-thermo-fill" x="12.5" y="14" width="3" height="64" rx="1.5" fill="var(--amber)" style="transform-origin: bottom center; transform: scaleY(0); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1)"/>
+              <!-- Tacche temperatura -->
+              <line x1="17" y1="20" x2="20" y2="20" stroke="rgba(193,127,60,0.4)" stroke-width="1"/>
+              <line x1="17" y1="34" x2="21" y2="34" stroke="rgba(193,127,60,0.5)" stroke-width="1.2"/>
+              <line x1="17" y1="48" x2="20" y2="48" stroke="rgba(193,127,60,0.4)" stroke-width="1"/>
+              <line x1="17" y1="62" x2="21" y2="62" stroke="rgba(193,127,60,0.5)" stroke-width="1.2"/>
+            </svg>
+            <div class="som-thermo-text">
+              <div class="som-thermo-value" id="som-temp"></div>
+              <div class="som-thermo-hint">servire</div>
+            </div>
+          </div>
+        </div>
       <div class="sommelier-block">
         <div class="sommelier-block-label" data-t="somFood">🍽️ Abbinamenti</div>
         <div class="sommelier-block-value" id="som-food"></div>
@@ -5520,6 +5616,8 @@
 
 <!-- ═══════════════════ SPLASH SCREEN ═══════════════════ -->
 <div id="splash">
+  <div id="splash-line-top"></div>
+  <div id="splash-line-bot"></div>
   <img class="splash-logo" id="splashLogoImg" alt="Al Bakaro"/>
   <p class="splash-claim">vino &amp; tartine · Gorizia</p>
   <p class="splash-tagline" id="splash-tagline">La prima cicchetteria di Gorizia</p>
@@ -5768,31 +5866,59 @@ if ('serviceWorker' in navigator) {
 (function() {
   // Frasi diverse per giorno della settimana
   var TAGLINES = {
-    it: ['Lunedì con stile', 'In vino veritas', 'Ogni calice racconta una storia',
-         'Il territorio nel bicchiere', 'Venerdi da brindare', 'Sabato da degustare', 'Domenica in cantina'],
-    en: ['Monday with style', 'In vino veritas', 'Every glass tells a story',
-         'The territory in the glass', 'Friday to toast', 'Saturday to taste', 'Sunday in the cellar'],
-    de: ['Montag mit Stil', 'In vino veritas', 'Jedes Glas erzählt eine Geschichte',
-         'Das Terroir im Glas', 'Freitag zum Anstoßen', 'Samstag zum Verkosten', 'Sonntag im Keller'],
-    sl: ['Ponedeljek z razredom', 'In vino veritas', 'Vsak kozarec pripoveduje zgodbo',
-         'Teritorij v kozarcu', 'Petek za nazdravljanje', 'Sobota za degustacijo', 'Nedelja v kleti'],
+    it: [
+      'Collio nel calice, Gorizia nel cuore',           // Lunedì
+      'Ponca, Bora, vite — il Collio in tre parole',    // Martedì
+      'Dove la Slovenia è a un sorso di distanza',      // Mercoledì
+      'Il cicchetto perfetto non si spiega, si assaggia', // Giovedì
+      'Finalmente venerdì — e finalmente qui',           // Venerdì
+      'Sabato: nessuna fretta, calice in mano',         // Sabato
+      'Domenica come si deve — lenta e buona',          // Domenica
+    ],
+    en: [
+      'Collio in the glass, Gorizia in the heart',
+      'Ponca, Bora, vine — Collio in three words',
+      'Where Slovenia is just a sip away',
+      'The perfect cicchetto needs no explanation — just taste it',
+      'Finally Friday — and finally here',
+      'Saturday: no rush, glass in hand',
+      'Sunday done right — slow and good',
+    ],
+    de: [
+      'Collio im Glas, Görz im Herzen',
+      'Ponca, Bora, Rebe — das Collio in drei Worten',
+      'Wo Slowenien nur einen Schluck entfernt ist',
+      'Den perfekten Cicchetto erklärt man nicht — man kostet ihn',
+      'Endlich Freitag — und endlich hier',
+      'Samstag: keine Eile, Glas in der Hand',
+      'Sonntag wie er sein soll — langsam und gut',
+    ],
+    sl: [
+      'Collio v kozarcu, Gorica v srcu',
+      'Ponca, Burja, trta — Collio v treh besedah',
+      'Kjer je Slovenija le en požirek stran',
+      'Popolnega cicchetta ni treba razlagati — samo okusiti ga je treba',
+      'Končno petek — in končno tukaj',
+      'Sobota: brez naglice, kozarec v roki',
+      'Nedelja, kot se spodobi — počasi in dobro',
+    ],
   };
 
   function spawnSplashParticles(splash) {
-    var count = 18;
+    var count = 28;
     for (var i = 0; i < count; i++) {
       (function(i) {
         var p = document.createElement('div');
         p.className = 'splash-particle';
-        var size = 3 + Math.random() * 5;
-        var dx   = (Math.random() - 0.5) * 80;
+        var size = 2 + Math.random() * 4;
+        var dx   = (Math.random() - 0.5) * 100;
         p.style.cssText = [
           'width:'  + size + 'px',
           'height:' + size + 'px',
-          'left:'   + (20 + Math.random() * 60) + '%',
-          'bottom:' + (10 + Math.random() * 35) + '%',
-          '--dur:'   + (2.5 + Math.random() * 2) + 's',
-          '--delay:' + (0.4 + i * 0.12) + 's',
+          'left:'   + (15 + Math.random() * 70) + '%',
+          'bottom:' + (8 + Math.random() * 45) + '%',
+          '--dur:'   + (3 + Math.random() * 2.5) + 's',
+          '--delay:' + (0.3 + i * 0.1) + 's',
           '--dx:'    + dx + 'px',
         ].join(';');
         splash.appendChild(p);
@@ -5833,15 +5959,15 @@ if ('serviceWorker' in navigator) {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       initSplash();
-      setTimeout(hideSplash, 2200);
+      setTimeout(hideSplash, 2800);
     });
   } else {
     initSplash();
-    setTimeout(hideSplash, 2200);
+    setTimeout(hideSplash, 2800);
   }
 
   // Fallback assoluto
-  setTimeout(hideSplash, 4000);
+  setTimeout(hideSplash, 5000);
 })();
 
 
@@ -8106,6 +8232,36 @@ function openSommelier(name) {
   document.getElementById('som-cantina').textContent   = '';
   document.getElementById('som-note').textContent      = t('somNote');
   document.getElementById('som-temp').textContent      = data.temp;
+
+  // ── TERMOMETRO ANIMATO ──
+  (function() {
+    var fill = document.querySelector('.som-thermo-fill');
+    var bulb = document.querySelector('.som-thermo-bulb');
+    if (!fill || !data.temp) return;
+    // Estrai temperatura media dal testo es. "8-10°C" o "6-8°C"
+    var nums = data.temp.match(/(\d+)/g);
+    if (!nums || !nums.length) return;
+    var avg = nums.reduce(function(a,b){ return +a + +b; }, 0) / nums.length;
+    // Range 4°C (min) → 20°C (max) → scala 0–1
+    var pct = Math.max(0, Math.min(1, (avg - 4) / 16));
+    // scaleY va da 0 a 1, partendo dal basso
+    var color = pct < 0.35
+      ? 'rgba(80,140,200,0.9)'   // freddo → blu
+      : pct < 0.65
+        ? 'rgba(193,127,60,0.9)' // medio → ambra
+        : 'rgba(180,50,30,0.9)'; // caldo → rosso
+    fill.style.fill = color;
+    bulb.style.fill = color.replace('0.9','0.7');
+    // Reset poi anima
+    fill.style.transition = 'none';
+    fill.style.transform = 'scaleY(0)';
+    requestAnimationFrame(function() {
+      setTimeout(function() {
+        fill.style.transition = 'transform 1.3s cubic-bezier(0.16,1,0.3,1)';
+        fill.style.transform = 'scaleY(' + pct + ')';
+      }, 220);
+    });
+  })();
   document.getElementById('som-food').textContent      = getLang(data.food);
   document.getElementById('som-color').textContent     = getLang(data.color);
   document.getElementById('som-nose').textContent      = getLang(data.nose);
@@ -9990,41 +10146,40 @@ function spawnCatParticles(color) {
 (function() {
   const quotes = {
     it: [
-      "Il vino è la risposta poetica al silenzio della terra — Lunedì con stile",                     // Lunedì
-      "In vino veritas. Nel calice, la verità di chi siamo davvero",                                   // Martedì
-      "Un pasto senza vino è come un giorno senza sole — Anthelme Brillat-Savarin",                   // Mercoledì
-      "Il vino è la luce del sole, tenuta insieme dall'acqua — Galileo Galilei",                      // Giovedì
-      "Il buon vino è una creatura buona se si usa con buon senso — Shakespeare",                      // Venerdì
-      "La vita è troppo breve per bere vini mediocri — Johann Wolfgang von Goethe",                   // Sabato
-      "Il vino è il canto della terra verso il cielo — Platone",                                      // Domenica
+      "Bevi sempre vino come se fosse l'ultimo — e ogni lunedì diventa sopportabile",      // Lunedì
+      "Il vino è il linguaggio più antico della civiltà — Mario Soldati",                  // Martedì
+      "Non c'è niente di più civile che aprire una buona bottiglia — Cesare Pavese",       // Mercoledì
+      "Il Collio non è solo un posto. È un modo di stare al mondo",                        // Giovedì
+      "Chi beve bene, pensa bene. Chi pensa bene, dorme bene — proverbio friulano",        // Venerdì
+      "La qualità di un vino si misura dal silenzio che provoca — Paul Claudel",           // Sabato
+      "Ogni bottiglia è un frammento di estate conservata — Clifton Fadiman",             // Domenica
     ],
     en: [
-      "Wine is the poetic answer to the silence of the earth — Monday with style",
-      "In vino veritas. In the glass, the truth of who we really are",
-      "A meal without wine is like a day without sunshine — Brillat-Savarin",
-      "Wine is sunlight, held together by water — Galileo Galilei",
-      "Good wine is a good familiar creature if it be well used — Shakespeare",
-      "Life is too short to drink bad wine — Johann Wolfgang von Goethe",
-      "Wine is the song of the earth to the sky — Plato",
+      "Always drink wine as if it were the last — and every Monday becomes bearable",
+      "Wine is the oldest language of civilisation — Mario Soldati",
+      "There is nothing more civilised than opening a good bottle — Cesare Pavese",
+      "Collio is not just a place. It is a way of being in the world",
+      "He who drinks well, thinks well. He who thinks well, sleeps well — Friulian proverb",
+      "The quality of a wine is measured by the silence it produces — Paul Claudel",
+      "Every bottle is a fragment of summer, preserved — Clifton Fadiman",
     ],
     de: [
-      "Wein ist die poetische Antwort auf die Stille der Erde — Montag mit Stil",
-      "In vino veritas. Im Glas die Wahrheit, wer wir wirklich sind",
-      "Eine Mahlzeit ohne Wein ist wie ein Tag ohne Sonne — Brillat-Savarin",
-      "Wein ist Sonnenlicht, zusammengehalten vom Wasser — Galileo Galilei",
-      "Guter Wein ist ein gutes vertrautes Geschöpf — Shakespeare",
-      "Das Leben ist zu kurz, um schlechten Wein zu trinken — Goethe",
-      "Wein ist das Lied der Erde zum Himmel — Platon",
+      "Trinke Wein immer so, als wäre es der letzte — und jeder Montag wird erträglich",
+      "Wein ist die älteste Sprache der Zivilisation — Mario Soldati",
+      "Nichts ist zivilisierter, als eine gute Flasche zu öffnen — Cesare Pavese",
+      "Collio ist nicht nur ein Ort. Es ist eine Art, in der Welt zu sein",
+      "Wer gut trinkt, denkt gut. Wer gut denkt, schläft gut — friaulisches Sprichwort",
+      "Die Qualität eines Weins misst sich am Schweigen, das er hervorruft — Paul Claudel",
+      "Jede Flasche ist ein Stück konservierter Sommer — Clifton Fadiman",
     ],
-
     sl: [
-      "Vino je poetični odgovor na tišino zemlje — ponedeljek z razredom",
-      "In vino veritas. V kozarcu resnica o tem, kdo v resnici smo",
-      "Obrok brez vina je kot dan brez sonca — Brillat-Savarin",
-      "Vino je sončna svetloba, ki jo drži skupaj voda — Galileo Galilei",
-      "Dobro vino je dobra domača stvar, če ga dobro upoarabiš — Shakespeare",
-      "Življenje je prekratko za slabo vino — Johann Wolfgang von Goethe",
-      "Vino je pesem zemlje do neba — Platon",
+      "Vino vedno pij, kot da je zadnje — in vsak ponedeljek postane znosnejši",
+      "Vino je najstarejši jezik civilizacije — Mario Soldati",
+      "Ni nič bolj vljudnega kot odpreti dobro steklenico — Cesare Pavese",
+      "Collio ni samo kraj. Je način bivanja na svetu",
+      "Kdor dobro pije, dobro misli. Kdor dobro misli, dobro spi — furlansko pregovor",
+      "Kakovost vina se meri s tišino, ki jo povzroči — Paul Claudel",
+      "Vsaka steklenica je kos ohranjenega poletja — Clifton Fadiman",
     ],
   };
 
@@ -10048,37 +10203,36 @@ function spawnCatParticles(color) {
 (function() {
   const greetings = {
     it: [
-      { from:  5, to: 11, text: '🌅 Buongiorno',           sub: 'Un caffè o qualcosa di più?' },
-      { from: 11, to: 14, text: '☀️ Buon pranzo',           sub: 'Cicchetti freschi di giornata' },
-      { from: 14, to: 18, text: '🌤️ Buon pomeriggio',       sub: 'Orario ideale per un bianco fresco' },
-      { from: 18, to: 21, text: '🍷 Buon aperitivo',        sub: 'La prima cicchetteria di Gorizia' },
-      { from: 21, to: 24, text: '🌙 Buona serata',          sub: 'Vino & tartine sotto le stelle' },
-      { from:  0, to:  5, text: '🌃 Buona notte',           sub: 'Ancora qui? Offriamo un ultimo calice' },
+      { from:  5, to: 11, text: '🌅 Buongiorno',           sub: 'I cicchetti del mattino sono i migliori' },
+      { from: 11, to: 14, text: '☀️ Buon pranzo',           sub: 'Un bianco fresco e tutto il resto viene da sé' },
+      { from: 14, to: 18, text: '🌤️ Buon pomeriggio',       sub: 'L\'ora giusta per scoprire un orange wine' },
+      { from: 18, to: 21, text: '🍷 Benvenuto',             sub: 'L\'aperitivo al Bakaro — il rito che mancava a Gorizia' },
+      { from: 21, to: 24, text: '🌙 Buona serata',          sub: 'Le migliori conversazioni nascono qui' },
+      { from:  0, to:  5, text: '🌃 Ancora in piedi?',      sub: 'Ci vuole un ultimo calice — sul serio' },
     ],
     en: [
-      { from:  5, to: 11, text: '🌅 Good morning',          sub: 'Coffee or something stronger?' },
-      { from: 11, to: 14, text: '☀️ Good lunch',             sub: 'Fresh cicchetti of the day' },
-      { from: 14, to: 18, text: '🌤️ Good afternoon',        sub: 'Perfect for a crisp white wine' },
-      { from: 18, to: 21, text: '🍷 Happy aperitivo',        sub: 'The first cicchetteria in Gorizia' },
-      { from: 21, to: 24, text: '🌙 Good evening',           sub: 'Wine & tartines under the stars' },
-      { from:  0, to:  5, text: '🌃 Good night',             sub: 'Still here? One last glass?' },
+      { from:  5, to: 11, text: '🌅 Good morning',          sub: 'Morning cicchetti are the best cicchetti' },
+      { from: 11, to: 14, text: '☀️ Enjoy your lunch',       sub: 'A crisp white and everything else follows' },
+      { from: 14, to: 18, text: '🌤️ Good afternoon',        sub: 'The right time to discover an orange wine' },
+      { from: 18, to: 21, text: '🍷 Welcome',               sub: 'Aperitivo at Al Bakaro — the ritual Gorizia was missing' },
+      { from: 21, to: 24, text: '🌙 Good evening',           sub: 'The best conversations start here' },
+      { from:  0, to:  5, text: '🌃 Still going?',           sub: 'One last glass — seriously' },
     ],
     de: [
-      { from:  5, to: 11, text: '🌅 Guten Morgen',          sub: 'Kaffee oder etwas Stärkeres?' },
-      { from: 11, to: 14, text: '☀️ Guten Appetit',          sub: 'Frische Cicchetti des Tages' },
-      { from: 14, to: 18, text: '🌤️ Guten Nachmittag',      sub: 'Ideal für einen frischen Weißwein' },
-      { from: 18, to: 21, text: '🍷 Guten Aperitivo',        sub: 'Die erste Cicchetteria in Görz' },
-      { from: 21, to: 24, text: '🌙 Guten Abend',            sub: 'Wein & Tartines unter den Sternen' },
-      { from:  0, to:  5, text: '🌃 Gute Nacht',             sub: 'Noch hier? Ein letztes Glas?' },
+      { from:  5, to: 11, text: '🌅 Guten Morgen',          sub: 'Die besten Cicchetti gibt es morgens' },
+      { from: 11, to: 14, text: '☀️ Guten Appetit',          sub: 'Ein frischer Weißwein — und alles fügt sich' },
+      { from: 14, to: 18, text: '🌤️ Guten Nachmittag',      sub: 'Die richtige Stunde für einen Orange Wine' },
+      { from: 18, to: 21, text: '🍷 Willkommen',             sub: 'Aperitivo im Al Bakaro — das Ritual, das Görz fehlte' },
+      { from: 21, to: 24, text: '🌙 Guten Abend',            sub: 'Die besten Gespräche beginnen hier' },
+      { from:  0, to:  5, text: '🌃 Noch wach?',             sub: 'Ein letztes Glas — wirklich' },
     ],
-
     sl: [
-      { from:  5, to: 11, text: '🌅 Dobro jutro',          sub: 'Kava ali kaj močnejšega?' },
-      { from: 11, to: 14, text: '☀️ Dober tek',             sub: 'Sveži cicchetti dneva' },
-      { from: 14, to: 18, text: '🌤️ Dober dan',             sub: 'Idealno za svežo belo vino' },
-      { from: 18, to: 21, text: '🍷 Dober aperitiv',        sub: 'Prva čičerijada v Gorici' },
-      { from: 21, to: 24, text: '🌙 Dober večer',           sub: 'Vino & tartine pod zvezdami' },
-      { from:  0, to:  5, text: '🌃 Lahko noč',             sub: 'Še tu? En zadnji kozarec?' },
+      { from:  5, to: 11, text: '🌅 Dobro jutro',          sub: 'Jutranji cicchetti so najboljši cicchetti' },
+      { from: 11, to: 14, text: '☀️ Dober tek',             sub: 'Svežo belo vino — in vse ostalo sledi' },
+      { from: 14, to: 18, text: '🌤️ Dober dan',             sub: 'Pravi čas za odkritje orange wine' },
+      { from: 18, to: 21, text: '🍷 Dobrodošli',            sub: 'Aperitiv pri Al Bakaro — ritual, ki mu je Gorica manjkala' },
+      { from: 21, to: 24, text: '🌙 Dober večer',           sub: 'Najboljši pogovori se začnejo tukaj' },
+      { from:  0, to:  5, text: '🌃 Še budni?',             sub: 'En zadnji kozarec — resno' },
     ],
   };
 
@@ -10611,19 +10765,46 @@ setTimeout(function() { (function() {
 
   window.rollDado = function() {
     try {
-      var btn = document.getElementById('dado-btn');
-      if (btn) { btn.classList.add('rolling'); setTimeout(function(){ btn.classList.remove('rolling'); }, 500); }
+      var card = document.getElementById('dado-card');
+      var emojiEl = document.getElementById('dado-emoji');
+      if (!card || !emojiEl) return;
 
+      // Scegli abbinamento
       var idx;
       do { idx = Math.floor(Math.random() * ABBINAMENTI.length); } while (idx === currentIdx);
       currentIdx = idx;
-
       var row = ABBINAMENTI[idx];
       var cicchetto = row[0], emoji = row[1], vino = row[2], perche = row[3];
-      document.getElementById('dado-emoji').textContent      = emoji;
-      document.getElementById('dado-cicchetto').textContent  = cicchetto;
-      document.getElementById('dado-vino').textContent       = vino;
-      document.getElementById('dado-perche').textContent     = perche;
+
+      // Fase 1: Slot machine — emoji random rapidissimi
+      var noiseEmoji = ['🎲','🍷','🍸','✦','🥂','🍾','🌿','🫙','🍊','🌊','⚡','🎯','💫','🔮'];
+      card.classList.add('dado-rolling');
+      card.classList.remove('dado-revealing');
+      emojiEl.classList.add('dado-spinning');
+
+      var noiseCount = 0;
+      var noiseMax = 18;
+      var noiseInterval = setInterval(function() {
+        emojiEl.textContent = noiseEmoji[Math.floor(Math.random() * noiseEmoji.length)];
+        noiseCount++;
+        if (noiseCount >= noiseMax) {
+          clearInterval(noiseInterval);
+          // Fase 2: Reveal — emoji finale + contenuto progressivo
+          emojiEl.classList.remove('dado-spinning');
+          emojiEl.textContent = emoji;
+          if (typeof vibrate === 'function') vibrate([20, 40, 20]);
+
+          document.getElementById('dado-cicchetto').textContent = cicchetto;
+          document.getElementById('dado-vino').textContent      = vino;
+          document.getElementById('dado-perche').textContent    = perche;
+
+          card.classList.remove('dado-rolling');
+          card.classList.add('dado-revealing');
+
+          // Rimuovi classe dopo animazione
+          setTimeout(function() { card.classList.remove('dado-revealing'); }, 1600);
+        }
+      }, 55);
     } catch(e) {
       alert('Errore rollDado: ' + e.message);
     }
